@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 29
+Entry count: 31
 
 ---
 
@@ -17,18 +17,18 @@ Entry count: 29
 2. If there's a BaD (book-a-driver): `Resto Name | Cx Name | Date | Delivery ID | BaD (delivery ID of BaD) | Invoice ID`
 3. Ensure the ticket request is complete and updated before sending.
 4. Double-check Invoice ID — confirm it matches the correct order (customers sometimes have multiple orders).
-5. Move ticket to the ePayments pipeline.
+5. Move the ticket to the Refund Request status, which sends it automatically to the epayments pipeline
 
 **Exceptions:**
 - If ePayments returns the ticket saying a refund cannot be processed, ALWAYS send the customer the **End Client: Refund Denial** template — unless ePayments Manager (Yuval) writes "just close" in the notes.
 
 **Approval Required:** No (for submission). ePayments team makes final determination.
-**Critical Rule:** NEVER confirm or guarantee a refund to a customer. Use language like: "We will submit a refund request" or "Our Payments Team will investigate what happened with this order."
+**Critical Rule:** NEVER confirm or guarantee a refund to a customer. Use language like: "We will submit a refund request" or "Our Refunds Team will review your order in 1-3 business days."
 **Last Updated:** 2026-02-25 — extracted from Playbook
 
 ---
 
-## Entry 2: Restaurant-Specific Refund Restrictions
+## Entry 2: Restaurant-Specific Refund Restrictions — Restaurants That Handle Their Own Refunds
 
 **Title:** Restaurant-Specific Refund Restrictions — Restaurants That Handle Their Own Refunds
 **Issue Type:** Refunds & Credits
@@ -55,7 +55,7 @@ Entry count: 29
 - Tiberias
 
 **Exceptions:** Delivery issues and cancellations bypass this restriction — those go to ePayments regardless.
-**Approval Required:** Yes — restaurant must approve before CS moves to ePayments.
+**Approval Required:** Yes — restaurant must approve before CC moves to ePayments.
 **Last Updated:** 2026-02-25 — extracted from Playbook
 
 ---
@@ -66,27 +66,20 @@ Entry count: 29
 **Issue Type:** Refunds & Credits
 **Situation:** Customer requests to cancel an ASAP order they just placed.
 **Resolution:**
-1. Call the restaurant and confirm whether the order can still be canceled (key question: has a driver already picked it up?).
+1. Call the restaurant and confirm whether the order can still be canceled (key question: has it been prepared?).
 
 **If the restaurant says it CAN be canceled:**
 - Change the order status to "Canceled" in the dashboard → refund the customer in full.
 
-**If the restaurant says it CANNOT be canceled (already prepared or picked up):**
-- Inform the customer cancellation is not possible.
-- If the customer cannot pick up the order → offer to convert to delivery (see B2C-1 for the pickup-to-delivery process).
-- If the customer insists on a refund anyway → let them know CS cannot override the restaurant's decision. Direct them to contact the restaurant directly.
-
-**If the restaurant does not answer:**
-- Treat as a denial — we cannot cancel without restaurant approval.
-- Inform the customer we were unable to reach the restaurant, so we cannot cancel.
-- If the customer cannot pick up → offer to convert to delivery.
-- If the customer insists on a refund → direct them to the restaurant.
+**If the restaurant says it CANNOT be canceled (already prepared or picked up) or does not answer
+- Inform the customer that cancellation is not possible.
+- For a pickup order and the customer cannot pick up the order → offer to convert to delivery (see B2C-1 for the pickup-to-delivery process).
+- If the customer insists on a refund anyway → let them know Customer Support cannot override the restaurant's decision. Direct them to contact the restaurant directly.
 
 **Effects of canceling an order in the dashboard:**
 - Delivery is automatically canceled (unless already picked up)
 - Dashboard shows "CANCELED ORDER" banner on the receipt
-- Customer receives SMS notification
-- Customer gets a refund email when refund is processed
+- Customer gets a refund email when the refund is processed
 
 **Exceptions:** If a driver has already picked up the order, the delivery cannot be canceled. No answer from restaurant = no cancellation.
 **Approval Required:** Yes — restaurant must confirm before canceling.
@@ -101,31 +94,33 @@ Entry count: 29
 **Situation:** Customer requests to cancel a future (pre-scheduled) order.
 **Resolution:**
 
-**Is there more than 3 hours between NOW and the order time?**
+**Is there more than 3 hours between the store opening and the order-ready time?**
 
 **If YES (> 3 hours):**
 1. Call the restaurant immediately and ask to cancel the order.
 2. Once they approve → cancel and refund the order on the dashboard.
-3. Send the restaurant an email + SMS (Template: *Canceled Order - Send Info to Restaurant*).
+3. Send the restaurant an email + SMS (Template: *Canceled Order - Send Info to Restaurant*) if they answer or do not answer
 4. Set a Hubspot reminder for the scheduled date, 1.5 hours before the order time on the dashboard, to remind the restaurant not to prepare the order.
 5. Close the ticket.
+
+*If no response from the restaurant, do not cancel the order on the dashboard until confirmation is confirmed
 
 **If NO (< 3 hours):**
 1. Tell the customer the cancellation is not guaranteed — you'll need to speak with the restaurant on the scheduled date.
 2. Call the restaurant immediately (even today) and ask to cancel.
 3. **CRITICAL: Even if the restaurant approves, do NOT cancel the order on the dashboard yet.**
 4. Send the restaurant an email + SMS (Template: *Canceled Order - Send Info to Restaurant*).
-5. Set a Hubspot reminder for the scheduled date, 1.5 hours before the order time on the dashboard, to remind the restaurant not to prepare the order and to process the refund in the dashboard.
+5. Set a HubSpot reminder for the scheduled date, 1.5 hours before the order time on the dashboard, to remind the restaurant not to prepare the order and to process the refund in the dashboard.
 6. Leave the ticket on **Scheduled Future Action**.
 7. On the scheduled date:
    - If the restaurant is aware of the cancellation → cancel and refund from the dashboard, close the ticket.
-   - If the restaurant doesn't answer or says they already prepared it → email the customer that unfortunately the order could not be canceled and will remain active. Close the ticket.
+   - If the restaurant doesn't answer or says they already prepared it → email the customer that, unfortunately, the order could not be canceled and will remain active. Close the ticket.
 
-**Example edge case:** Customer calls at 9 PM, store is closed, order is for 10 AM next day, store opens at 9 AM → < 3 hours notice. Do NOT cancel in dashboard even if you reach them today.
+**Example edge case:** Customer calls at 9 PM, store is closed, order is for 10 AM next day, store opens at 9 AM → < 3 hours notice. Do NOT cancel in the dashboard even if you reach them today.
 
 **Exceptions:** None — the 3-hour threshold is firm. Never cancel the dashboard order on the same day for the < 3 hours path.
 **Approval Required:** Yes — if < 3 hours, requires restaurant confirmation on the scheduled date.
-**Last Updated:** 2026-02-26 — added critical rule: do NOT cancel in dashboard for < 3 hours path even with restaurant approval; corrected reminder to 1.5 hours
+**Last Updated:** 2026-03-03 — added critical rule: do NOT cancel in dashboard for < 3 hours path even with restaurant approval; corrected reminder to 1.5 hours
 
 ---
 
@@ -146,11 +141,11 @@ Entry count: 29
 - We cannot modify the tip.
 
 **If the order is NOT yet picked up:**
-1. Before canceling, check if there's a driver close to the restaurant. If so, call to inform them the driver will change.
+1. Before canceling, check if there's a driver close to the restaurant. If so, call to inform them that the driver will change.
 2. Cancel the tracking link. Inform the customer that the order is still active — we are only replacing the tracking link with a new one. Use the `#Bad Before Link` snippet.
 3. Send a message to `#dispatch-cc` to create a new tracking link with the updated tip amount, or create a Book-a-Driver (BaD) that matches the original order with the updated tip.
-4. Change the `/r/` in the new link to `/u/` and send it to the customer.
-5. Send the ticket to ePayments to refund CX from COURIER. The refund amount = the difference between the original tip and the new tip.
+4. After creating the BaD tracking, copy the delivery ID from the tracking link to look up the customer-facing tracking link in Find Delivery.
+5. Send the ticket to Refunds Request to refund CX from COURIER the difference in the tip amount.
 
 **Exceptions:** If the driver was rude or had a bad experience on a delivered order → send to ePayments to refund CX from COURIER with behavior documented.
 **Approval Required:** No — but ePayments makes the final determination on exception cases.
@@ -168,9 +163,9 @@ Entry count: 29
 
 **If restaurant approves:**
 - Attach the restaurant's approval to the ticket.
-- Move the ticket to ePayments pipeline with the approval attached.
+- Move the ticket to Refund Request with the approval attached.
 
-**If restaurant does not answer:**
+**If the restaurant does not answer:**
 - Send the restaurant an email + SMS requesting their approval.
 - Leave the ticket in **Pending B2B** (or Scheduled Future Action) and continue reaching out over the next few days.
 - After 3 days with no response: send to ePayments and note that the restaurant was unresponsive.
@@ -181,7 +176,7 @@ Entry count: 29
 
 ---
 
-## Entry 7: Remove an Item from an Order
+## Entry 7: Remove an Item from an Active Order
 
 **Title:** Remove an Item from an Active Order
 **Issue Type:** Refunds & Credits
@@ -192,17 +187,17 @@ Entry count: 29
 - Call the restaurant and ask.
 
 **If the item has NOT been prepared yet:**
-- Ask the restaurant to not prepare it and confirm approval.
-- The restaurant can also use the **"Adjust" button** on their dashboard to remove the item and process the refund on their end. If they do this, no ePayments ticket is needed.
-- If they prefer CS to handle the refund: attach the restaurant's approval to the ticket → move to ePayments.
+- Ask the restaurant not to prepare it and confirm approval.
+- The restaurant can also use the **"Adjust" button** on their dashboard to remove the item and process the refund on their end. If they do this, no refund ticket is needed.
+- If they prefer Support to handle the refund: attach the restaurant's approval to the ticket → move to ePayments.
 
 **If the item HAS already been prepared:**
-- We cannot remove it — inform the customer the item was already made.
+- We cannot remove it — inform the customer that the item was already made.
 - Close the ticket. No refund unless the restaurant volunteers to approve one.
 
 **If it is a future order:**
-- Create a separate reminder ticket (leave in "Waiting On CC Team" column).
-- Schedule a Slack message in `#cc-team-chat` tagging @support to call the store on the order date, 1.5 hours before pickup time, to remind them not to prepare the removed item.
+- Create a separate reminder ticket (leave in "Scheduled future action" column).
+- Schedule a Slack message on the ticket with the Slack Reminder Field for the order date, 1.5 hours before pickup time, to remind them not to prepare the removed item.
 
 **Exceptions:** If item is already prepared, removal is not possible and no refund is owed unless restaurant approves.
 **Approval Required:** Yes — restaurant confirmation required before sending to ePayments.
@@ -210,16 +205,16 @@ Entry count: 29
 
 ---
 
-## Entry 8: Order Not Received — Pickup Orders
+## Entry 8: Order Not Received — Pickup Order
 
 **Title:** Order Not Received — Pickup Order
 **Issue Type:** Order Issues
 **Situation:** Customer contacts us saying they never received their pickup order (restaurant was closed, order wasn't prepared, customer left due to wait, etc.).
 **Resolution:**
-1. Check order status on Sauce Dashboard:
-   - **Canceled** → move directly to ePayments for refund.
+1. Check order status on the Sauce Dashboard:
+   - **Canceled** → move directly to Refund Request for refund.
    - **Overdue / Completed / Unknown** → call the restaurant. Ask if they were open/closed, and explain that the customer is requesting a refund.
-     - Restaurant approves refund → move to ePayments.
+     - Restaurant approves refund → move to Refund Request.
      - Restaurant denies refund → send the **Refund Denial** template to the customer and close the ticket.
 
 **Exceptions:** None documented.
