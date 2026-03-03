@@ -32,9 +32,9 @@ Entry count: 31
 
 **Title:** Restaurant-Specific Refund Restrictions — Restaurants That Handle Their Own Refunds
 **Issue Type:** Refunds & Credits
-**Situation:** Customer has an issue with an order from one of the restaurants on the restricted list. These restaurants handle their own refunds for order quality issues — CS does NOT send those to ePayments without their approval.
+**Situation:** Customer has an issue with an order from one of the restaurants on the restricted list. These restaurants handle their own refunds for order quality issues — CS does NOT send those to Refund Request without their approval.
 **Resolution:**
-- If the issue is a **delivery problem** (driver dropped off incorrectly, dispatch bug, wrong bag delivered) OR the customer wants to **cancel their order**: move ticket to ePayments normally.
+- If the issue is a **delivery problem** (driver dropped off incorrectly, dispatch bug, wrong bag delivered) OR the customer wants to **cancel their order**: move ticket to Refund Request normally.
 - If the issue is with the **order itself** (e.g., wrong item but bag has their name): redirect customer to contact the restaurant directly. Use snippet: `#restorefund` or template at HubSpot.
 
 **Restricted Restaurant List (must get restaurant approval for order issues):**
@@ -135,7 +135,7 @@ Entry count: 31
 
 **If the order has already been delivered:**
 - We cannot modify the tip — the driver already received the payment.
-- Exception: if the customer claims the driver was rude or had a bad experience → send to ePayments to refund CX from COURIER.
+- Exception: if the customer claims the driver was rude or had a bad experience → send to Refund Request to refund CX from COURIER.
 
 **If the order is picked up (driver has the order):**
 - We cannot modify the tip.
@@ -147,7 +147,7 @@ Entry count: 31
 4. After creating the BaD tracking, copy the delivery ID from the tracking link to look up the customer-facing tracking link in Find Delivery.
 5. Send the ticket to Refunds Request to refund CX from COURIER the difference in the tip amount.
 
-**Exceptions:** If the driver was rude or had a bad experience on a delivered order → send to ePayments to refund CX from COURIER with behavior documented.
+**Exceptions:** If the driver was rude or had a bad experience on a delivered order → send to Refund Request to refund CX from COURIER with behavior documented.
 **Approval Required:** No — but ePayments makes the final determination on exception cases.
 **Last Updated:** 2026-03-03 — updated
 
@@ -168,7 +168,7 @@ Entry count: 31
 **If the restaurant does not answer:**
 - Send the restaurant an email + SMS requesting their approval.
 - Leave the ticket in **Pending B2B** (or Scheduled Future Action) and continue reaching out over the next few days.
-- After 3 days with no response: send to ePayments and note that the restaurant was unresponsive.
+- After 3 days with no response: send to Refund Request and note that the restaurant was unresponsive.
 
 **Exceptions:** Restaurant approval is required — but a no-answer after 3 days can be escalated to ePayments with documentation of outreach attempts.
 **Approval Required:** Yes — restaurant must approve before submitting to ePayments.
@@ -189,7 +189,7 @@ Entry count: 31
 **If the item has NOT been prepared yet:**
 - Ask the restaurant not to prepare it and confirm approval.
 - The restaurant can also use the **"Adjust" button** on their dashboard to remove the item and process the refund on their end. If they do this, no refund ticket is needed.
-- If they prefer Support to handle the refund: attach the restaurant's approval to the ticket → move to ePayments.
+- If they prefer Support to handle the refund: attach the restaurant's approval to the ticket → move to Refund Request.
 
 **If the item HAS already been prepared:**
 - We cannot remove it — inform the customer that the item was already made.
@@ -200,7 +200,7 @@ Entry count: 31
 - Schedule a Slack message on the ticket with the Slack Reminder Field for the order date, 1.5 hours before pickup time, to remind them not to prepare the removed item.
 
 **Exceptions:** If the item is already prepared, removal is not possible, and no refund is owed unless the restaurant approves.
-**Approval Required:** Yes — restaurant confirmation required before sending to ePayments.
+**Approval Required:** Yes — restaurant confirmation required before sending to Refund Request.
 **Last Updated:** 2026-03-03 — updated
 
 ---
@@ -257,7 +257,7 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 2. Check with Tier 2 to determine: did the customer enter the wrong address, or did the Sauce system change it? Add their findings and a Slack thread link to the ticket notes.
 3. **If it was the customer's fault:**
    - Do NOT offer redelivery.
-   - You may move to ePayments if the customer confirms they didn't receive the order, but explicitly tell them a refund is not guaranteed because the order was delivered to the address they entered.
+   - You may move to Refund Request if the customer confirms they didn't receive the order, but explicitly tell them a refund is not guaranteed because the order was delivered to the address they entered.
 4. **If it was the system's fault:**
    - Send to Refund Request
 
@@ -313,17 +313,17 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 **Situation:** Customer contacts CS on a different day to report their pickup order was never received because the restaurant was closed.
 **Resolution:**
 1. Check order status in Sauce Dashboard:
-   - **Canceled** → move to ePayments for refund directly.
+   - **Canceled** → move to Refund Request for refund directly.
    - **Overdue / Completed / Unknown** → call the restaurant and ask if they were open or closed. Explain customer is requesting a refund.
 
 **If restaurant answers:**
-- Restaurant approves refund → move to ePayments.
+- Restaurant approves refund → move to Refund Request.
 - Restaurant denies refund → send **Refund Denial** template to customer and close ticket.
 
 **If restaurant does not answer:**
 - Send the restaurant an email + SMS.
 - Leave ticket in **Pending B2B** and continue reaching out.
-- After 3 days with no response → send to ePayments with documentation of outreach attempts.
+- After 3 days with no response → send to Refund Request with documentation of outreach attempts.
 
 **Exceptions:** No-answer after 3 days = escalate to ePayments with documented outreach.
 **Approval Required:** Yes — restaurant confirmation required, or 3-day escalation path.
@@ -338,7 +338,7 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 **Situation:** Customer or delivery company reports in real time that the restaurant appears to be closed.
 **Resolution:**
 1. Call the restaurant at least 3-4 times, at different times if possible, to verify closure.
-2. **If restaurant confirms they're open**: check if they prepared the specific order. Based on their response, either send refund denial or move to ePayments.
+2. **If restaurant confirms they're open**: check if they prepared the specific order. Based on their response, either send refund denial or move to Refund Request.
 3. **If restaurant does not answer**: treat the restaurant as closed.
    - Close the restaurant until next opening hours on the Sauce Dashboard.
    - Send the restaurant the "Store Reported as Closed / Closed Resto" template and CC the CS owner.
@@ -389,7 +389,7 @@ Use `#eta_late_delivery`. Apologize and confirm follow-up. Contact courier.
 - If > 15 min past Latest ETA → Tier 5.
 
 **Tier 5 — 15+ minutes past Latest ETA, order still in progress**
-Use `#eta_refund_referral`. Acknowledge lateness, set expectation for refund review. Monitor until delivery completes, then send to ePayments.
+Use `#eta_refund_referral`. Acknowledge lateness, set expectation for refund review. Monitor until delivery completes, then send to Refund Request.
 
 **Tier 6 — Customer wants to cancel because of the delay (order already prepared/picked up)**
 Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not cancel if order is already prepared or picked up. Monitor until delivered, then refer to ePayments for possible refund.
@@ -406,15 +406,15 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Sauce Dispatch Delivery:**
 - No refund request → empathize, reassure, follow tier above.
-- Refund request, order active → tell customer: once delivered, we'll send to ePayments.
+- Refund request, order active → tell customer: once delivered, we'll send to Refund Request.
 - Refund request, order completed → check dropoff time only:
   - 15+ min past Latest ETA → valid. Submit to ePayments.
-  - Under 15 min → tell customer it was delivered within estimated time. Cannot guarantee a refund, but we'll review with Payments Team. Send to ePayments.
+  - Under 15 min → tell customer it was delivered within estimated time. Cannot guarantee a refund, but we'll review with Payments Team. Send to Refund Request.
 
 **Restaurant Delivery:**
 - CS cannot assist — restaurant handled the delivery and is responsible for any refund. Direct customer to the restaurant.
 - If restaurant is unresponsive → try calling ourselves. If no answer → leave on **Refund Ticket - Waiting on CC**, continue reaching out over the next few days.
-  - Restaurant approves → send to ePayments.
+  - Restaurant approves → send to Refund Request.
   - Restaurant denies or never answers → tell customer we cannot assist, they must take it up with the restaurant.
 
 **Pickup:**
@@ -513,7 +513,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 **Resolution:**
 1. Check the Dispatch Service to confirm the order was actually delivered early.
 2. If the delivery provider is **DoorDash**: call DoorDash directly to request a refund over the phone.
-3. If the customer explicitly requests a refund/compensation: send ticket to ePayments.
+3. If the customer explicitly requests a refund/compensation: send ticket to Refund Request.
 4. If the customer is just reporting the issue without requesting a refund: apologize for the inconvenience and report the issue to the dispatch team. No refund ticket needed.
 
 **Exceptions:** Does not apply to ASAP orders — ASAP means "as soon as possible" so there is no guaranteed time window.
@@ -576,7 +576,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 - Tell the customer exactly: *"We're checking with the restaurant for their approval. Once they respond, we'll follow their guidelines. If we don't hear back promptly, our management team may review it for you."*
 - Do NOT call restaurants that are NOT on the mandatory-approval list for minor ingredient issues.
 
-**Exceptions:** Restaurants on the restricted refund list require approval before sending to ePayments.
+**Exceptions:** Restaurants on the restricted refund list require approval before sending to Refund Request.
 **Approval Required:** Only if restaurant is on restricted list.
 **Last Updated:** 2026-02-25 — extracted from Playbook
 
@@ -599,7 +599,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 *Remake (Pickup or Restaurant Delivery):*
 1. Call the restaurant to find out if the item was sent or forgotten.
-2. If courier error → move ticket to ePayments to compensate restaurant for remaking.
+2. If courier error → move ticket to Refund Request to compensate restaurant for remaking.
 3. If restaurant approves remake:
    - Inform the customer.
    - Pickup: customer can collect the missing item.
@@ -607,8 +607,8 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 *Refund:*
 1. Confirm all order details and document in ticket notes.
-2. Move ticket to ePayments (unless restaurant handles own refunds).
-3. If restaurant does their own deliveries: call for approval before sending to ePayments.
+2. Move ticket to Refund Request (unless restaurant handles own refunds).
+3. If restaurant does their own deliveries: call for approval before sending to Refund Request.
 
 **Exceptions:** Restaurant-delivered orders require mandatory restaurant call for approval (see Entry 22).
 **Approval Required:** Depends — restaurant approval needed if on restricted list or restaurant handles delivery.
@@ -639,11 +639,11 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 **Resolution:**
 1. Ask for a photo of the order received.
 2. Compare the photo to the order details to confirm the complaint is valid.
-3. If complaint is confirmed valid → move ticket to ePayments.
+3. If complaint is confirmed valid → move ticket to Refund Request.
 4. If customer has no photo:
    - Thank them for the feedback.
    - If they explicitly ask for a refund: explain a photo is needed to proceed.
-   - If they insist without a photo: move to ePayments anyway — the ePayments team will decide whether to refund.
+   - If they insist without a photo: move to Refund Request anyway — the ePayments team will decide whether to refund.
 
 **Special Case — Notes not followed (e.g., customer asked for no onions in order notes):**
 - Always direct customer to the restaurant directly. CS cannot guarantee restaurants follow order notes.

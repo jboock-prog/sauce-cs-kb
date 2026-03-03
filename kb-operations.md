@@ -148,10 +148,10 @@ Entry count: 17
 **Issue Type:** Policies & Rules
 **Situation:** A ticket is waiting for a response from a restaurant.
 **Resolution:**
-- If the restaurant has not responded after **2 outreach attempts on 2 consecutive days**: send the ticket to ePayments (refunds).
-- **Exception:** If the restaurant is on the list of restaurants that handle their own refunds, do not send to ePayments. Instead, reach out in the Support New channel and tag CS.
+- If the restaurant has not responded after **2 outreach attempts on 2 consecutive days**: send the ticket to Refund Request (refunds).
+- **Exception:** If the restaurant is on the list of restaurants that handle their own refunds, do not send to Refund Request. Instead, reach out in the Support New channel and tag CS.
 
-**Exceptions:** Restricted refund restaurants follow a different path — tag CS instead of sending to ePayments.
+**Exceptions:** Restricted refund restaurants follow a different path — tag CS instead of sending to Refund Request.
 **Approval Required:** No.
 **Last Updated:** 2026-02-25 — extracted from Playbook
 
@@ -245,7 +245,7 @@ Entry count: 17
 - Book a new driver free of charge, matching the original tip amount.
 
 **If the order was returned and the customer does not want the food:**
-- Move to ePayments for a refund.
+- Move to Refund Request for a refund.
 
 **If the order was NOT returned and the customer wants the food:**
 - Do not have the restaurant remake the food.
@@ -256,7 +256,7 @@ Entry count: 17
   - If Uber says it's still being returned: do not ask for a remake — the refund process will likely be cleaner after return.
 
 **If the order was NOT returned and the customer does not want the food:**
-- Move to ePayments for a refund.
+- Move to Refund Request for a refund.
 
 **Exceptions:** Uber-specific exception for contested non-returns — see above.
 **Approval Required:** No — but ePayments makes the final refund determination.

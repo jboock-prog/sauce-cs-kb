@@ -52,7 +52,7 @@ If the order is already marked as picked up on the system → tell the customer 
 
 **Step 2 — Handle the refund:**
 - **Make absolutely sure the customer understands: only the delivery is canceled — the order itself is NOT canceled.**
-- If the customer placed a tip and asks for a refund on the tip and/or delivery fee → send the ticket to ePayments as a refund request for those amounts.
+- If the customer placed a tip and asks for a refund on the tip and/or delivery fee → send the ticket to Refund Request as a refund request for those amounts.
 - If the customer placed a tip but does not ask for a refund → close the ticket.
 - If the customer placed no tip → they can only request a refund for the delivery fee. If they don't request it, close the ticket.
 
