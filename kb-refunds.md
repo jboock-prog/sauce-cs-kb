@@ -24,7 +24,7 @@ Entry count: 31
 
 **Approval Required:** No (for submission). ePayments team makes final determination.
 **Critical Rule:** NEVER confirm or guarantee a refund to a customer. Use language like: "We will submit a refund request" or "Our Refunds Team will review your order in 1-3 business days."
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
@@ -54,9 +54,9 @@ Entry count: 31
 - Tacolmos
 - Tiberias
 
-**Exceptions:** Delivery issues and cancellations bypass this restriction — those go to ePayments regardless.
-**Approval Required:** Yes — restaurant must approve before CC moves to ePayments.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Exceptions:** Delivery issues and cancellations bypass this restriction — those go to Refund Request regardless
+**Approval Required:** Yes — restaurant must approve before CC moves to Refund Request.
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
@@ -81,9 +81,9 @@ Entry count: 31
 - Dashboard shows "CANCELED ORDER" banner on the receipt
 - Customer gets a refund email when the refund is processed
 
-**Exceptions:** If a driver has already picked up the order, the delivery cannot be canceled. No answer from restaurant = no cancellation.
+**Exceptions:** If a driver has already picked up the order, the delivery cannot be canceled. No answer from the restaurant = no cancellation.
 **Approval Required:** Yes — restaurant must confirm before canceling.
-**Last Updated:** 2026-02-26 — added no-answer path (treat as denial), denial path (offer delivery conversion or direct to restaurant)
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
@@ -120,7 +120,7 @@ Entry count: 31
 
 **Exceptions:** None — the 3-hour threshold is firm. Never cancel the dashboard order on the same day for the < 3 hours path.
 **Approval Required:** Yes — if < 3 hours, requires restaurant confirmation on the scheduled date.
-**Last Updated:** 2026-03-03 — added critical rule: do NOT cancel in dashboard for < 3 hours path even with restaurant approval; corrected reminder to 1.5 hours
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
@@ -149,7 +149,7 @@ Entry count: 31
 
 **Exceptions:** If the driver was rude or had a bad experience on a delivered order → send to ePayments to refund CX from COURIER with behavior documented.
 **Approval Required:** No — but ePayments makes the final determination on exception cases.
-**Last Updated:** 2026-02-26 — corrected eligibility cutoff (picked up = not eligible, not "close to pickup"); added full process steps
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
@@ -170,9 +170,9 @@ Entry count: 31
 - Leave the ticket in **Pending B2B** (or Scheduled Future Action) and continue reaching out over the next few days.
 - After 3 days with no response: send to ePayments and note that the restaurant was unresponsive.
 
-**Exceptions:** Restaurant approval is required — but no-answer after 3 days can be escalated to ePayments with documentation of outreach attempts.
+**Exceptions:** Restaurant approval is required — but a no-answer after 3 days can be escalated to ePayments with documentation of outreach attempts.
 **Approval Required:** Yes — restaurant must approve before submitting to ePayments.
-**Last Updated:** 2026-02-26 — added no-answer multi-day follow-up path: email+SMS, Pending B2B, 3-day escalation to ePayments
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
@@ -199,9 +199,9 @@ Entry count: 31
 - Create a separate reminder ticket (leave in "Scheduled future action" column).
 - Schedule a Slack message on the ticket with the Slack Reminder Field for the order date, 1.5 hours before pickup time, to remind them not to prepare the removed item.
 
-**Exceptions:** If item is already prepared, removal is not possible and no refund is owed unless restaurant approves.
+**Exceptions:** If the item is already prepared, removal is not possible, and no refund is owed unless the restaurant approves.
 **Approval Required:** Yes — restaurant confirmation required before sending to ePayments.
-**Last Updated:** 2026-02-26 — added prepared/not-prepared distinction; added restaurant "Adjust button" option; added close-ticket path if already prepared
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
@@ -219,36 +219,35 @@ Entry count: 31
 
 **Exceptions:** None documented.
 **Approval Required:** Yes — restaurant confirmation needed when status is ambiguous.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 9: Order Not Received — Delivery, Tracking Shows "Completed"
+## Entry 9: Order Not Received — Delivery Order Marked Completed
 
 **Title:** Order Not Received — Delivery Order Marked Completed
 **Issue Type:** Order Issues
 **Situation:** Customer says they never received their delivery order, but the tracking link shows it as completed/delivered.
 **Resolution:**
-1. Confirm the customer's delivery address.
+1. Confirm the customer's delivery address and phone number.
 2. Check the Proof of Delivery (PoD) photo:
-   - PoD is available for **Uber** and **Relay** deliveries. **DoorDash** may have it occasionally.
-   - Share the PoD with the customer only if it's a valid, clear photo that makes sense.
-3. If the customer doesn't recognize the PoD OR there is no PoD, and they confirm the address on the order was correct: contact the delivery company (or ask the Dispatch team to contact them).
+    - Share the PoD with the customer only if it's a valid, clear photo that makes sense.
+3. If the POD is invalid,  the customer doesn't recognize the PoD, and there is no clear indication of where the order was left, the order can be eligible for a remake or refund.
 4. After investigating:
    - **Customer still wants the order**: check if the restaurant can remake it. If yes, BaD (book-a-driver) and open a refund ticket for the delivery company to reimburse the restaurant.
-   - **Customer does not want the order anymore**: open a refund ticket for the customer.
+   - **Customer does not want the order anymore**: open a refund ticket for the customer from the delivery company
 
-**How to check PoD (V2 Dispatch):**
+How to check PoD :
 Go to: https://dashboard.getsauce.com/managers/find-delivery
 Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Find Delivery.
 
 **Exceptions:** None documented.
 **Approval Required:** No — but document all findings in the ticket before submitting to ePayments.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 10: Order Not Received — Delivery, Wrong Address
+## Entry 10: Order Not Received — Delivery Went to Wrong Address
 
 **Title:** Order Not Received — Delivery Went to Wrong Address
 **Issue Type:** Order Issues
@@ -260,15 +259,15 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
    - Do NOT offer redelivery.
    - You may move to ePayments if the customer confirms they didn't receive the order, but explicitly tell them a refund is not guaranteed because the order was delivered to the address they entered.
 4. **If it was the system's fault:**
-   - Offer redelivery.
+   - Send to Refund Request
 
 **Exceptions:** Fault determination changes the resolution entirely — always verify with Tier 2 before deciding.
 **Approval Required:** No — but Tier 2 investigation required to assign fault.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 11: Order Not Received — Canceled Tracking, Driver Says Order Was Already Picked Up
+## Entry 11: Order Not Received — Tracking Canceled, "Already Picked Up" Reason
 
 **Title:** Order Not Received — Tracking Canceled, "Already Picked Up" Reason
 **Issue Type:** Order Issues
@@ -283,11 +282,11 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 
 **Exceptions:** Do not blindly trust the delivery company's "already picked up" reason — always verify with the customer first.
 **Approval Required:** No — unless restaurant is on the restricted refund list.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 12: Order Not Received — Canceled Tracking, Order Unfulfilled or Restaurant Didn't See It
+## Entry 12: Order Not Received — Tracking Canceled, Unfulfilled or Restaurant Missed the Order
 
 **Title:** Order Not Received — Tracking Canceled, Unfulfilled or Restaurant Missed the Order
 **Issue Type:** Order Issues
@@ -297,17 +296,17 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 2. **If the restaurant simply missed it but can see it now:**
    - Use judgment: if it wouldn't be extremely late, ask them to make it and BaD.
    - If a lot of time has passed, confirm with the customer first whether they still want the order.
-     - Customer still wants it → ask restaurant to make it and BaD. No refund needed (unless customer later complains about lateness).
-     - Customer doesn't want it → do not ask restaurant to make it; create a refund ticket for the customer.
+     - Customer still wants it → ask the restaurant to make it and BaD. No refund needed (unless customer later complains about lateness).
+     - Customer doesn't want it → do not ask the restaurant to make it; create a refund ticket for the customer.
 3. **If the restaurant has the order and prepared it:** BaD and update the customer on the delivery status.
 
 **Exceptions:** If time has passed significantly, always confirm with the customer before asking the restaurant to remake.
 **Approval Required:** No formal approval — but confirm customer preference before creating refund.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 13: Order Not Received — Restaurant Was Closed (Pickup, Customer Reports Later)
+## Entry 13: Order Not Received — Restaurant Was Closed, Pickup, Customer Reports After the Fact
 
 **Title:** Order Not Received — Restaurant Was Closed, Pickup, Customer Reports After the Fact
 **Issue Type:** Order Issues
@@ -328,7 +327,7 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 
 **Exceptions:** No-answer after 3 days = escalate to ePayments with documented outreach.
 **Approval Required:** Yes — restaurant confirmation required, or 3-day escalation path.
-**Last Updated:** 2026-02-26 — added no-answer escalation path: email+SMS, Pending B2B, 3-day ePayments escalation
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
