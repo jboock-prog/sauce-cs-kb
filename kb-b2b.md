@@ -79,18 +79,39 @@ Entry count: 25
 **Issue Type:** Restaurant Relations
 **Situation:** A restaurant needs to update the bank account where they receive their payouts.
 **Resolution:**
-1. Open a ticket to CS.
-2. Include the restaurant's contact information in the ticket.
-3. Associate the company on the ticket.
-4. Set the CS manager as the ticket owner.
-5. CS will reach out to the restaurant directly to handle the change.
+- Bank account updates are done by the restaurant directly through their **Stripe Connect** account — the same login they use to access their 1099-K.
+- **CS cannot update bank details on a restaurant's behalf.**
+- CS can only help the restaurant identify the correct Stripe Connect login email (see process below).
 
-**How to find the CS manager:**
+**If the restaurant can't log in to Stripe Connect:**
+1. Send the Stripe access troubleshooting template:
+
+> Sorry to hear you're having trouble accessing your Stripe account — we're happy to help get this sorted.
+> To move forward, can you please confirm the following:
+> - Do you know the email address associated with your Stripe account, and do you currently have access to that inbox?
+> - Do you know the phone number linked to the account, and do you have access to that phone?
+> - Are you seeing any specific error message when trying to log in?
+> Once we have this information, we can assist you with next steps.
+> Thank you,
+
+2. Once you have their email: verify the correct Stripe Connect email via ePayments (Stripe Connect email check).
+3. Share the verified email so they can request a login code and access their account.
+4. If they still cannot access their email or phone, send the Stripe account recovery template:
+
+> Please head to Stripe's account recovery page using the link below (we recommend opening this in a new incognito/private browser window):
+> https://support.stripe.com/contact/login
+> Once there, click "I can't sign in" and answer as many of the prompted questions as apply to your situation. Stripe's support team will then review your request and assist you directly with regaining access to your account.
+
+5. If still stuck after all steps → escalate to the Supervisor column.
+
+**Do NOT escalate to CS by default for Stripe login/access issues** — most are resolved once the restaurant has the correct email.
+
+**How to find the CS manager (if escalation is truly needed):**
 HubSpot → Companies → Customer Care View → search for the specific restaurant.
 
-**Exceptions:** Do not attempt to make banking changes directly — always route through CS.
-**Approval Required:** Yes — handled entirely by CS.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Exceptions:** CS cannot make banking changes directly. Only the restaurant can update their own Stripe Connect account.
+**Approval Required:** N/A — restaurant self-serves through Stripe Connect.
+**Last Updated:** 2026-02-26 — clarified CS can only provide Stripe login email; added Stripe Connect login troubleshooting flow
 
 ---
 
@@ -250,9 +271,15 @@ Move it to the column **"Received — triggers automation."** This automatically
 2. Swipe down from the top of the tablet — check if the app appears as running. If not, reopen it.
 3. If the app is open and running but orders are still not appearing when they should be: this is no longer a tablet hardware issue — escalate to the appropriate team.
 
+**Important — remind the restaurant they have other ways to receive orders while the issue is being resolved:**
+- **Email:** Usually already set up — orders are sent automatically.
+- **Dashboard:** They can always view and manage orders at dashboard.getsauce.com.
+- **Fax:** Can be set up directly in the Sauce Dashboard.
+- **SMS:** Can be set up via BO (send a BO Config Changes ticket — see B2B-15).
+
 **Exceptions:** If app is running but orders are still missing, do not continue troubleshooting hardware — escalate.
 **Approval Required:** No for basic troubleshooting. Escalation required if hardware steps don't resolve.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — added reminder to inform restaurant of alternative order-receiving methods
 
 ---
 
@@ -262,15 +289,28 @@ Move it to the column **"Received — triggers automation."** This automatically
 **Issue Type:** Restaurant Relations
 **Situation:** Restaurant has exhausted all tablet troubleshooting steps and still has issues.
 **Resolution:**
-1. Tell the restaurant you'll contact their account manager to look into sending a replacement tablet, and that their account manager will follow up with an update.
+1. Send the **#new_tablet** snippet (see below) to acknowledge the request and set expectations.
 2. Collect a contact phone number or email for the restaurant if you don't already have one.
 3. Create a ticket with the category **"CS Tablet Requested."**
 4. Assign the CS agent as the ticket owner.
 5. Move the ticket to the "Triggers automation" column.
 
+**Remind the restaurant they have other ways to receive orders while waiting for the replacement:**
+- **Email:** Usually already set up — orders are sent automatically.
+- **Dashboard:** They can always view and manage orders at dashboard.getsauce.com.
+- **Fax:** Can be set up directly in the Sauce Dashboard.
+- **SMS:** Can be set up via BO — offer to set it up if they'd like (the #new_tablet snippet already prompts this).
+
+**#new_tablet snippet:**
+> Hi {name},
+> We will have your account manager work on your request. For now, your orders are being sent to {email} and can be viewed at dashboard.getsauce.com. We can also set up SMS to a phone number of your choosing so that no orders are lost.
+> Please let us know if you would like to setup SMS.
+> Best Regards,
+> Sauce Support
+
 **Exceptions:** Only initiate replacement after completing all troubleshooting steps (Entries B2B-9 through B2B-11).
 **Approval Required:** Yes — handled by CS and account manager.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — added #new_tablet snippet; added reminder to inform restaurant of alternative order-receiving methods (email, dashboard, fax, SMS)
 
 ---
 
@@ -284,17 +324,29 @@ Move it to the column **"Received — triggers automation."** This automatically
 - Check if the caller's number is recognized in Aircall.
 - If not recognized: ask for identification OR confirm with the restaurant's CS account manager that it's okay to change the login.
 
-**Once confirmed:**
-1. Open the restaurant's dashboard → go to the "Team" section.
-2. Confirm you are on the correct restaurant location.
-3. In User Management, find the account and reset the password.
-4. Default reset password: **123456** (easy to communicate by phone; easy to remember).
+**Method 1 — Reset from Team Tab (use when you don't have their email):**
+1. Log into the restaurant's Dashboard.
+2. Click **Team** in the left navigation.
+3. Click the three dots (⋮) next to the user.
+4. Click **Reset Password**.
+5. Set the new password to: **123456**
+6. Click **Change Password**.
+7. Give the restaurant:
+   - The new password: **123456**
+   - Confirm the email address they are using to log in.
+
+**Method 2 — Reset from Users Tab (use when you have their email):**
+1. Go to **Users**.
+2. Search by the user's email address.
+3. Click **Reset Password**.
+4. Set the new password to: **123456**
+5. Confirm the change.
 
 **Note:** You cannot see the previous password — you can only overwrite it.
 
 **Exceptions:** Identity verification is mandatory before any password reset for unrecognized callers.
 **Approval Required:** Yes — identity check or CS account manager confirmation required for unrecognized callers.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — expanded with step-by-step for both Team Tab and Users Tab reset methods
 
 ---
 
@@ -396,20 +448,56 @@ Move it to the column **"Received — triggers automation."** This automatically
 **Title:** Restaurant Requests Their 1099-K Tax Form
 **Issue Type:** Restaurant Relations
 **Situation:** A restaurant asks CS to provide their 1099-K form.
+
+**Critical rule: CS cannot retrieve or send the 1099-K directly.** Restaurants must access it themselves through their Stripe Connect account — the same login used for bank account updates.
+
 **Resolution:**
-**Preferred — self-service:**
-Send the restaurant the **"1099-K Form"** HubSpot template, which directs them to retrieve it from their Stripe account. Reference guide: https://support.getsauce.com/sauce-guide-for-taxes
 
-**If the CS manager requests it on behalf of the restaurant:**
-Forward the request to Yuval (yuval.s@getsauce.com) and she will retrieve and send it.
+**Step 1 — Send the self-service template first:**
+- Send the **"1099-K Form"** HubSpot template directing them to their Stripe Connect account.
+- Reference guide: https://support.getsauce.com/sauce-guide-for-taxes
+- Confirm the restaurant is logging into **Stripe Connect** (not a different Stripe login).
 
-**If sending the form directly via email:**
-This requires **express written consent from the restaurant owner.** They must send an email stating:
-> "My name is [Name], I am the [owner/role] of [Location Name], located at [Address]. I allow Sauce to send me my 1099-K form for [Year] via email."
+**Step 2 — If they can't log in (biggest blocker):**
+1. Send the Stripe access troubleshooting template:
 
-**Exceptions:** The form cannot be sent via email without the written consent statement above.
+> Sorry to hear you're having trouble accessing your Stripe account — we're happy to help get this sorted.
+> To move forward, can you please confirm the following:
+> - Do you know the email address associated with your Stripe account, and do you currently have access to that inbox?
+> - Do you know the phone number linked to the account, and do you have access to that phone?
+> - Are you seeing any specific error message when trying to log in?
+> Once we have this information, we can assist you with next steps.
+> Thank you,
+
+2. Once you have their email: verify the correct Stripe Connect email via ePayments (Stripe Connect email check).
+3. Share the verified email so they can request a login code and access the account themselves.
+4. If they still cannot access their email or phone, send the Stripe account recovery template:
+
+> Please head to Stripe's account recovery page using the link below (we recommend opening this in a new incognito/private browser window):
+> https://support.stripe.com/contact/login
+> Once there, click "I can't sign in" and answer as many of the prompted questions as apply to your situation. Stripe's support team will then review your request and assist you directly with regaining access to your account.
+
+5. If still stuck after all steps → escalate to the **Supervisor column**.
+
+**Do NOT escalate to CS by default for Stripe login/access issues** — most are resolved once the restaurant has the correct email.
+
+**Step 3 — If the CS manager reaches out with the restaurant's consent:**
+- Forward the email to Yuval (yuval.s@getsauce.com) — she will retrieve and send the form.
+
+**Step 4 — If the restaurant demands the form sent directly via email:**
+- Send the restaurant the following consent request (use the **"1099-K Form by Email"** HubSpot template):
+
+> Hi!
+> For us to send a 1099 via email, the owner of the restaurant must provide explicit consent.
+> Please respond to this email (or have the owner respond) in the format below:
+> My name is XXX, I'm the (owner, etc) of [Location Name], located at [Address]. I allow Sauce to send me my 1099-K forms of [Year] via email.
+> Thank you,
+
+- Once the owner replies with that exact consent statement, forward the consent email to Yuval (yuval.s@getsauce.com) and she will send the form.
+
+**Exceptions:** The form cannot be emailed without the written consent statement above. Do not escalate Stripe login issues to CS before exhausting the email verification step.
 **Approval Required:** Yes — written owner consent required before emailing the form directly.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — fully rebuilt per 1099 season guidance; added Stripe Connect login flow, escalation rules, email verification step
 
 ---
 

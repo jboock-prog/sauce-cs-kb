@@ -67,8 +67,20 @@ Entry count: 29
 **Situation:** Customer requests to cancel an ASAP order they just placed.
 **Resolution:**
 1. Call the restaurant and confirm whether the order can still be canceled (key question: has a driver already picked it up?).
-2. If the restaurant says it **can** be canceled: change the order status to "Canceled" in the dashboard → refund the customer in full.
-3. If the restaurant says it **cannot** be canceled (already prepared or picked up): inform the customer that cancellation is not possible.
+
+**If the restaurant says it CAN be canceled:**
+- Change the order status to "Canceled" in the dashboard → refund the customer in full.
+
+**If the restaurant says it CANNOT be canceled (already prepared or picked up):**
+- Inform the customer cancellation is not possible.
+- If the customer cannot pick up the order → offer to convert to delivery (see B2C-1 for the pickup-to-delivery process).
+- If the customer insists on a refund anyway → let them know CS cannot override the restaurant's decision. Direct them to contact the restaurant directly.
+
+**If the restaurant does not answer:**
+- Treat as a denial — we cannot cancel without restaurant approval.
+- Inform the customer we were unable to reach the restaurant, so we cannot cancel.
+- If the customer cannot pick up → offer to convert to delivery.
+- If the customer insists on a refund → direct them to the restaurant.
 
 **Effects of canceling an order in the dashboard:**
 - Delivery is automatically canceled (unless already picked up)
@@ -76,9 +88,9 @@ Entry count: 29
 - Customer receives SMS notification
 - Customer gets a refund email when refund is processed
 
-**Exceptions:** If a driver has already picked up the order, the delivery cannot be canceled.
+**Exceptions:** If a driver has already picked up the order, the delivery cannot be canceled. No answer from restaurant = no cancellation.
 **Approval Required:** Yes — restaurant must confirm before canceling.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — added no-answer path (treat as denial), denial path (offer delivery conversion or direct to restaurant)
 
 ---
 
@@ -88,17 +100,32 @@ Entry count: 29
 **Issue Type:** Refunds & Credits
 **Situation:** Customer requests to cancel a future (pre-scheduled) order.
 **Resolution:**
-1. If there are **more than 3 hours** before the order time: confirm cancellation immediately and process refund.
-2. If there are **less than 3 hours** before the order time: explain to the customer that you need the store's approval first and cannot confirm right away.
-   - Call the restaurant, send an email, and send an SMS.
-   - Schedule a Slack reminder to the `#cc-team-chat` channel (tag @support) to call the restaurant at least 1 hour before scheduled pickup to confirm cancellation.
-   - If the restaurant doesn't answer when you first call, send an email and SMS.
 
-**Example edge case:** Customer calls at 9 PM, store is closed, order is for 10 AM next day, store opens at 9 AM → cannot confirm cancellation right away since < 3 hours notice.
+**Is there more than 3 hours between NOW and the order time?**
 
-**Exceptions:** None — the 3-hour threshold is firm.
-**Approval Required:** Yes — if < 3 hours to order time, requires restaurant confirmation.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**If YES (> 3 hours):**
+1. Call the restaurant immediately and ask to cancel the order.
+2. Once they approve → cancel and refund the order on the dashboard.
+3. Send the restaurant an email + SMS (Template: *Canceled Order - Send Info to Restaurant*).
+4. Set a Hubspot reminder for the scheduled date, 1.5 hours before the order time on the dashboard, to remind the restaurant not to prepare the order.
+5. Close the ticket.
+
+**If NO (< 3 hours):**
+1. Tell the customer the cancellation is not guaranteed — you'll need to speak with the restaurant on the scheduled date.
+2. Call the restaurant immediately (even today) and ask to cancel.
+3. **CRITICAL: Even if the restaurant approves, do NOT cancel the order on the dashboard yet.**
+4. Send the restaurant an email + SMS (Template: *Canceled Order - Send Info to Restaurant*).
+5. Set a Hubspot reminder for the scheduled date, 1.5 hours before the order time on the dashboard, to remind the restaurant not to prepare the order and to process the refund in the dashboard.
+6. Leave the ticket on **Scheduled Future Action**.
+7. On the scheduled date:
+   - If the restaurant is aware of the cancellation → cancel and refund from the dashboard, close the ticket.
+   - If the restaurant doesn't answer or says they already prepared it → email the customer that unfortunately the order could not be canceled and will remain active. Close the ticket.
+
+**Example edge case:** Customer calls at 9 PM, store is closed, order is for 10 AM next day, store opens at 9 AM → < 3 hours notice. Do NOT cancel in dashboard even if you reach them today.
+
+**Exceptions:** None — the 3-hour threshold is firm. Never cancel the dashboard order on the same day for the < 3 hours path.
+**Approval Required:** Yes — if < 3 hours, requires restaurant confirmation on the scheduled date.
+**Last Updated:** 2026-02-26 — added critical rule: do NOT cancel in dashboard for < 3 hours path even with restaurant approval; corrected reminder to 1.5 hours
 
 ---
 
@@ -109,19 +136,25 @@ Entry count: 29
 **Situation:** Customer wants a refund on the tip they paid for a delivery order.
 **Resolution:**
 
-**If the order is still active and the driver has NOT yet picked up:**
-1. Cancel the tracking link.
-2. Book a new driver with the correct (lower) tip amount.
-3. Open a ticket to ePayments to refund the original tip amount or the difference.
+**First step always:** Send the customer the `#Automatic Tip` snippet. If they still request a refund, proceed below.
 
-**If the order has already been delivered (or is close to pickup):**
-- Do NOT process a tip refund — this is not eligible.
-- Send the `#automatic tip` snippet to the customer explaining the tip cannot be refunded.
-- No refund can be guaranteed.
+**If the order has already been delivered:**
+- We cannot modify the tip — the driver already received the payment.
+- Exception: if the customer claims the driver was rude or had a bad experience → send to ePayments to refund CX from COURIER.
 
-**Exceptions:** If the driver was rude or did not perform their job properly, submit a refund request to ePayments. Include a description of the driver's behavior in the ticket request. ePayments makes the final determination.
-**Approval Required:** No for active orders. No pre-approval needed for exceptions — submit to ePayments with behavior documented.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**If the order is picked up (driver has the order):**
+- We cannot modify the tip.
+
+**If the order is NOT yet picked up:**
+1. Before canceling, check if there's a driver close to the restaurant. If so, call to inform them the driver will change.
+2. Cancel the tracking link. Inform the customer that the order is still active — we are only replacing the tracking link with a new one. Use the `#Bad Before Link` snippet.
+3. Send a message to `#dispatch-cc` to create a new tracking link with the updated tip amount, or create a Book-a-Driver (BaD) that matches the original order with the updated tip.
+4. Change the `/r/` in the new link to `/u/` and send it to the customer.
+5. Send the ticket to ePayments to refund CX from COURIER. The refund amount = the difference between the original tip and the new tip.
+
+**Exceptions:** If the driver was rude or had a bad experience on a delivered order → send to ePayments to refund CX from COURIER with behavior documented.
+**Approval Required:** No — but ePayments makes the final determination on exception cases.
+**Last Updated:** 2026-02-26 — corrected eligibility cutoff (picked up = not eligible, not "close to pickup"); added full process steps
 
 ---
 
@@ -132,12 +165,19 @@ Entry count: 29
 **Situation:** Customer wants a refund on the tip they paid for a pickup order.
 **Resolution:**
 1. Call the restaurant and confirm they approve the tip refund.
-2. Once confirmed, attach the restaurant's approval to the ticket.
-3. Move the ticket to ePayments pipeline with the approval attached.
 
-**Exceptions:** None documented.
+**If restaurant approves:**
+- Attach the restaurant's approval to the ticket.
+- Move the ticket to ePayments pipeline with the approval attached.
+
+**If restaurant does not answer:**
+- Send the restaurant an email + SMS requesting their approval.
+- Leave the ticket in **Pending B2B** (or Scheduled Future Action) and continue reaching out over the next few days.
+- After 3 days with no response: send to ePayments and note that the restaurant was unresponsive.
+
+**Exceptions:** Restaurant approval is required — but no-answer after 3 days can be escalated to ePayments with documentation of outreach attempts.
 **Approval Required:** Yes — restaurant must approve before submitting to ePayments.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — added no-answer multi-day follow-up path: email+SMS, Pending B2B, 3-day escalation to ePayments
 
 ---
 
@@ -147,16 +187,26 @@ Entry count: 29
 **Issue Type:** Refunds & Credits
 **Situation:** Customer requests to remove one or more items from an order they already placed.
 **Resolution:**
-1. Contact the restaurant and get their confirmation/approval to not prepare the item(s). (CS cannot edit the restaurant's dashboard directly.)
-2. Attach the restaurant's approval to the ticket.
-3. Move the ticket to ePayments to refund the removed item(s).
-4. If it is a **future order**, also:
-   - Create a separate reminder ticket (leave in "Waiting On CC Team" column)
-   - Schedule a Slack message in `#cc-team-chat` tagging @support to call the store on the order date, 1 hour before pickup time, to remind them of the change.
 
-**Exceptions:** None — restaurant approval is always required since CS cannot modify their dashboard.
+**Step 1 — Check if the item is already prepared:**
+- Call the restaurant and ask.
+
+**If the item has NOT been prepared yet:**
+- Ask the restaurant to not prepare it and confirm approval.
+- The restaurant can also use the **"Adjust" button** on their dashboard to remove the item and process the refund on their end. If they do this, no ePayments ticket is needed.
+- If they prefer CS to handle the refund: attach the restaurant's approval to the ticket → move to ePayments.
+
+**If the item HAS already been prepared:**
+- We cannot remove it — inform the customer the item was already made.
+- Close the ticket. No refund unless the restaurant volunteers to approve one.
+
+**If it is a future order:**
+- Create a separate reminder ticket (leave in "Waiting On CC Team" column).
+- Schedule a Slack message in `#cc-team-chat` tagging @support to call the store on the order date, 1.5 hours before pickup time, to remind them not to prepare the removed item.
+
+**Exceptions:** If item is already prepared, removal is not possible and no refund is owed unless restaurant approves.
 **Approval Required:** Yes — restaurant confirmation required before sending to ePayments.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — added prepared/not-prepared distinction; added restaurant "Adjust button" option; added close-ticket path if already prepared
 
 ---
 
@@ -271,12 +321,19 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 1. Check order status in Sauce Dashboard:
    - **Canceled** → move to ePayments for refund directly.
    - **Overdue / Completed / Unknown** → call the restaurant and ask if they were open or closed. Explain customer is requesting a refund.
-     - Restaurant approves refund → move to ePayments.
-     - Restaurant denies refund → send **Refund Denial** template to customer and close ticket.
 
-**Exceptions:** None documented.
-**Approval Required:** Yes — restaurant confirmation required.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**If restaurant answers:**
+- Restaurant approves refund → move to ePayments.
+- Restaurant denies refund → send **Refund Denial** template to customer and close ticket.
+
+**If restaurant does not answer:**
+- Send the restaurant an email + SMS.
+- Leave ticket in **Pending B2B** and continue reaching out.
+- After 3 days with no response → send to ePayments with documentation of outreach attempts.
+
+**Exceptions:** No-answer after 3 days = escalate to ePayments with documented outreach.
+**Approval Required:** Yes — restaurant confirmation required, or 3-day escalation path.
+**Last Updated:** 2026-02-26 — added no-answer escalation path: email+SMS, Pending B2B, 3-day ePayments escalation
 
 ---
 
@@ -305,19 +362,137 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 
 **Title:** ETA Complaint — Late Delivery
 **Issue Type:** Order Issues
-**Situation:** Customer claims their delivery order arrived late.
+**Situation:** Customer complains their order is taking too long or arrived late.
 **Resolution:**
-1. Verify the complaint is valid: a delivery is only considered "late" if it arrived **15+ minutes past the latest arrival time** shown on the B2C tracking link.
-2. If the order was less than 15 minutes late: the complaint does not qualify for a refund — explain to the customer.
-3. If the order was 15+ minutes late: refer to the ETA Response Flow and Delivery ETA Snippets pages in Confluence for the appropriate response steps.
 
-**References:**
-- ETA Response Flow: https://say2eat.atlassian.net/wiki/spaces/SD/pages/1517027335/ETA+Response+Flow
-- Delivery ETA Snippets: https://say2eat.atlassian.net/wiki/spaces/SD/pages/1517092877/Delivery+ETA+Snippets+-+New
+**Key rule:** Refundable late = **15+ minutes past the Latest Delivery Time** shown on the tracking link (dropoff time — not pickup time). Dispatch V2 shows both a dynamic ETA and a fixed latest delivery time. Dispatch V1 shows dynamic ETA only.
 
-**Exceptions:** Orders less than 15 minutes late are not eligible.
-**Approval Required:** No — but must confirm lateness using tracking link.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**If no driver is assigned or driver is far from pickup:**
+- Uber/DoorDash → BaD to get a better driver.
+- Relay/Motoclick → ask them to assign a new driver.
+
+---
+
+**Step 1 — Apply the correct tier based on what the customer is saying:**
+
+**Tier 0 — Bot auto-response**
+Customer selected "ETA seems too long" in the chatflow. Bot explains pre-order vs. live ETA and shows both times. If customer replies or is still concerned → move to Tier 1.
+
+**Tier 1 — ETA looks long or increased after ordering**
+Empathize and clarify how ETA recalculates. Use `#eta_explained` or `#eta_increasing`.
+- Check tracking. If driver inactive > 10 min → Tier 2. If normal → close politely.
+
+**Tier 2 — Driver appears stuck or going wrong direction**
+Customer says driver isn't moving or GPS is frozen. Use `#eta_driver_stuck`.
+- Verify in tracking. Contact courier or driver via Slack / Dispatch (`#dispatch-cc`). Update customer once confirmed.
+
+**Tier 3 — Customer says "it's late" but still within the policy window**
+ETA hasn't passed yet. Use `#eta_not_late_yet` or `#eta_late_definition` to show exact remaining time.
+- Re-check ETA. If still within window → close. If passed → Tier 4.
+
+**Tier 4 — ETA has passed, order not delivered**
+Use `#eta_late_delivery`. Apologize and confirm follow-up. Contact courier.
+- If > 15 min past Latest ETA → Tier 5.
+
+**Tier 5 — 15+ minutes past Latest ETA, order still in progress**
+Use `#eta_refund_referral`. Acknowledge lateness, set expectation for refund review. Monitor until delivery completes, then send to ePayments.
+
+**Tier 6 — Customer wants to cancel because of the delay (order already prepared/picked up)**
+Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not cancel if order is already prepared or picked up. Monitor until delivered, then refer to ePayments for possible refund.
+
+**Tier 7 — Special ETA conditions (long distance, pre-order, BYOC)**
+- Long distance → `#eta_long_distance`
+- Pre-order → `#eta_preorder`
+- BYOC (restaurant-managed delivery) → `#eta_byoc_explained`, contact restaurant if stalled. Escalate to Support + BO/CS.
+- Continue normal tracking; no escalation unless order is actually late.
+
+---
+
+**Step 2 — Apply the correct delivery type rules:**
+
+**Sauce Dispatch Delivery:**
+- No refund request → empathize, reassure, follow tier above.
+- Refund request, order active → tell customer: once delivered, we'll send to ePayments.
+- Refund request, order completed → check dropoff time only:
+  - 15+ min past Latest ETA → valid. Submit to ePayments.
+  - Under 15 min → tell customer it was delivered within estimated time. Cannot guarantee a refund, but we'll review with Payments Team. Send to ePayments.
+
+**Restaurant Delivery:**
+- CS cannot assist — restaurant handled the delivery and is responsible for any refund. Direct customer to the restaurant.
+- If restaurant is unresponsive → try calling ourselves. If no answer → leave on **Refund Ticket - Waiting on CC**, continue reaching out over the next few days.
+  - Restaurant approves → send to ePayments.
+  - Restaurant denies or never answers → tell customer we cannot assist, they must take it up with the restaurant.
+
+**Pickup:**
+- CS cannot help — we have no visibility into whether the order was ready on time. Ask customer to contact the store directly.
+
+**Cancel Due to Delay:**
+- Follow the Cancel ASAP Order protocol (Entry 3).
+
+---
+
+**Escalation rules (quick reference):**
+| Condition | Action | Channel |
+|---|---|---|
+| Driver unresponsive > 15 min | Create BaD or message Dispatch | `#dispatch-cc` |
+| ETA > 15 min past latest | Use `#eta_refund_referral`, flag for refund review | ePayments pipeline |
+| Customer requests refund | Submit to ePayments; never promise refund | ePayments |
+| Courier confirmed fault | Send details to ePayments | ePayments |
+
+**Tone reminders:** Empathize first. Educate calmly — never assign blame. End with confidence, not open loops. Keep replies to 2–3 lines. Follow up proactively if delivery exceeds policy thresholds.
+
+**Exceptions:** Under 15 min late by dropoff time = not eligible for guaranteed refund. Restaurant delivery and pickup late orders are not CS's responsibility.
+**Approval Required:** No for Sauce Dispatch. Yes (restaurant approval) for restaurant delivery refunds.
+**Last Updated:** 2026-02-26 — fully rebuilt from Process Notes + Confluence ETA Response Flow doc; removed broken links
+
+---
+
+## Entry 15b: ETA Snippets — What to Say to the Customer
+
+**Title:** ETA Complaint — Exact Snippet Text by Situation
+**Issue Type:** Order Issues
+**Situation:** Agent needs the exact wording to use when responding to an ETA complaint. Use these alongside the tier process in Entry 15.
+**Resolution:**
+
+**#eta_explained** — ETA looks longer than expected or changed after ordering:
+> "I get it — that longer time can be surprising! The first ETA you see before checkout is just an estimate. Once the restaurant accepts, it updates using live prep and driver info. You'll see two times: the current ETA and the latest possible time — most orders arrive sooner than that."
+
+**#eta_increasing** — ETA keeps going up:
+> "Thanks for checking — I know it's frustrating when the time goes up. ETAs adjust automatically based on restaurant prep or driver availability. Once it's picked up, it usually shortens again. I'll keep an eye on it for you."
+
+**#eta_special_event** — Delay caused by weather, holiday, or local event:
+> "I understand the delay is frustrating. We are seeing overall delays due to [x]. We are working to have your order delivered as soon as possible despite the circumstances."
+
+**#eta_driver_stuck** — Driver hasn't moved or appears to be going the wrong way:
+> "Thanks for flagging — I see the driver hasn't moved in a bit. That can happen if they lose GPS connection temporarily. I'll reach out and make sure it's still on track, then update you shortly."
+
+**#eta_not_late_yet** — Customer says "it's late" but ETA is still within the window:
+> "I understand it feels like it's taking a while! Your order's still within the expected delivery window with about [x mins] to go. I'll keep monitoring and let you know if anything changes."
+
+**#eta_late_definition** — Customer insists it's late; confirm still within policy window:
+> "I get why it feels late — I just checked and it still has about [x mins] left before it's considered delayed. I'll keep monitoring to be sure it stays on track."
+
+**#eta_late_delivery** — Latest ETA has passed and order not delivered:
+> "I can see your order's running a bit late — thanks so much for your patience. I'm checking with the courier to help move things along and will keep you posted."
+
+**#eta_refund_referral** — Order is 15+ minutes past the latest delivery time:
+> "I can see your order's already past the latest delivery time — I'm really sorry for the delay. It's running over 15 minutes late, and I'm checking in with the courier for an update. Once it's completed, I'll forward it to our Payments team to review for a possible refund."
+
+**#eta_cancel_inflight** — Customer wants to cancel due to delay but order already prepared/picked up:
+> "I completely understand the delay's really frustrating. The order's already prepared and on its way, so it can't be canceled mid-delivery. Once it arrives, I'll forward it to our Payments team to review for a possible refund."
+
+**#eta_long_distance** — Delivery distance is unusually long:
+> "I totally get it — that longer ETA can be surprising! Because this is a longer route than usual, the ETA looks higher upfront. Once a driver's on the way, it'll tighten up and you'll see it adjust in real time."
+
+**#eta_preorder** — Order placed in advance, ETA shown before restaurant acceptance:
+> "That first ETA is a pre-order estimate — it updates once the restaurant accepts. The live ETA after that is based on actual prep and driver times."
+
+**#eta_byoc_explained** — BYOC (restaurant-managed delivery):
+> "The initial delivery estimate uses the settings on their ordering system, so the ETA comes from them directly. It should keep updating as it moves — I can still reach out to confirm if it stalls."
+
+**Exceptions:** None — use the snippet that matches the customer's specific situation.
+**Approval Required:** No.
+**Last Updated:** 2026-02-26 — extracted from Confluence Delivery ETA Snippets doc
 
 ---
 
@@ -404,7 +579,7 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 
 **Step 3 — Restricted restaurant handling:**
 - If the restaurant handles their own refunds: call for approval. If no answer, send an email.
-- Tell the customer: "We're checking with the restaurant for their approval. Once they respond, we'll follow their guidelines. If we don't hear back promptly, our management team may review it."
+- Tell the customer exactly: *"We're checking with the restaurant for their approval. Once they respond, we'll follow their guidelines. If we don't hear back promptly, our management team may review it for you."*
 - Do NOT call restaurants that are NOT on the mandatory-approval list for minor ingredient issues.
 
 **Exceptions:** Restaurants on the restricted refund list require approval before sending to ePayments.
@@ -596,9 +771,66 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 **If the customer is complaining about being charged fees:**
 - Use the **"Sauce Fees Explanation"** HubSpot template.
 - Key explanation: "Our platform has a service fee per order. This small fee goes toward maintaining customer support while covering all issues that arise to ensure your order arrives safely and on time."
+- Note: Non-delivery orders (pickup) may have a $1.99 Sauce service fee. This is standard — do not offer a refund.
+
+**Critical rule: NEVER send the customer a Slack fee breakdown or screenshots of internal pricing data.** Use the HubSpot templates only.
 
 **Policy:** CS does NOT process refunds for order fees. These fees are visible on the website when the customer places the order.
 
 **Exceptions:** None — fee refunds are not offered.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — added $1.99 Sauce Fee note for non-delivery orders; added critical rule against sending Slack breakdowns/screenshots
+
+---
+
+## Entry 30: BYOC — Bring Your Own Courier (Third-Party Marketplace Orders)
+
+**Title:** BYOC — Delivery Issues and Refund Process
+**Issue Type:** Order Issues / Refunds & Credits
+**Situation:** A customer contacts CS about an order that came through a third-party marketplace (e.g., Uber Eats, DoorDash) and was routed to Sauce for delivery. These are BYOC (Bring Your Own Courier) orders — Sauce manages the delivery, but the customer paid the third-party.
+
+**What is BYOC:**
+- The customer placed their order on a third-party marketplace (not directly on the restaurant's Sauce-powered website).
+- That order is routed to Sauce, and Sauce handles the delivery.
+- The restaurant pays Sauce for the delivery service (invoiced). This is the reverse of standard Sauce orders — Sauce does not pay the restaurant; the restaurant pays Sauce.
+
+**Delivery Issues (Late, Driver Stuck, Not Received, etc.):**
+- Handle the same way as standard Sauce Dispatch delivery issues — follow Entry 15 (ETA/Late Order) or the relevant issue entry.
+- CS manages BYOC delivery support the same as any Sauce-dispatched order.
+
+**Refunds — Critical Difference:**
+- The customer **cannot receive a refund through Sauce or ePayments** — they paid the third-party marketplace (Uber Eats, DoorDash, etc.), not Sauce.
+- Direct the customer to contact the third-party marketplace directly for any refund.
+
+**If the delivery issue was Sauce's fault:**
+- Process a refund request through the **normal HubSpot ePayments pipeline** (same as standard orders).
+- The refund flows from the **courier to the restaurant** — this is a credit that reduces what the restaurant owes on their BYOC invoice.
+- The customer's refund comes from the third-party marketplace — that is separate and not handled by CS.
+
+**Summary of who gets what:**
+| Party | What happens |
+|---|---|
+| Customer | Contacts third-party marketplace for their own refund |
+| Restaurant | Receives a credit on their Sauce BYOC invoice (courier → restaurant) |
+| CS action | Submit normal HubSpot refund ticket — courier to restaurant |
+
+**BYOC Snippets — Use these for all BYOC chats:**
+
+**#long delivery BYOC** — Delivery is taking longer than expected:
+> "We're sorry the delivery is taking longer than expected. This may be due to the distance from the restaurant. Could you please confirm your address so we can ensure everything is accurate and get your order to you as quickly as possible?"
+
+**#refund request BYOC** — Customer asks for a refund:
+> "We're sorry for the inconvenience with your order. While we can assist with delivery issues, refunds are managed directly by the platform where you placed your order."
+
+**#restaurant refund BYOC** — Informing the restaurant a delivery issue has been escalated:
+> "The delivery issue has been escalated to our payments team. Applicable refunds will be applied to your next BYOC invoice."
+
+**#invoice BYOC** — Investigating an invoice concern with the restaurant:
+> "We'll investigate your concern with our payments team. May we confirm this email address is best for us to follow up?"
+
+**#restaurant refund email** — Email to restaurant about BYOC refunds:
+> "Thank you for bringing these refunds to our attention. We will escalate to our ePayments team to apply the appropriate refunds to your BYOC invoice."
+
+**Exceptions:** Delivery issue handling follows standard Entry 15 protocols. Customer refund = third-party marketplace. CS refund ticket = courier to restaurant via HubSpot.
+**Approval Required:** No — follow normal ePayments process.
+**Last Updated:** 2026-02-26 — added 5 BYOC snippets (#long delivery BYOC, #refund request BYOC, #restaurant refund BYOC, #invoice BYOC, #restaurant refund email)

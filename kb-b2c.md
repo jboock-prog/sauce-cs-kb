@@ -36,13 +36,29 @@ Entry count: 8
 **Issue Type:** Order Issues
 **Situation:** Customer wants to switch their delivery order to a pickup (they'll go to the store themselves).
 **Resolution:**
-1. Cancel the tracking link only.
-2. **Make absolutely sure the customer understands: only the delivery is canceled — the order itself is NOT canceled.**
-3. Only open a refund ticket for the delivery fee and tip if the customer **explicitly asks** for a refund of those amounts. Do not proactively create a refund ticket.
+
+**Step 1 — Check driver status before doing anything:**
+
+If the order has a driver assigned:
+- If driver is close to the restaurant → call the restaurant and tell them NOT to give the order to the driver.
+  - Restaurant confirms → cancel the tracking link → proceed to Step 2.
+  - Restaurant says the order was already picked up → tell the customer we can no longer cancel the delivery.
+  - Restaurant doesn't answer → tell the customer the restaurant is unresponsive and we are unable to cancel the delivery.
+- If the driver is very far from the restaurant → cancel the tracking link → proceed to Step 2.
+
+If no driver is assigned → cancel the tracking link → proceed to Step 2.
+
+If the order is already marked as picked up on the system → tell the customer the driver already has it and is on the way — we cannot cancel the delivery.
+
+**Step 2 — Handle the refund:**
+- **Make absolutely sure the customer understands: only the delivery is canceled — the order itself is NOT canceled.**
+- If the customer placed a tip and asks for a refund on the tip and/or delivery fee → send the ticket to ePayments as a refund request for those amounts.
+- If the customer placed a tip but does not ask for a refund → close the ticket.
+- If the customer placed no tip → they can only request a refund for the delivery fee. If they don't request it, close the ticket.
 
 **Exceptions:** None.
-**Approval Required:** No — no restaurant approval needed, no ePayments needed unless customer requests refund of delivery fee/tip.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Approval Required:** No — no restaurant approval needed. ePayments needed only if customer requests refund of delivery fee/tip.
+**Last Updated:** 2026-02-26 — added driver proximity check and restaurant call step; added tip/fee refund logic
 
 ---
 
@@ -52,12 +68,19 @@ Entry count: 8
 **Issue Type:** Order Issues
 **Situation:** Customer wants to add an item to an order they've already placed.
 **Resolution:**
-1. Look up the item price on the **restaurant's website** (not the menu editor). The upcharge = website price + tax. Do not ask the restaurant for the price.
-2. Contact the restaurant and confirm they can add the item.
-3. Get the customer's approval for the upcharge amount.
-4. Once both restaurant and customer have confirmed, request the upcharge via the ePayments Task.
-
-**Dashboard caveat:** The dashboard details cannot be changed — the item will not appear on the restaurant's POS/Tablet. The restaurant has to remember to add it manually.
+1. **Check if the order has been picked up first.**
+   - If already picked up → we can no longer add items. Inform the customer.
+   - If not yet picked up → proceed.
+2. Find the item price on the **restaurant's website**. The upcharge = website price + tax.
+   - If the item is not listed on the website (e.g., customer wants to add chicken to a salad but there's no price for it): call the restaurant and ask how much it would cost to make that change.
+3. Ask the customer if they agree to be charged on their original payment method if the restaurant approves.
+   - If yes → proceed.
+   - If no → tell them we cannot assist; they need to speak with the restaurant directly.
+4. Call the restaurant and ask if they can add the item.
+   - If yes → tell them we will charge the customer on our end, or they can use the "Adjust button" on the dashboard. Note: the item will not appear on the system — we can only charge internally. If the restaurant wants to see it on the system, offer to send a test order so it prints in their kitchen.
+   - If no → inform the customer that adding the item is not possible.
+5. Once both the restaurant and customer have confirmed → set ticket to ePayments Task Status and request the upcharge. You can share a screenshot of the item online as proof of the correct price.
+   - Note: after the upcharge, the ticket will return to Next Action in the Support Pipeline.
 
 **If it's a future order:**
 - Keep a ticket open in PENDING — WAITING ON CC TEAM so Support calls the restaurant on the order date to remind them to add the item.
@@ -65,7 +88,7 @@ Entry count: 8
 
 **Exceptions:** None — both restaurant confirmation and customer approval are always required before upcharging.
 **Approval Required:** Yes — restaurant must confirm; customer must approve upcharge.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-02-26 — updated from Process Notes to fix price-check rule and add pickup status check
 
 ---
 
