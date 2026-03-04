@@ -27,7 +27,7 @@ from flask import Flask, jsonify, request
 SERVER_DIR = os.path.dirname(os.path.abspath(__file__))
 DOCS_DIR   = SERVER_DIR  # KB files live alongside server.py in the repo root
 KB_FILES   = ['kb-refunds.md', 'kb-b2c.md', 'kb-b2b.md', 'kb-general.md', 'kb-operations.md']
-MODEL      = 'claude-haiku-4-5-20251001'
+MODEL      = 'claude-sonnet-4-6'
 SEPARATOR  = '\n\n' + ('=' * 80) + '\n\n'
 
 SLACK_SIGNING_SECRET = os.environ.get('SLACK_SIGNING_SECRET', '')
