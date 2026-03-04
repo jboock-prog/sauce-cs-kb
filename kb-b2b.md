@@ -199,7 +199,7 @@ Refer to the dedicated phone number spreadsheet for the following restaurants:
 - `OB Virtual Number` — Virtual Number/Virtual Answering changes
 
 **To send the ticket:**
-Move it to the column **"Received — triggers automation."** This automatically routes it to the correct team pipeline.
+Move it to the column **"BO, CS, or Menu (Check Category)."** This automatically routes it to the correct team pipeline.
 
 **DO NOT** manually change the pipeline and status to move it to the other team.
 
@@ -293,7 +293,7 @@ Move it to the column **"Received — triggers automation."** This automatically
 2. Collect a contact phone number or email for the restaurant if you don't already have one.
 3. Create a ticket with the category **"CS Tablet Requested."**
 4. Assign the CS agent as the ticket owner.
-5. Move the ticket to the "Triggers automation" column.
+5. Move the ticket to the "BO, CS, or Menu (Check Category)" column.
 
 **Remind the restaurant they have other ways to receive orders while waiting for the replacement:**
 - **Email:** Usually already set up — orders are sent automatically.
@@ -376,7 +376,7 @@ Move it to the column **"Received — triggers automation."** This automatically
 1. Open a ticket to the BO team.
 2. Include the phone number where orders should be sent (or the number to remove) in the ticket request.
 3. Use the category: **BO Config Changes.**
-4. Move ticket to the "Received — triggers automation" column.
+4. Move ticket to the "BO, CS, or Menu (Check Category)" column.
 
 **Exceptions:** SMS notifications cannot be managed directly from the dashboard — must always go through BO.
 **Approval Required:** No — BO handles the change.
@@ -578,7 +578,7 @@ Sauce pays all sales taxes to the restaurant at the same time as the order payou
 1. Open a ticket to the BO team.
 2. Category: **BO Config Changes.**
 3. Include the new delivery radius in the ticket request.
-4. Move ticket to the "Received — triggers automation" column.
+4. Move ticket to the "BO, CS, or Menu (Check Category)" column.
 
 **Exceptions:** CS cannot change delivery radius directly — always route through BO.
 **Approval Required:** No — BO handles the change.
