@@ -30,7 +30,6 @@ KB_FILES   = ['kb-refunds.md', 'kb-b2c.md', 'kb-b2b.md', 'kb-general.md', 'kb-op
 MODEL      = 'claude-haiku-4-5-20251001'
 SEPARATOR  = '\n\n' + ('=' * 80) + '\n\n'
 
-ANTHROPIC_API_KEY    = os.environ.get('ANTHROPIC_API_KEY', '')
 SLACK_SIGNING_SECRET = os.environ.get('SLACK_SIGNING_SECRET', '')
 
 # ─── Load KB at startup ───────────────────────────────────────────────────────
@@ -62,7 +61,7 @@ If no entry applies, say so clearly and suggest escalating to a team lead.
 
 # ─── Claude ───────────────────────────────────────────────────────────────────
 
-claude = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+claude = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env automatically
 
 
 def query_claude(question: str) -> str:
@@ -167,13 +166,13 @@ def query():
 @app.route('/health', methods=['GET'])
 def health():
     """Simple health check for Railway uptime monitoring."""
-    return jsonify({'ok': True, 'kb_chars': len(KB_CONTENT), 'model': MODEL})
+    return jsonify({'ok': True, 'kb_chars': len(KB_CONTENT), 'model': MODEL, 'api_key_set': bool(os.environ.get('ANTHROPIC_API_KEY'))})
 
 
 # ─── Start ────────────────────────────────────────────────────────────────────
 
 if __name__ == '__main__':
-    if not ANTHROPIC_API_KEY:
+    if not os.environ.get('ANTHROPIC_API_KEY'):
         print('WARNING: ANTHROPIC_API_KEY not set — Claude calls will fail\n')
     port = int(os.environ.get('PORT', 5000))
     print(f'Sauce KB server running on http://localhost:{port}\n')
