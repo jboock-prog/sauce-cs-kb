@@ -166,7 +166,15 @@ def query():
 @app.route('/health', methods=['GET'])
 def health():
     """Simple health check for Railway uptime monitoring."""
-    return jsonify({'ok': True, 'kb_chars': len(KB_CONTENT), 'model': MODEL, 'api_key_set': bool(os.environ.get('ANTHROPIC_API_KEY'))})
+    key = os.environ.get('ANTHROPIC_API_KEY', '')
+    return jsonify({
+        'ok': True,
+        'kb_chars': len(KB_CONTENT),
+        'model': MODEL,
+        'api_key_set': bool(key),
+        'api_key_prefix': key[:10] if key else None,
+        'env_keys': [k for k in os.environ if 'ANTHROPIC' in k or 'API' in k],
+    })
 
 
 # ─── Start ────────────────────────────────────────────────────────────────────
