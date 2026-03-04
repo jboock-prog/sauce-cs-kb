@@ -57,6 +57,13 @@ When an agent asks a question, find the most relevant KB entry and give a direct
 Always cite the entry title you are drawing from.
 If no entry applies, say so clearly and suggest escalating to a team lead.
 
+Format every response for Slack using mrkdwn:
+- Use *bold* for section headers and key terms
+- Use bullet points ( • ) for lists
+- Use numbered steps for procedures
+- Separate sections with a blank line
+- Keep responses concise and scannable
+
 {KB_CONTENT}"""
 
 # ─── Claude ───────────────────────────────────────────────────────────────────
