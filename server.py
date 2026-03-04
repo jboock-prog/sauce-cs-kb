@@ -72,13 +72,20 @@ claude = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env automatically
 
 
 def query_claude(question: str) -> str:
-    msg = claude.messages.create(
-        model=MODEL,
-        max_tokens=1024,
-        system=SYSTEM_PROMPT,
-        messages=[{'role': 'user', 'content': question}],
-    )
-    return msg.content[0].text
+    for attempt in range(3):
+        try:
+            msg = claude.messages.create(
+                model=MODEL,
+                max_tokens=1024,
+                system=SYSTEM_PROMPT,
+                messages=[{'role': 'user', 'content': question}],
+            )
+            return msg.content[0].text
+        except anthropic.APIStatusError as e:
+            if e.status_code == 529 and attempt < 2:
+                time.sleep(2 ** attempt)  # 1s, 2s
+                continue
+            raise
 
 
 # ─── Slack signature verification ─────────────────────────────────────────────
