@@ -391,6 +391,65 @@ def query():
         return jsonify({'ok': False, 'error': str(e)}), 500
 
 
+@app.route('/test/release', methods=['POST'])
+def test_release():
+    """Direct test endpoint for the release workflow (no Slack auth).
+    Body: {"text": "your release info"}
+    Returns all generated content as JSON instead of posting to Slack.
+    """
+    data = request.get_json(silent=True) or {}
+    release_text = data.get('text', '').strip()
+    if not release_text:
+        return jsonify({'ok': False, 'error': 'text is required'}), 400
+    try:
+        response = query_claude_workflow(
+            RELEASE_SYSTEM_PROMPT,
+            build_release_user_message(release_text),
+        )
+        parts = parse_workflow_response(response)
+        target_file = parts.get('TARGET_KB_FILE', 'kb-general.md').strip()
+        if target_file not in KB_FILES:
+            target_file = 'kb-general.md'
+        return jsonify({
+            'ok': True,
+            'target_kb_file': target_file,
+            'external_article': parts.get('EXTERNAL_ARTICLE'),
+            'kb_entry': parts.get('KB_ENTRY'),
+            'announcement': parts.get('ANNOUNCEMENT'),
+        })
+    except Exception as e:
+        return jsonify({'ok': False, 'error': str(e)}), 500
+
+
+@app.route('/test/kb-update', methods=['POST'])
+def test_kb_update():
+    """Direct test endpoint for the KB update workflow (no Slack auth).
+    Body: {"text": "your update info"}
+    Returns generated content as JSON instead of posting to Slack.
+    """
+    data = request.get_json(silent=True) or {}
+    update_text = data.get('text', '').strip()
+    if not update_text:
+        return jsonify({'ok': False, 'error': 'text is required'}), 400
+    try:
+        response = query_claude_workflow(
+            KB_UPDATE_SYSTEM_PROMPT,
+            build_update_user_message(update_text),
+        )
+        parts = parse_workflow_response(response)
+        target_file = parts.get('TARGET_KB_FILE', 'kb-general.md').strip()
+        if target_file not in KB_FILES:
+            target_file = 'kb-general.md'
+        return jsonify({
+            'ok': True,
+            'target_kb_file': target_file,
+            'kb_entry': parts.get('KB_ENTRY'),
+            'announcement': parts.get('ANNOUNCEMENT'),
+        })
+    except Exception as e:
+        return jsonify({'ok': False, 'error': str(e)}), 500
+
+
 @app.route('/slack/release', methods=['POST'])
 def slack_release():
     """Full product release workflow: external article + KB entry + announcement + confirmation."""
