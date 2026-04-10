@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 17
+Entry count: 18
 
 ---
 
@@ -447,3 +447,39 @@ Click **Create Order** then **Create**.
 **Exceptions:** None.
 **Approval Required:** No.
 **Last Updated:** 2026-02-25 — extracted from Playbook
+
+
+---
+
+## Entry OPS-18: Sauce Tablet Printer Settings
+
+**Title:** Sauce Tablet Printer Settings — Receipt Format & Future Order Print Timing
+**Issue Type:** Restaurant Relations
+**Situation:** Use when a restaurant partner contacts CS asking how to change their receipt format (long vs. short) or reporting that future/scheduled orders are printing at the wrong time (immediately vs. at prep time).
+
+**Resolution:**
+
+1. Let the partner know both settings are self-serve and accessible directly from their Sauce Tablet.
+2. Guide them to open the **tablet dashboard**.
+3. Tap the **three horizontal lines (☰ hamburger menu)** in the top left corner.
+4. Tap **Settings**, then navigate to **Printer Settings**.
+5. From here, direct them to the relevant setting based on their issue:
+
+   **A. Printed Receipt Structure** *(receipt format complaint)*
+   - Toggle between **Long** or **Short**
+   - **Long** — includes item categories and modifiers on the printed receipt
+   - **Short** — condensed version; categories and modifiers are omitted
+
+   **B. Future Orders** *(scheduled orders printing at wrong time)*
+   - Toggle between **Immediately** or **At Start of Prep Time**
+   - **Immediately** — receipt prints as soon as the scheduled order is placed/received
+   - **At Start of Prep Time** — receipt prints when the prep window begins, closer to the actual delivery/pickup time
+
+6. Confirm with the partner which option best fits their operational needs and advise them to select accordingly.
+7. No CS-side action is required — both settings are fully self-serve.
+
+**Reference:** [Sauce Tablet Printer Settings — Video Walkthrough](https://drive.google.com/file/d/1iVUNy3sACxipBWLtpnG0LqL4GEzrmrCR/view)
+
+**Exceptions:** If the partner reports that the Printer Settings option is missing from their Settings menu, or that toggling the settings has no effect, escalate to the Tablet/Tech support team as this may indicate a tablet configuration or software issue.
+**Approval Required:** No
+**Last Updated:** 2026-04-09 — added via KB update workflow

@@ -36,6 +36,15 @@ SLACK_BOT_TOKEN      = os.environ.get('SLACK_BOT_TOKEN', '')
 SUPPORT_CHANNEL_ID   = os.environ.get('SUPPORT_CHANNEL_ID', '')
 RELEASE_CHANNEL_ID   = os.environ.get('RELEASE_CHANNEL_ID', '')
 
+# Notion integration — external articles auto-publish, announcements saved as drafts
+NOTION_API_KEY                  = os.environ.get('NOTION_API_KEY', '')
+NOTION_CLIENT_ID                = os.environ.get('NOTION_CLIENT_ID', '')
+NOTION_CLIENT_SECRET            = os.environ.get('NOTION_CLIENT_SECRET', '')
+NOTION_REDIRECT_URI             = os.environ.get('NOTION_REDIRECT_URI', '')
+NOTION_RELEASE_NOTES_PAGE_ID    = os.environ.get('NOTION_RELEASE_NOTES_PAGE_ID', '33d3f4388bf9815bb637d368e5395fcf')
+NOTION_ANNOUNCEMENTS_PAGE_ID    = os.environ.get('NOTION_ANNOUNCEMENTS_PAGE_ID', '33d3f4388bf9819e947dcb53ba684810')
+NOTION_VERSION = '2022-06-28'
+
 kb_lock = threading.Lock()
 
 # ─── Load KB at startup ───────────────────────────────────────────────────────
@@ -166,6 +175,98 @@ def append_kb_entry(kb_filename: str, entry_markdown: str):
         update_entry_count(filepath)
         KB_CONTENT = load_kb()
         SYSTEM_PROMPT = build_system_prompt(KB_CONTENT)
+
+
+# ─── Notion helpers ──────────────────────────────────────────────────────────
+
+def _parse_inline_md(text: str) -> list:
+    """Convert a line of markdown to Notion rich_text blocks (bold + plain)."""
+    rich = []
+    for part in re.split(r'(\*\*[^*]+\*\*)', text):
+        if part.startswith('**') and part.endswith('**'):
+            rich.append({'type': 'text', 'text': {'content': part[2:-2]},
+                         'annotations': {'bold': True}})
+        elif part:
+            rich.append({'type': 'text', 'text': {'content': part}})
+    return rich or [{'type': 'text', 'text': {'content': text}}]
+
+
+def _md_to_notion_blocks(md: str) -> list:
+    """Convert markdown text to a list of Notion block objects."""
+    blocks = []
+    for line in md.splitlines():
+        s = line.rstrip()
+        if not s:
+            continue
+        if s == '---':
+            blocks.append({'object': 'block', 'type': 'divider', 'divider': {}})
+        elif s.startswith('### '):
+            blocks.append({'object': 'block', 'type': 'heading_3',
+                            'heading_3': {'rich_text': _parse_inline_md(s[4:])}})
+        elif s.startswith('## '):
+            blocks.append({'object': 'block', 'type': 'heading_2',
+                            'heading_2': {'rich_text': _parse_inline_md(s[3:])}})
+        elif s.startswith('# '):
+            blocks.append({'object': 'block', 'type': 'heading_1',
+                            'heading_1': {'rich_text': _parse_inline_md(s[2:])}})
+        elif s.startswith('- ') or s.startswith('\u2022 '):
+            blocks.append({'object': 'block', 'type': 'bulleted_list_item',
+                            'bulleted_list_item': {'rich_text': _parse_inline_md(s[2:])}})
+        elif s.startswith('> '):
+            blocks.append({'object': 'block', 'type': 'quote',
+                            'quote': {'rich_text': _parse_inline_md(s[2:])}})
+        else:
+            blocks.append({'object': 'block', 'type': 'paragraph',
+                            'paragraph': {'rich_text': _parse_inline_md(s)}})
+    return blocks
+
+
+def _notion_headers() -> dict:
+    return {
+        'Authorization': f'Bearer {NOTION_API_KEY}',
+        'Notion-Version': NOTION_VERSION,
+        'Content-Type': 'application/json',
+    }
+
+
+def publish_article_to_notion(title: str, article_md: str) -> dict:
+    """Create a child page under the Product Release Notes page."""
+    if not NOTION_API_KEY:
+        return {'ok': False, 'error': 'NOTION_API_KEY not set'}
+    blocks = _md_to_notion_blocks(article_md)
+    resp = requests.post(
+        'https://api.notion.com/v1/pages',
+        headers=_notion_headers(),
+        json={
+            'parent': {'type': 'page_id', 'page_id': NOTION_RELEASE_NOTES_PAGE_ID},
+            'properties': {'title': {'title': [{'type': 'text', 'text': {'content': title}}]}},
+            'children': blocks[:100],  # Notion API limit
+        },
+        timeout=15,
+    )
+    data = resp.json()
+    return {'ok': resp.status_code == 200, 'url': data.get('url'), 'error': data.get('message')}
+
+
+def save_announcement_draft_to_notion(title: str, announcement_text: str) -> dict:
+    """Save a Slack announcement as a draft child page under Pending Announcements.
+    Slack's API does not support creating drafts programmatically, so drafts
+    are stored here for manual review and copy-paste to Slack."""
+    if not NOTION_API_KEY:
+        return {'ok': False, 'error': 'NOTION_API_KEY not set'}
+    blocks = _md_to_notion_blocks(announcement_text)
+    resp = requests.post(
+        'https://api.notion.com/v1/pages',
+        headers=_notion_headers(),
+        json={
+            'parent': {'type': 'page_id', 'page_id': NOTION_ANNOUNCEMENTS_PAGE_ID},
+            'properties': {'title': {'title': [{'type': 'text', 'text': {'content': f'DRAFT: {title}'}}]}},
+            'children': blocks[:100],
+        },
+        timeout=15,
+    )
+    data = resp.json()
+    return {'ok': resp.status_code == 200, 'url': data.get('url'), 'error': data.get('message')}
 
 
 # ─── Slack helpers ───────────────────────────────────────────────────────────
@@ -394,11 +495,13 @@ def query():
 @app.route('/test/release', methods=['POST'])
 def test_release():
     """Direct test endpoint for the release workflow (no Slack auth).
-    Body: {"text": "your release info"}
-    Returns all generated content as JSON instead of posting to Slack.
+    Body: {"text": "your release info", "commit": false}
+    - commit=false (default): dry run — returns JSON only, no KB write
+    - commit=true: writes KB entry to disk, returns JSON, no Slack posting
     """
     data = request.get_json(silent=True) or {}
     release_text = data.get('text', '').strip()
+    commit = bool(data.get('commit', False))
     if not release_text:
         return jsonify({'ok': False, 'error': 'text is required'}), 400
     try:
@@ -410,8 +513,11 @@ def test_release():
         target_file = parts.get('TARGET_KB_FILE', 'kb-general.md').strip()
         if target_file not in KB_FILES:
             target_file = 'kb-general.md'
+        if commit and parts.get('KB_ENTRY'):
+            append_kb_entry(target_file, parts['KB_ENTRY'])
         return jsonify({
             'ok': True,
+            'committed': commit,
             'target_kb_file': target_file,
             'external_article': parts.get('EXTERNAL_ARTICLE'),
             'kb_entry': parts.get('KB_ENTRY'),
@@ -424,11 +530,13 @@ def test_release():
 @app.route('/test/kb-update', methods=['POST'])
 def test_kb_update():
     """Direct test endpoint for the KB update workflow (no Slack auth).
-    Body: {"text": "your update info"}
-    Returns generated content as JSON instead of posting to Slack.
+    Body: {"text": "your update info", "commit": false}
+    - commit=false (default): dry run — returns JSON only, no KB write
+    - commit=true: writes KB entry to disk, returns JSON, no Slack posting
     """
     data = request.get_json(silent=True) or {}
     update_text = data.get('text', '').strip()
+    commit = bool(data.get('commit', False))
     if not update_text:
         return jsonify({'ok': False, 'error': 'text is required'}), 400
     try:
@@ -440,8 +548,11 @@ def test_kb_update():
         target_file = parts.get('TARGET_KB_FILE', 'kb-general.md').strip()
         if target_file not in KB_FILES:
             target_file = 'kb-general.md'
+        if commit and parts.get('KB_ENTRY'):
+            append_kb_entry(target_file, parts['KB_ENTRY'])
         return jsonify({
             'ok': True,
+            'committed': commit,
             'target_kb_file': target_file,
             'kb_entry': parts.get('KB_ENTRY'),
             'announcement': parts.get('ANNOUNCEMENT'),
@@ -497,29 +608,45 @@ def slack_release():
             # Step 2: Append KB entry to disk + memory
             append_kb_entry(target_file, parts['KB_ENTRY'])
 
-            # Step 3: Post support team announcement
-            if SUPPORT_CHANNEL_ID:
-                post_to_slack_channel(SUPPORT_CHANNEL_ID, parts['ANNOUNCEMENT'])
+            # Step 3: Publish external article to Notion Product Release Notes
+            notion_url = None
+            if parts.get('EXTERNAL_ARTICLE'):
+                notion_result = publish_article_to_notion(
+                    f'Release: {release_text[:80]}',
+                    parts['EXTERNAL_ARTICLE'],
+                )
+                notion_url = notion_result.get('url')
 
-            # Step 4: Post confirmation + external article to release channel
-            external = parts.get('EXTERNAL_ARTICLE', '(not generated)')
+            # Step 4: Save announcement draft to Notion (Slack API does not support
+            # creating drafts programmatically — saved here for manual review + posting)
+            draft_url = None
+            draft_result = save_announcement_draft_to_notion(
+                release_text[:80],
+                parts['ANNOUNCEMENT'],
+            )
+            draft_url = draft_result.get('url')
+
+            # Step 5: Post confirmation to release channel
+            notion_line = f'• External article: {notion_url}' if notion_url else '• External article: Notion not configured'
+            draft_line  = f'• Announcement draft: {draft_url}' if draft_url else '• Announcement draft: Notion not configured'
             confirmation = (
                 f':white_check_mark: *Release processed by {user_name}*\n\n'
                 f'*KB entry added to:* `{target_file}`\n'
-                f'*Support team notified:* {"yes" if SUPPORT_CHANNEL_ID else "no (channel not configured)"}\n\n'
-                f'---\n*External Knowledge Article:*\n\n{external}'
+                f'{notion_line}\n'
+                f'{draft_line}\n\n'
+                f'_Review the announcement draft in Notion before posting to the support team._'
             )
             if RELEASE_CHANNEL_ID:
                 post_to_slack_channel(RELEASE_CHANNEL_ID, confirmation)
 
-            # Step 5: Confirm back to the invoking user
+            # Step 6: Confirm back to the invoking user
             requests.post(response_url, json={
                 'response_type': 'ephemeral',
                 'text': (
                     f':white_check_mark: Release workflow complete.\n'
                     f'• KB updated in `{target_file}`\n'
-                    f'• Support team notified\n'
-                    f'• Confirmation posted to release channel'
+                    f'• External article published to Notion\n'
+                    f'• Announcement saved as draft in Notion — review before posting'
                 ),
             }, timeout=10)
 
@@ -583,17 +710,23 @@ def slack_kb_update():
             # Step 2: Append KB entry
             append_kb_entry(target_file, parts['KB_ENTRY'])
 
-            # Step 3: Post support team announcement
-            if SUPPORT_CHANNEL_ID:
-                post_to_slack_channel(SUPPORT_CHANNEL_ID, parts['ANNOUNCEMENT'])
+            # Step 3: Save announcement draft to Notion for review before posting
+            draft_url = None
+            draft_result = save_announcement_draft_to_notion(
+                update_text[:80],
+                parts['ANNOUNCEMENT'],
+            )
+            draft_url = draft_result.get('url')
 
             # Step 4: Confirm back to the invoking user
+            draft_line = f'• Announcement draft: {draft_url}' if draft_url else '• Announcement draft: Notion not configured'
             requests.post(response_url, json={
                 'response_type': 'ephemeral',
                 'text': (
                     f':white_check_mark: KB update complete.\n'
                     f'• KB updated in `{target_file}`\n'
-                    f'• Support team notified'
+                    f'{draft_line}\n'
+                    f'_Review the announcement draft in Notion before posting to the support team._'
                 ),
             }, timeout=10)
 
@@ -611,6 +744,75 @@ def slack_kb_update():
     })
 
 
+@app.route('/notion/setup', methods=['GET'])
+def notion_setup():
+    """Step 1: Redirect to Notion OAuth authorization page.
+    Visit this URL once to authorize the integration and get your NOTION_API_KEY.
+    """
+    if not NOTION_CLIENT_ID or not NOTION_REDIRECT_URI:
+        return (
+            '<h2>Notion OAuth not configured</h2>'
+            '<p>Set NOTION_CLIENT_ID and NOTION_REDIRECT_URI on Railway first.</p>'
+        ), 400
+    from urllib.parse import urlencode
+    params = urlencode({
+        'client_id': NOTION_CLIENT_ID,
+        'response_type': 'code',
+        'owner': 'user',
+        'redirect_uri': NOTION_REDIRECT_URI,
+    })
+    auth_url = f'https://api.notion.com/v1/oauth/authorize?{params}'
+    return f'<meta http-equiv="refresh" content="0;url={auth_url}"><a href="{auth_url}">Click here if not redirected</a>'
+
+
+@app.route('/notion/oauth/callback', methods=['GET'])
+def notion_oauth_callback():
+    """Step 2: Notion redirects here after authorization.
+    Exchanges the code for an access token and displays it to copy into Railway.
+    """
+    import base64
+    code  = request.args.get('code')
+    error = request.args.get('error')
+
+    if error:
+        return f'<h2>Authorization denied</h2><p>{error}</p>', 400
+    if not code:
+        return '<h2>No code returned from Notion</h2>', 400
+
+    credentials = base64.b64encode(
+        f'{NOTION_CLIENT_ID}:{NOTION_CLIENT_SECRET}'.encode()
+    ).decode()
+
+    resp = requests.post(
+        'https://api.notion.com/v1/oauth/token',
+        headers={
+            'Authorization': f'Basic {credentials}',
+            'Content-Type': 'application/json',
+        },
+        json={
+            'grant_type': 'authorization_code',
+            'code': code,
+            'redirect_uri': NOTION_REDIRECT_URI,
+        },
+        timeout=15,
+    )
+    data = resp.json()
+
+    if resp.status_code != 200:
+        return f'<h2>Token exchange failed</h2><pre>{data}</pre>', 400
+
+    token = data.get('access_token', '')
+    workspace = data.get('workspace_name', '')
+    return f'''
+    <h2>Notion authorization successful</h2>
+    <p>Workspace: <strong>{workspace}</strong></p>
+    <p>Copy this token and add it to Railway as <code>NOTION_API_KEY</code>:</p>
+    <textarea rows="3" cols="80" onclick="this.select()">{token}</textarea>
+    <p><strong>Done.</strong> Once added to Railway and redeployed, the integration is live.
+    You will not need to do this again — Notion tokens do not expire.</p>
+    '''
+
+
 @app.route('/health', methods=['GET'])
 def health():
     """Simple health check for Railway uptime monitoring."""
@@ -624,6 +826,9 @@ def health():
         'slack_bot_token_set': bool(SLACK_BOT_TOKEN),
         'support_channel_id': SUPPORT_CHANNEL_ID or None,
         'release_channel_id': RELEASE_CHANNEL_ID or None,
+        'notion_api_key_set': bool(NOTION_API_KEY),
+        'notion_release_notes_page_id': NOTION_RELEASE_NOTES_PAGE_ID,
+        'notion_announcements_page_id': NOTION_ANNOUNCEMENTS_PAGE_ID,
         'env_keys': [k for k in os.environ if 'ANTHROPIC' in k or 'API' in k],
     })
 
