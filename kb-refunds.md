@@ -310,20 +310,20 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 
 **Title:** Order Not Received — Restaurant Was Closed, Pickup, Customer Reports After the Fact
 **Issue Type:** Order Issues
-**Situation:** Customer contacts CS on a different day to report their pickup order was never received because the restaurant was closed.
+**Situation:** Customer contacts Support on a different day to report that their pickup order was never received because the restaurant was closed.
 **Resolution:**
 1. Check order status in Sauce Dashboard:
-   - **Canceled** → move to Refund Request for refund directly.
+   - **Canceled** → move to Refunds Reqest
    - **Overdue / Completed / Unknown** → call the restaurant and ask if they were open or closed. Explain customer is requesting a refund.
 
 **If restaurant answers:**
-- Restaurant approves refund → move to Refund Request.
+- Restaurant approves refund → move to Refunds Request.
 - Restaurant denies refund → send **Refund Denial** template to customer and close ticket.
 
-**If restaurant does not answer:**
+**If the restaurant does not answer:**
 - Send the restaurant an email + SMS.
 - Leave ticket in **Pending B2B** and continue reaching out.
-- After 3 days with no response → send to Refund Request with documentation of outreach attempts.
+- After 3 days with no response → send to ePayments with documentation of outreach attempts.
 
 **Exceptions:** No-answer after 3 days = escalate to ePayments with documented outreach.
 **Approval Required:** Yes — restaurant confirmation required, or 3-day escalation path.
@@ -331,28 +331,28 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 
 ---
 
-## Entry 14: Order Not Received — Restaurant Was Closed (Real-Time)
+## Entry 14: Order Not Received — Restaurant Was Closed, Real-Time Report (Pickup or Delivery)
 
 **Title:** Order Not Received — Restaurant Was Closed, Real-Time Report (Pickup or Delivery)
 **Issue Type:** Order Issues
 **Situation:** Customer or delivery company reports in real time that the restaurant appears to be closed.
 **Resolution:**
 1. Call the restaurant at least 3-4 times, at different times if possible, to verify closure.
-2. **If restaurant confirms they're open**: check if they prepared the specific order. Based on their response, either send refund denial or move to Refund Request.
+2. **If restaurant confirms they're open**: check if they prepared the specific order. Based on their response, either send a refund denial or move to Refund Request.
 3. **If restaurant does not answer**: treat the restaurant as closed.
-   - Close the restaurant until next opening hours on the Sauce Dashboard.
+   - Close the restaurant until the next opening hours on the Sauce Dashboard.
    - Send the restaurant the "Store Reported as Closed / Closed Resto" template and CC the CS owner.
    - Check for other open orders for the day — create tickets for those and check with each customer if they received their order.
-   - Move the original customer's ticket to ePayments for a refund.
+   - Move the original customer's ticket to Refund Request for a refund.
 4. **For delivery specifically**: if the end customer did NOT report it (you learned from the delivery company), confirm with the customer before moving to refunds.
 
-**Exceptions:** Delivery closure reported by delivery company (not customer) — must confirm with customer before creating refund ticket.
+**Exceptions:** Delivery closure reported by the delivery company (not the customer) — must confirm with the customer before creating a refund ticket.
 **Approval Required:** No — if restaurant confirmed closed (or no answer after multiple attempts).
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 15: ETA Issue — Delivery Order Was Late
+## Entry 15: ETA Complaint — Late Delivery
 
 **Title:** ETA Complaint — Late Delivery
 **Issue Type:** Order Issues
@@ -361,7 +361,7 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 
 **Key rule:** Refundable late = **15+ minutes past the Latest Delivery Time** shown on the tracking link (dropoff time — not pickup time). Dispatch V2 shows both a dynamic ETA and a fixed latest delivery time. Dispatch V1 shows dynamic ETA only.
 
-**If no driver is assigned or driver is far from pickup:**
+**If no driver is assigned or the driver is far from pickup:**
 - Uber/DoorDash → BaD to get a better driver.
 - Relay/Motoclick → ask them to assign a new driver.
 
@@ -370,35 +370,35 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 **Step 1 — Apply the correct tier based on what the customer is saying:**
 
 **Tier 0 — Bot auto-response**
-Customer selected "ETA seems too long" in the chatflow. Bot explains pre-order vs. live ETA and shows both times. If customer replies or is still concerned → move to Tier 1.
+The customer selected "ETA seems too long" in the chatflow. The bot explains pre-order vs. live ETA and shows both times. If the customer replies or is still concerned → move to Tier 1.
 
 **Tier 1 — ETA looks long or increased after ordering**
 Empathize and clarify how ETA recalculates. Use `#eta_explained` or `#eta_increasing`.
 - Check tracking. If driver inactive > 10 min → Tier 2. If normal → close politely.
 
-**Tier 2 — Driver appears stuck or going wrong direction**
-Customer says driver isn't moving or GPS is frozen. Use `#eta_driver_stuck`.
-- Verify in tracking. Contact courier or driver via Slack / Dispatch (`#dispatch-cc`). Update customer once confirmed.
+**Tier 2 — Driver appears stuck or going the wrong direction**
+Customer says the driver isn't moving or the GPS is frozen. Use `#eta_driver_stuck`.
+- Verify in tracking. Contact courier or driver via Slack / Dispatch (`#dispatch-cc`). Update the customer once confirmed.
 
 **Tier 3 — Customer says "it's late" but still within the policy window**
-ETA hasn't passed yet. Use `#eta_not_late_yet` or `#eta_late_definition` to show exact remaining time.
-- Re-check ETA. If still within window → close. If passed → Tier 4.
+ETA hasn't passed yet. Use `#eta_not_late_yet` or `#eta_late_definition` to show the exact remaining time.
+- Re-check ETA. If still within the window → close. If passed → Tier 4.
 
 **Tier 4 — ETA has passed, order not delivered**
-Use `#eta_late_delivery`. Apologize and confirm follow-up. Contact courier.
+Use `#eta_late_delivery`. Apologize and confirm follow-up. Contact the courier.
 - If > 15 min past Latest ETA → Tier 5.
 
 **Tier 5 — 15+ minutes past Latest ETA, order still in progress**
-Use `#eta_refund_referral`. Acknowledge lateness, set expectation for refund review. Monitor until delivery completes, then send to Refund Request.
+Use `#eta_refund_referral`. Acknowledge lateness and set expectations for refund review. Monitor until delivery completes, then send to Refund Request.
 
 **Tier 6 — Customer wants to cancel because of the delay (order already prepared/picked up)**
-Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not cancel if order is already prepared or picked up. Monitor until delivered, then refer to ePayments for possible refund.
+Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not cancel if the order is already prepared or picked up. Monitor until delivered, then refer to ePayments for possible refund.
 
 **Tier 7 — Special ETA conditions (long distance, pre-order, BYOC)**
 - Long distance → `#eta_long_distance`
 - Pre-order → `#eta_preorder`
 - BYOC (restaurant-managed delivery) → `#eta_byoc_explained`, contact restaurant if stalled. Escalate to Support + BO/CS.
-- Continue normal tracking; no escalation unless order is actually late.
+- Continue normal tracking; no escalation unless the order is actually late.
 
 ---
 
@@ -408,17 +408,17 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 - No refund request → empathize, reassure, follow tier above.
 - Refund request, order active → tell customer: once delivered, we'll send to Refund Request.
 - Refund request, order completed → check dropoff time only:
-  - 15+ min past Latest ETA → valid. Submit to ePayments.
-  - Under 15 min → tell customer it was delivered within estimated time. Cannot guarantee a refund, but we'll review with Payments Team. Send to Refund Request.
+  - 15+ min past Latest ETA → valid. Submit a Refund Request.
+  - Under 15 min → tell customer it was delivered within estimated time. Cannot guarantee a refund, but the Refunds team will review. Send to Refund Request.
 
 **Restaurant Delivery:**
-- CS cannot assist — restaurant handled the delivery and is responsible for any refund. Direct customer to the restaurant.
-- If restaurant is unresponsive → try calling ourselves. If no answer → leave on **Refund Ticket - Waiting on CC**, continue reaching out over the next few days.
+- CS cannot assist — the restaurant handled the delivery and is responsible for any refund—direct customer to the restaurant.
+- If the restaurant is unresponsive → try calling ourselves. If no answer → leave on Pending Refunds, continue reaching out over the next few days.
   - Restaurant approves → send to Refund Request.
   - Restaurant denies or never answers → tell customer we cannot assist, they must take it up with the restaurant.
 
 **Pickup:**
-- CS cannot help — we have no visibility into whether the order was ready on time. Ask customer to contact the store directly.
+- Support cannot help — we have no visibility into whether the order was ready on time. Ask the customer to contact the store directly.
 
 **Cancel Due to Delay:**
 - Follow the Cancel ASAP Order protocol (Entry 3).
@@ -435,13 +435,13 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Tone reminders:** Empathize first. Educate calmly — never assign blame. End with confidence, not open loops. Keep replies to 2–3 lines. Follow up proactively if delivery exceeds policy thresholds.
 
-**Exceptions:** Under 15 min late by dropoff time = not eligible for guaranteed refund. Restaurant delivery and pickup late orders are not CS's responsibility.
+**Exceptions:** Under 15 min late by dropoff time = not eligible for guaranteed refund. Restaurant delivery and pickup of late orders are not Support's responsibility.
 **Approval Required:** No for Sauce Dispatch. Yes (restaurant approval) for restaurant delivery refunds.
-**Last Updated:** 2026-02-26 — fully rebuilt from Process Notes + Confluence ETA Response Flow doc; removed broken links
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 15b: ETA Snippets — What to Say to the Customer
+## Entry 15b: ETA Complaint — Exact Snippet Text by Situation
 
 **Title:** ETA Complaint — Exact Snippet Text by Situation
 **Issue Type:** Order Issues
@@ -486,77 +486,77 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Exceptions:** None — use the snippet that matches the customer's specific situation.
 **Approval Required:** No.
-**Last Updated:** 2026-02-26 — extracted from Confluence Delivery ETA Snippets doc
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 16: ETA Issue — Pickup Order Was Late
+## Entry 16: ETA Complaint — Late Pickup
 
 **Title:** ETA Complaint — Late Pickup
 **Issue Type:** Order Issues
-**Situation:** Customer claims their pickup order was not ready on time.
+**Situation:** The customer claims their pickup order was not ready on time.
 **Resolution:**
-- CS cannot assist with late pickup orders — we have no visibility into whether the order was ready on time.
+- Support cannot assist with late pickup orders — we have no visibility into whether the order was ready on time.
 - Direct the customer to contact the restaurant directly for further assistance.
 
 **Exceptions:** None — this is a firm limitation.
 **Approval Required:** N/A
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 17: Order Arrived Early (Future Orders Only)
+## Entry 17: Order Delivered Earlier Than Scheduled
 
 **Title:** Order Delivered Earlier Than Scheduled
 **Issue Type:** Order Issues
-**Situation:** Customer complains their order was delivered earlier than the scheduled time. Only applies to future (pre-scheduled) orders.
+**Situation:** The customer complains that their order was delivered earlier than scheduled. Only applies to future (pre-scheduled) orders.
 **Resolution:**
-1. Check the Dispatch Service to confirm the order was actually delivered early.
-2. If the delivery provider is **DoorDash**: call DoorDash directly to request a refund over the phone.
-3. If the customer explicitly requests a refund/compensation: send ticket to Refund Request.
-4. If the customer is just reporting the issue without requesting a refund: apologize for the inconvenience and report the issue to the dispatch team. No refund ticket needed.
+1. Check the Dispatch Service to confirm the order was actually delivered early. The order must be 30 minutes early or more to qualify for a refund
+2. If the delivery provider is **DoorDash**: call DoorDash directly to request a refund over the phone. Ask them to email support@getsauce.com the refund confirmation.
+3. If the customer explicitly requests a refund/compensation, send a ticket to Refund Request.
+4. If the customer is just reporting the issue without requesting a refund, apologize for the inconvenience and report the issue to the dispatch team. No refund ticket needed.
 
 **Exceptions:** Does not apply to ASAP orders — ASAP means "as soon as possible" so there is no guaranteed time window.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 18: Excessive Wait Time (Driver-Side)
+## Entry 18: Excessive Wait Time — Driver Reported Delay
 
 **Title:** Excessive Wait Time — Driver Reported Delay
 **Issue Type:** Order Issues
 **Situation:** The delivery tracking was canceled or flagged because the store did not prepare the order on time.
 **Resolution:**
 1. Contact the store to confirm they are making the order and get an estimated ready time.
-2. BaD (book-a-driver) once the order will be ready.
+2. BaD (book-a-driver) for when the order will be ready.
 3. Update the customer on the delivery status proactively — make it clear the order has not been canceled.
 
 **Exceptions:** None documented.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 19: Driver App Issue — Order Shows Canceled
+## Entry 19: Order Shows Canceled — Driver App Issue
 
 **Title:** Order Shows Canceled — Driver App Issue
 **Issue Type:** Order Issues
-**Situation:** Delivery tracking shows canceled and the driver claims it was due to an app issue (couldn't mark order as completed). Customer may or may not have received the order.
+**Situation:** Delivery tracking shows canceled, and the driver claims it was due to an app issue (couldn't mark order as completed). The customer may or may not have received the order.
 **Resolution:**
-1. Contact the customer and confirm whether they actually received the order.
+1. Contact the customer and confirm whether they actually received the order.  Put ticket in Pending - B2C.
 2. If they **received** it: no action needed.
 3. If they **did not receive** it:
    - Check if a redelivery is possible, OR
-   - Process a refund if the customer doesn't want a redelivery.
+   - Submit a refund request if the customer doesn't want a redelivery.
 
-**Exceptions:** 99% of the time these orders were actually delivered — always confirm with the customer before assuming non-delivery.
+**Exceptions:** 99% of the time, these orders were actually delivered — always confirm with the customer before assuming non-delivery.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 20: Missing Item — Add-on or Ingredient
+## Entry 20: Missing Item — Add-on or Ingredient (e.g., Missing Sauce, Missing Avocado)
 
 **Title:** Missing Item — Add-on or Ingredient (e.g., Missing Sauce, Missing Avocado)
 **Issue Type:** Order Issues
@@ -568,112 +568,113 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 - Double-check location, name, and date before proceeding.
 
 **Step 2 — Request a photo:**
-- If photo provided → submit to ePayments (unless restaurant is on the restricted list).
-- If no photo → let the customer know a photo helps, but you'll forward the request to ePayments for review. Clarify refund is not guaranteed.
+- If photo provided → submit to Refund Request (unless restaurant is on the restricted list).
+- If no photo → let the customer know a photo helps, but you'll forward the request to the Refunds Team for review. Clarify refund is not guaranteed.
 
 **Step 3 — Restricted restaurant handling:**
-- If the restaurant handles their own refunds: call for approval. If no answer, send an email.
+- If the restaurant handles its own refunds, call for approval. If no answer, send an email.
 - Tell the customer exactly: *"We're checking with the restaurant for their approval. Once they respond, we'll follow their guidelines. If we don't hear back promptly, our management team may review it for you."*
 - Do NOT call restaurants that are NOT on the mandatory-approval list for minor ingredient issues.
 
 **Exceptions:** Restaurants on the restricted refund list require approval before sending to Refund Request.
 **Approval Required:** Only if restaurant is on restricted list.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 21: Missing Item — Standalone Main or Side Item
+## Entry 21: Missing Item — Standalone Main or Side Item (e.g., Missing Entire Pizza, Missing Combo Drink)
 
 **Title:** Missing Item — Standalone Main or Side Item (e.g., Missing Entire Pizza, Missing Combo Drink)
 **Issue Type:** Order Issues
-**Situation:** Customer reports a completely missing standalone item from their order (not an add-on). Examples: missing entire pizza, missing combo drink.
+**Situation:** Customer reports a completely missing standalone item from their order (not an add-on). Examples: missing an entire pizza, missing a combo drink.
 **Resolution:**
 **Step 1 — Confirm the item was ordered:**
 - Same as Entry 20 — check HubSpot or Slack `#orders`.
 
 **Step 2 — Request photo and verify:**
-- If item appears in the photo → let the customer know it's visible in the picture.
+- If the item appears in the photo → let the customer know it's visible in the picture.
 - If item does not appear in the photo, or no photo was provided → check the PoD image if available, then proceed.
 
 **Step 3 — Determine: Remake or Refund:**
 
 *Remake (Pickup or Restaurant Delivery):*
 1. Call the restaurant to find out if the item was sent or forgotten.
-2. If courier error → move ticket to Refund Request to compensate restaurant for remaking.
-3. If restaurant approves remake:
+If the restaurant admits to forgetting the item and the customer requests re-delivery, ask if we can send a driver to deliver it.
+2. If courier error → move ticket to Refund Request to compensate the restaurant for remaking.
+3. If the restaurant approves the remake:
    - Inform the customer.
-   - Pickup: customer can collect the missing item.
+   - Pickup: the customer can collect the missing item.
    - Delivery: request driver via Slack `#dispatch-cc` or BaD if unavailable.
 
 *Refund:*
 1. Confirm all order details and document in ticket notes.
 2. Move ticket to Refund Request (unless restaurant handles own refunds).
-3. If restaurant does their own deliveries: call for approval before sending to Refund Request.
+3. If the restaurant does its own deliveries, call for approval before sending to the Refund Request.
 
-**Exceptions:** Restaurant-delivered orders require mandatory restaurant call for approval (see Entry 22).
+**Exceptions:** Restaurant-delivered orders require a mandatory call to the restaurant for approval (see Entry 22).
 **Approval Required:** Depends — restaurant approval needed if on restricted list or restaurant handles delivery.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 22: Missing Item — Restaurant In-House Delivery
+## Entry 22: Missing Item — Restaurant Handles Their Own Delivery
 
 **Title:** Missing Item — Restaurant Handles Their Own Delivery
 **Issue Type:** Order Issues
 **Situation:** Customer reports a missing item on an order that was delivered by the restaurant's own drivers (not Uber/DoorDash/Relay).
 **Resolution:**
 - Calling the restaurant to get approval is **mandatory** before processing any refund for missing items on restaurant-delivered orders.
-- Do not submit to ePayments without restaurant confirmation.
+- Do not submit a Refund Request without restaurant confirmation.
 
-**Exceptions:** None — calling the restaurant is always required for in-house delivery missing item claims.
+**Exceptions:** None — calling the restaurant is always required for in-house delivery and missing item claims.
 **Approval Required:** Yes — restaurant approval required.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 23: Wrong Order or Wrong Item — Pickup
+## Entry 23: Wrong Order / Wrong Item Received — Pickup
 
 **Title:** Wrong Order / Wrong Item Received — Pickup
 **Issue Type:** Order Issues
-**Situation:** Customer received the wrong order or wrong item on a pickup order.
+**Situation:** The customer received the wrong order or the wrong item on a pickup order.
 **Resolution:**
 1. Ask for a photo of the order received.
 2. Compare the photo to the order details to confirm the complaint is valid.
-3. If complaint is confirmed valid → move ticket to Refund Request.
-4. If customer has no photo:
+3. If the complaint is confirmed valid → move the ticket to Refund Request.
+4. If the customer has no photo:
    - Thank them for the feedback.
    - If they explicitly ask for a refund: explain a photo is needed to proceed.
    - If they insist without a photo: move to Refund Request anyway — the ePayments team will decide whether to refund.
 
 **Special Case — Notes not followed (e.g., customer asked for no onions in order notes):**
-- Always direct customer to the restaurant directly. CS cannot guarantee restaurants follow order notes.
+- Always direct the customer to the restaurant directly. Sauce cannot guarantee restaurants follow order notes.
 
 **Note (internal):** Wrong ingredients (not missing, but wrong) → move to refunds without restaurant approval.
 
-**Exceptions:** If the customer did not follow up with a photo and insists, escalate to ePayments for final decision.
+**Exceptions:** If the customer did not follow up with a photo and insists, escalate to Refund Request for final decision.
 **Approval Required:** No — ePayments decides.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 
-## Entry 24: Wrong Order or Wrong Item — Delivery
+## Entry 24: Wrong Order / Wrong Item Received — Delivery
 
 **Title:** Wrong Order / Wrong Item Received — Delivery
 **Issue Type:** Order Issues
-**Situation:** Customer received the wrong order or wrong item on a delivery order.
+**Situation:** The customer received the wrong order or the wrong item on a delivery order.
 **Resolution:**
 1. Ask for a photo of the order received. Ideally, a photo of the receipt attached to the bag (helps determine if it was a restaurant or delivery error).
-2. Compare photo to order details to confirm the complaint is valid.
-3. Contact the delivery company (or ask dispatch team to contact them) for more information from the driver.
+2. Compare the photo to the order details to confirm the complaint is valid.
+3. Contact the delivery company (or ask the dispatch team to contact them) for more information from the driver.
 4. Check if the customer still wants the correct order:
    - **Does not want the food** → open a refund ticket for receiving the wrong order.
    - **Still wants the food** → check with the restaurant and BaD.
      - Restaurant remaking (original order no longer at store) → open a refund ticket for the restaurant (making food twice).
      - Restaurant not remaking (original order still at store) → no refund needed.
 
-**Exceptions:** None documented.
+**Exceptions:** A photo is required to validate any claim of a wrong item or wrong order.
 **Approval Required:** No (unless restaurant is on restricted list).
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-03-03 — updated
 
 ---
 

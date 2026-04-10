@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 8
+Entry count: 9
 
 ---
 
@@ -205,3 +205,59 @@ First, determine fault if unclear — ask Tier 2 to investigate. Fault matters f
 **Exceptions:** None.
 **Approval Required:** No.
 **Last Updated:** 2026-02-25 — extracted from Playbook
+
+
+---
+
+## Entry B2C-9: Sauce iOS App Version 1.0.9 Release
+
+**Title:** Sauce iOS App Version 1.0.9 — New Reorder Experience, Faster Checkout & Reliability Improvements
+
+**Issue Type:** Product Update / New Feature
+
+**Situation:** Reference this entry when a customer contacts support with questions about the Sauce iOS app version 1.0.9, including questions about the new reorder gallery, checkout flow changes, login/session persistence, deep linking issues, restaurant badging, or general "what's new" inquiries following the app update.
+
+**Resolution:**
+
+1. **Confirm the customer is on iOS and has updated to v1.0.9.**
+   - Ask: *"Could you confirm which version of the Sauce app you're using? You can find this in your App Store update history or on the App Store listing."*
+   - If they haven't updated yet, direct them to the App Store and note the update may take 24–48 hours to appear following Apple's review.
+
+2. **Reorder Tab / Scrollable Gallery Questions:**
+   - Explain that the Reorder tab has been redesigned with a scrollable gallery for quicker access to past meals.
+   - If the tab looks unchanged after updating, advise the customer to force-close the app and reopen it. If still unresolved, escalate to Tier 2.
+
+3. **Faster Checkout (Reorder Button Behavior Change):**
+   - Clarify that tapping "Reorder" now goes **directly to checkout**, skipping intermediate steps. This is intentional behavior in v1.0.9.
+   - If a customer is confused or frustrated by the change, acknowledge the adjustment and highlight that it is designed to save time.
+
+4. **Login / Session Persistence Issues:**
+   - In v1.0.9, users should remain signed in while browsing menus and reordering.
+   - If a customer reports being repeatedly logged out, confirm they are on v1.0.9. If confirmed and the issue persists, collect device details (iOS version, device model) and escalate to Tier 2 with a bug report.
+
+5. **Deep Linking Issues (Links Not Opening Correct Menu):**
+   - Deep linking has been improved in this version. If a customer reports a link not opening the correct menu page, first confirm they are on v1.0.9.
+   - If the issue continues after updating, gather the specific link/URL they are using and escalate to the technical team for investigation.
+
+6. **'Highly Rated' Badging / Popularity Scores:**
+   - Explain that restaurant popularity scores are now powered by real ratings data, and 'Highly Rated' badges reflect this improved data sourcing.
+   - If a restaurant owner contacts support about their badge status changing, escalate to the Restaurant Partner team — do not make manual badge adjustments.
+
+7. **Android / General Platform Questions:**
+   - This release (v1.0.9) is for **iOS (Apple App Store) only**. Direct Android users to check the Google Play Store for the latest available version separately.
+
+8. **General Bug Reports Post-Update:**
+   - Collect: app version, iOS version, device model, steps to reproduce, and any screenshots if available.
+   - Log the report and escalate to Tier 2 / engineering as appropriate.
+
+**Exceptions:**
+- This release is iOS-only. Do not apply this entry to Android-related queries.
+- Badge status for restaurant partners should never be manually adjusted by CS — always escalate.
+- App Store availability may be delayed up to 48 hours post-submission due to Apple's review process; set customer expectations accordingly.
+- Users on older iOS versions may not be able to update to v1.0.9 — advise them to check minimum iOS requirements in the App Store listing.
+
+**Approval Required:** No
+
+**Last Updated:** 2026-04-09 — added via product release workflow
+
+---
