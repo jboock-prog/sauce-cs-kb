@@ -7,6 +7,7 @@ A Slack bot that serves as a CS (Customer Support) knowledge base for Sauce, a r
 - **Single file server**: `server.py` (Flask)
 - **KB files**: 5 markdown files (`kb-general.md`, `kb-b2c.md`, `kb-b2b.md`, `kb-operations.md`, `kb-refunds.md`)
 - **Deployment**: Railway (Dockerfile + Procfile + nixpacks.toml)
+- **Production URL**: `https://web-production-52ef9.up.railway.app`
 - **Model**: `claude-sonnet-4-6`
 - **Dependencies**: flask, anthropic, requests (see `requirements.txt`)
 
@@ -63,8 +64,8 @@ Prefixes: `GEN-`, `B2C-`, `B2B-`, `OPS-`, numeric (refunds)
 
 ### What Still Needs To Be Done (MANUAL STEPS)
 1. **Slack App Configuration** (api.slack.com → your app):
-   - Add slash command `/release` → `https://<railway-domain>/slack/release`
-   - Add slash command `/kb-update` → `https://<railway-domain>/slack/kb-update`
+   - Add slash command `/release` → `https://web-production-52ef9.up.railway.app/slack/release`
+   - Add slash command `/kb-update` → `https://web-production-52ef9.up.railway.app/slack/kb-update`
    - Add `chat:write` OAuth scope to bot token
    - Reinstall app to workspace after scope change
 2. **Railway Environment Variables**:
