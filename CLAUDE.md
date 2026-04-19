@@ -16,7 +16,7 @@ A Slack bot that serves as a CS (Customer Support) knowledge base for Sauce, a r
 | `/slack/command` | POST | `/kb` slash command — query the KB |
 | `/slack/release` | POST | `/release` slash command — full product release workflow |
 | `/slack/kb-update` | POST | `/kb-update` slash command — shorter KB update + announcement |
-| `/query` | POST | Direct testing endpoint (no Slack auth) |
+| `/query` | POST | Query KB — returns structured JSON with answer + metadata (no Slack auth) |
 | `/test/release` | POST | Test release workflow — returns JSON (no Slack auth) |
 | `/test/kb-update` | POST | Test KB update workflow — returns JSON (no Slack auth) |
 | `/health` | GET | Railway health check |

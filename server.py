@@ -90,6 +90,20 @@ SYSTEM_PROMPT = build_system_prompt(KB_CONTENT)
 claude = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env automatically
 
 
+STRUCTURED_QUERY_PROMPT = SYSTEM_PROMPT + """
+
+IMPORTANT — when responding, also include a metadata block at the very end
+of your response using this exact format:
+
+===METADATA===
+entry_id: [The entry ID you cited, e.g. GEN-1, B2C-3, OPS-5, 14. Use "none" if no entry applies]
+entry_title: [The full title of the cited entry, or "N/A"]
+kb_file: [The source file: kb-general.md, kb-b2c.md, kb-b2b.md, kb-operations.md, or kb-refunds.md. Use "none" if no entry applies]
+approval_required: [yes/no based on the entry, or "unknown"]
+recommended_action: [One-line summary of the recommended next step for the agent]
+"""
+
+
 def query_claude(question: str) -> str:
     for attempt in range(3):
         try:
@@ -105,6 +119,39 @@ def query_claude(question: str) -> str:
                 time.sleep(2 ** attempt)  # 1s, 2s
                 continue
             raise
+
+
+def query_claude_structured(question: str) -> str:
+    """Like query_claude but with metadata block appended."""
+    for attempt in range(3):
+        try:
+            msg = claude.messages.create(
+                model=MODEL,
+                max_tokens=1280,
+                system=STRUCTURED_QUERY_PROMPT,
+                messages=[{'role': 'user', 'content': question}],
+            )
+            return msg.content[0].text
+        except anthropic.APIStatusError as e:
+            if e.status_code == 529 and attempt < 2:
+                time.sleep(2 ** attempt)
+                continue
+            raise
+
+
+def parse_query_metadata(response_text: str) -> dict:
+    """Extract metadata block from a structured query response."""
+    result = {'answer': response_text, 'metadata': {}}
+    tag = '===METADATA==='
+    if tag in response_text:
+        idx = response_text.index(tag)
+        result['answer'] = response_text[:idx].strip()
+        meta_text = response_text[idx + len(tag):].strip()
+        for line in meta_text.splitlines():
+            if ':' in line:
+                key, _, val = line.partition(':')
+                result['metadata'][key.strip()] = val.strip()
+    return result
 
 
 def query_claude_workflow(system_prompt: str, user_message: str) -> str:
@@ -478,16 +525,26 @@ def slack_command():
 
 @app.route('/query', methods=['POST'])
 def query():
-    """Direct POST endpoint for testing without Slack.
+    """Direct POST endpoint for testing and external integrations.
     Body: {"question": "your question"}
+    Returns structured response with answer + metadata (entry_id, kb_file, etc.)
     """
     data = request.get_json(silent=True) or {}
     question = data.get('question', '').strip()
     if not question:
         return jsonify({'ok': False, 'error': 'question is required'}), 400
     try:
-        answer = query_claude(question)
-        return jsonify({'ok': True, 'answer': answer})
+        raw = query_claude_structured(question)
+        parsed = parse_query_metadata(raw)
+        return jsonify({
+            'ok': True,
+            'answer': parsed['answer'],
+            'entry_id': parsed['metadata'].get('entry_id'),
+            'entry_title': parsed['metadata'].get('entry_title'),
+            'kb_file': parsed['metadata'].get('kb_file'),
+            'approval_required': parsed['metadata'].get('approval_required'),
+            'recommended_action': parsed['metadata'].get('recommended_action'),
+        })
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 500
 
