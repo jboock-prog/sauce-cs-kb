@@ -403,21 +403,6 @@
       gap: 10px;
     }
 
-    .btn-footer {
-      display: flex; align-items: center; gap: 7px;
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      border: none;
-      font-family: inherit; font-size: 13px; font-weight: 600;
-      cursor: pointer;
-      transition: opacity .12s;
-    }
-    .btn-footer:disabled { opacity: .4; cursor: not-allowed; }
-    .btn-footer:hover:not(:disabled) { opacity: .85; }
-
-    .btn-build { background: var(--navy); color: white; }
-    .btn-commit { background: var(--orange); color: white; }
-
     .footer-status {
       margin-left: auto;
       font-size: 12px; color: var(--text-muted);
@@ -447,61 +432,6 @@
     @keyframes slideIn {
       from { opacity: 0; transform: translateX(20px); }
       to   { opacity: 1; transform: translateX(0); }
-    }
-
-    /* ─── Modal ─── */
-
-    #modal-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.45);
-      z-index: 9000;
-      align-items: center; justify-content: center;
-    }
-    #modal-overlay.visible { display: flex; }
-
-    .modal {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 28px;
-      width: 420px;
-      box-shadow: 0 8px 32px rgba(0,0,0,.2);
-    }
-    .modal h3 {
-      font-size: 16px; font-weight: 700; color: var(--navy);
-      margin-bottom: 8px;
-    }
-    .modal p {
-      font-size: 13px; color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-    .modal textarea {
-      width: 100%; padding: 10px 12px;
-      border: 1.5px solid var(--grey-border);
-      border-radius: var(--radius-sm);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13px; resize: none; outline: none;
-      transition: border-color .12s;
-    }
-    .modal textarea:focus { border-color: var(--orange); }
-    .modal-actions {
-      display: flex; gap: 10px; justify-content: flex-end;
-      margin-top: 16px;
-    }
-    .btn-modal-cancel {
-      padding: 8px 14px;
-      border: 1.5px solid var(--grey-border);
-      border-radius: var(--radius-sm);
-      background: var(--white); color: var(--text-muted);
-      font-family: inherit; font-size: 13px; font-weight: 600;
-      cursor: pointer;
-    }
-    .btn-modal-confirm {
-      padding: 8px 18px;
-      border: none; border-radius: var(--radius-sm);
-      background: var(--orange); color: white;
-      font-family: inherit; font-size: 13px; font-weight: 700;
-      cursor: pointer;
     }
 
     /* ─── Scrollbar styling ─── */
@@ -627,35 +557,9 @@
 
   <!-- FOOTER -->
   <footer id="footer">
-    <button class="btn-footer btn-build" id="btn-build">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M2 7l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Build Query Interface
-    </button>
-    <button class="btn-footer btn-commit" id="btn-commit">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <circle cx="7" cy="7" r="2.5" stroke="currentColor" stroke-width="1.8"/>
-        <path d="M1 7h3.2M9.8 7H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
-      Commit &amp; Push
-    </button>
     <span class="footer-status" id="footer-status"></span>
   </footer>
 
-</div>
-
-<!-- COMMIT MODAL -->
-<div id="modal-overlay">
-  <div class="modal">
-    <h3>Commit &amp; Push to GitHub</h3>
-    <p>All staged KB file changes will be committed and pushed to origin/main.</p>
-    <textarea id="commit-msg" rows="3" placeholder="Update KB entries — refunds, b2c…"></textarea>
-    <div class="modal-actions">
-      <button class="btn-modal-cancel" id="modal-cancel">Cancel</button>
-      <button class="btn-modal-confirm" id="modal-confirm">Commit &amp; Push</button>
-    </div>
-  </div>
 </div>
 
 <!-- TOAST CONTAINER -->
@@ -1032,79 +936,6 @@
     state.files = data.files;
   }
 
-  // ─── Build ────────────────────────────────────────────────────────────────
-
-  async function runBuild() {
-    $('btn-build').disabled = true;
-    footerStatus.textContent = 'Building…';
-    try {
-      const res = await fetch('/api/build', { method: 'POST' });
-      const data = await res.json();
-      if (data.ok) {
-        toast('Build successful! index.built.html updated.', 'success');
-        footerStatus.textContent = 'Build OK';
-      } else {
-        toast('Build failed — see details.', 'error', 5000);
-        alert('Build failed:\n\n' + (data.stderr || data.stdout || 'Unknown error'));
-        footerStatus.textContent = 'Build failed';
-      }
-    } catch (e) {
-      toast('Build error: ' + e.message, 'error', 5000);
-      footerStatus.textContent = 'Build error';
-    } finally {
-      $('btn-build').disabled = false;
-    }
-  }
-
-  // ─── Git commit ───────────────────────────────────────────────────────────
-
-  function openCommitModal() {
-    $('commit-msg').value = `Update KB entries — ${new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}`;
-    $('modal-overlay').classList.add('visible');
-    setTimeout(() => $('commit-msg').select(), 50);
-  }
-
-  function closeModal() {
-    $('modal-overlay').classList.remove('visible');
-  }
-
-  async function doCommit() {
-    const message = $('commit-msg').value.trim();
-    if (!message) { toast('Commit message required.', 'error'); return; }
-
-    closeModal();
-    $('btn-commit').disabled = true;
-    footerStatus.textContent = 'Pushing…';
-
-    try {
-      const res = await fetch('/api/git/commit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        if (data.info) {
-          toast(data.info, 'info');
-          footerStatus.textContent = 'Nothing to push';
-        } else {
-          toast('Pushed to GitHub.', 'success');
-          footerStatus.textContent = 'Pushed ✓';
-        }
-      } else {
-        const stage = data.stage ? `[${data.stage}] ` : '';
-        toast(`Git ${data.stage || 'error'} failed — see details.`, 'error', 5000);
-        alert(`${stage}Git error:\n\n${data.error}`);
-        footerStatus.textContent = 'Push failed';
-      }
-    } catch (e) {
-      toast('Commit error: ' + e.message, 'error', 5000);
-      footerStatus.textContent = 'Push error';
-    } finally {
-      $('btn-commit').disabled = false;
-    }
-  }
-
   // ─── Event wiring ─────────────────────────────────────────────────────────
 
   // Form change tracking
@@ -1142,17 +973,6 @@
     });
   });
   btnDelete.addEventListener('click', deleteEntry);
-
-  // Footer
-  $('btn-build').addEventListener('click', runBuild);
-  $('btn-commit').addEventListener('click', openCommitModal);
-
-  // Modal
-  $('modal-cancel').addEventListener('click', closeModal);
-  $('modal-confirm').addEventListener('click', doCommit);
-  $('modal-overlay').addEventListener('click', e => {
-    if (e.target === $('modal-overlay')) closeModal();
-  });
 
   // ─── Helpers ─────────────────────────────────────────────────────────────
 
