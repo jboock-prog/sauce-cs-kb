@@ -7,6 +7,7 @@ Reads KB markdown files, injects content into index.html, writes index.built.htm
 import json
 import os
 import re
+import sys
 
 DOCS_DIR = os.path.join(os.path.dirname(__file__), '..')
 TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), 'index.html')
@@ -38,8 +39,8 @@ def main():
         print(f'  Loaded {filename}')
 
     if not sections:
-        print('ERROR: No KB files loaded. Check that the repo root contains the KB markdown files.')
-        return
+        print('ERROR: No KB files loaded. Check that the KB markdown files exist at the repo root.')
+        sys.exit(1)
 
     kb_content = SEPARATOR.join(sections)
 
@@ -49,14 +50,14 @@ def main():
     # Read index.html template
     if not os.path.exists(TEMPLATE_PATH):
         print(f'ERROR: index.html not found at {TEMPLATE_PATH}')
-        return
+        sys.exit(1)
 
     with open(TEMPLATE_PATH, 'r', encoding='utf-8') as f:
         template = f.read()
 
     if PLACEHOLDER not in template:
         print(f'ERROR: {PLACEHOLDER} not found in index.html')
-        return
+        sys.exit(1)
 
     # Replace placeholder with JSON-escaped KB content
     # json.dumps produces a valid JS string literal (with surrounding quotes)
