@@ -203,10 +203,37 @@ function getOctokit() {
   return _octokitInstance;
 }
 
+async function loadKbFile(octokit, cfg, filename) {
+  const { data } = await octokit.rest.repos.getContent({
+    owner: cfg.owner, repo: cfg.repo, path: filename, ref: cfg.branch,
+  });
+  if (data.type !== 'file') throw new Error('Path is not a file');
+  const content = Buffer.from(data.content, 'base64').toString('utf-8');
+  return { ...parseKbFile(content), sha: data.sha };
+}
+
+async function commitKbFile(octokit, cfg, { filename, header, entries, sha, message }) {
+  const newContent = serializeKbFile(header, entries);
+  await octokit.rest.repos.createOrUpdateFileContents({
+    owner: cfg.owner, repo: cfg.repo, path: filename, branch: cfg.branch,
+    message,
+    content: Buffer.from(newContent, 'utf-8').toString('base64'),
+    sha,
+  });
+}
+
+function mapWriteError(e, verb) {
+  if (e.status === 401 || e.status === 403) return { status: 500, msg: 'Auth failure' };
+  if (e.status === 404) return { status: 404, msg: 'Not found' };
+  if (e.status === 409) return { status: 409, msg: 'Conflict — file changed since read' };
+  return { status: 500, msg: `${verb} failed` };
+}
+
 module.exports = {
   parseEntry, parseKbFile,
   serializeEntry, serializeKbFile,
   stripInternal, nextEntryId,
   readBody,
   getOctokit, getOctokitConfig,
+  loadKbFile, commitKbFile, mapWriteError,
 };
