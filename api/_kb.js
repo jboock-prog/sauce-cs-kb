@@ -179,9 +179,34 @@ function readBody(req) {
   });
 }
 
+function getOctokitConfig() {
+  const required = ['GITHUB_TOKEN', 'GITHUB_OWNER', 'GITHUB_REPO', 'GITHUB_BRANCH'];
+  const missing = required.filter(k => !process.env[k]);
+  if (missing.length) {
+    throw new Error(`Missing env vars: ${missing.join(', ')}`);
+  }
+  return {
+    owner: process.env.GITHUB_OWNER,
+    repo: process.env.GITHUB_REPO,
+    branch: process.env.GITHUB_BRANCH,
+    token: process.env.GITHUB_TOKEN,
+  };
+}
+
+let _octokitInstance = null;
+function getOctokit() {
+  if (!_octokitInstance) {
+    const { Octokit } = require('@octokit/rest');
+    const cfg = getOctokitConfig();
+    _octokitInstance = new Octokit({ auth: cfg.token });
+  }
+  return _octokitInstance;
+}
+
 module.exports = {
   parseEntry, parseKbFile,
   serializeEntry, serializeKbFile,
   stripInternal, nextEntryId,
   readBody,
+  getOctokit, getOctokitConfig,
 };
