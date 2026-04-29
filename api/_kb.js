@@ -155,6 +155,9 @@ function nextEntryId(entries) {
   const nums = [];
   let prefix = '';
   for (const e of entries) {
+    // Diverges from Python admin_server.py to handle alphanumeric prefixes (e.g. "B2B-").
+    // The Python version (regex /^([A-Z]+-)?(\d+)[a-z]?$/) is being deprecated by this
+    // Vercel migration — admin_server.py will not be used in production.
     const m = e.raw_id.match(/^((?:[A-Z0-9]+-)+)?(\d+)[a-z]?$/);
     if (m) {
       prefix = m[1] || '';

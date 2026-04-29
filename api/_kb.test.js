@@ -70,6 +70,35 @@ describe('parseKbFile', () => {
     assert.equal(entries.length, 1);
     assert.equal(entries[0].raw_id, '5');
   });
+
+  it('reassembles entries that contain --- in their body', () => {
+    const fileWithDividerInEntry = `# KB Test
+
+Entry count: 1
+
+---
+
+## Entry 1: Entry With Divider
+
+**Title:** Entry With Divider
+**Issue Type:** General / Other
+**Situation:** Test situation.
+**Resolution:**
+First section.
+
+---
+
+Second section after a divider.
+**Exceptions:** None
+**Approval Required:** No
+**Last Updated:** 2026-01-15 — source`;
+
+    const { entries } = parseKbFile(fileWithDividerInEntry);
+    assert.equal(entries.length, 1, 'should reassemble into a single entry');
+    assert.ok(entries[0].resolution.includes('First section'));
+    assert.ok(entries[0].resolution.includes('Second section'));
+    assert.ok(entries[0].resolution.includes('---'));
+  });
 });
 
 describe('serializeEntry', () => {
@@ -127,5 +156,36 @@ describe('nextEntryId', () => {
   it('preserves prefix', () => {
     const entries = [{ raw_id: 'B2B-4' }, { raw_id: 'B2B-9' }];
     assert.equal(nextEntryId(entries), 'B2B-10');
+  });
+});
+
+describe('extra_fields round-trip', () => {
+  it('parses and serializes extra fields like Critical Rule', () => {
+    const entryWithExtra = `## Entry 7: Entry With Extras
+
+**Title:** Entry With Extras
+**Issue Type:** Operations
+**Situation:** Test.
+**Resolution:** Step 1.
+**Critical Rule:** Always check this first.
+**Exceptions:** None
+**Approval Required:** No
+**Reference:** https://example.com/doc
+**Last Updated:** 2026-01-15 — source`;
+
+    const e = parseEntry(entryWithExtra);
+    assert.equal(e.extra_fields.length, 2);
+    assert.equal(e.extra_fields[0].label, 'Critical Rule');
+    assert.equal(e.extra_fields[0].value, 'Always check this first.');
+    assert.equal(e.extra_fields[1].label, 'Reference');
+
+    // Round-trip via _raw should be byte-identical
+    assert.equal(serializeEntry(e), entryWithExtra);
+
+    // Round-trip without _raw should preserve both extras
+    delete e._raw;
+    const out = serializeEntry(e);
+    assert.ok(out.includes('**Critical Rule:** Always check this first.'));
+    assert.ok(out.includes('**Reference:** https://example.com/doc'));
   });
 });
