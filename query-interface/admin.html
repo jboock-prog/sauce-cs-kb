@@ -660,7 +660,7 @@
     try {
       const res = await fetch('/api/entries');
       const data = await res.json();
-      if (!data.ok) throw new Error(data.error);
+      if (!data.files) throw new Error(data.error || 'No files returned');
       state.files = data.files;
       renderSidebar();
       totalCount.textContent = totalEntries();
@@ -932,7 +932,7 @@
   async function reloadFile(filename) {
     const res = await fetch('/api/entries');
     const data = await res.json();
-    if (!data.ok) throw new Error(data.error);
+    if (!data.files) throw new Error(data.error || 'No files returned');
     state.files = data.files;
   }
 
