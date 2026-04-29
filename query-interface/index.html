@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sauce CS Knowledge Base</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0F1B2D;
+      --navy-light: #1A2F4A;
+      --orange:     #FF6B35;
+      --orange-bg:  #FFF0EA;
+      --orange-dim: #FFD5C2;
+      --grey-bg:    #F2F2F0;
+      --grey-border:#E0DDD8;
+      --text:       #1A1A1A;
+      --text-muted: #7A7A7A;
+      --white:      #FFFFFF;
+      --gap-bg:     #FFFBEB;
+      --gap-border: #F59E0B;
+      --gap-text:   #92400E;
+      --radius:     12px;
+      --radius-sm:  8px;
+      --shadow:     0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #F5F4F1;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── SETUP SCREEN ─── */
+    #setup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .setup-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 16px 48px rgba(0,0,0,.10);
+    }
+
+    .setup-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .setup-logo .dot {
+      width: 32px;
+      height: 32px;
+      background: var(--orange);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .setup-logo .dot svg { fill: white; width: 18px; height: 18px; }
+
+    .setup-logo span {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.3px;
+    }
+
+    .setup-card h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .setup-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+      letter-spacing: 0.2px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      padding: 12px 44px 12px 14px;
+      border: 1.5px solid var(--grey-border);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--text);
+      background: #FAFAF8;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+
+    .input-wrap input:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255,107,53,.12);
+      background: var(--white);
+    }
+
+    .toggle-eye {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-eye:hover { color: var(--text); }
+
+    .setup-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .setup-hint a { color: var(--orange); text-decoration: none; }
+    .setup-hint a:hover { text-decoration: underline; }
+
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background .15s, transform .1s;
+    }
+
+    .btn-primary:hover { background: var(--navy-light); }
+    .btn-primary:active { transform: scale(0.99); }
+
+    /* ─── MAIN CHAT APP ─── */
+    #app {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      background: var(--navy);
+      padding: 0 20px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-dot {
+      width: 26px;
+      height: 26px;
+      background: var(--orange);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .header-dot svg { fill: white; width: 14px; height: 14px; }
+
+    header h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.2px;
+    }
+
+    .header-kb-count {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.55);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, color .15s;
+      position: relative;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.9);
+    }
+
+    .icon-btn svg { width: 18px; height: 18px; }
+
+    /* Corrections badge */
+    .corrections-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: var(--orange);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 99px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+      pointer-events: none;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* Messages area */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scroll-behavior: smooth;
+    }
+
+    #messages::-webkit-scrollbar { width: 5px; }
+    #messages::-webkit-scrollbar-track { background: transparent; }
+    #messages::-webkit-scrollbar-thumb { background: var(--grey-border); border-radius: 99px; }
+
+    /* Empty state */
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      gap: 12px;
+    }
+
+    .empty-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--orange-bg);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+
+    .empty-icon svg { width: 28px; height: 28px; fill: var(--orange); }
+
+    .empty-state h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.3px;
+    }
+
+    .empty-state p { font-size: 14px; max-width: 320px; }
+
+    .pill-hints {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .pill-hint {
+      background: var(--white);
+      border: 1.5px solid var(--grey-border);
+      border-radius: 99px;
+      padding: 6px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color .15s, color .15s, background .15s;
+    }
+
+    .pill-hint:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: var(--orange-bg);
+    }
+
+    /* Message bubbles */
+    .msg-row {
+      display: flex;
+      animation: fadeUp .2s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg-row.user { justify-content: flex-end; }
+    .msg-row.assistant { justify-content: flex-start; }
+
+    .bubble {
+      max-width: 78%;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: 14.5px;
+      line-height: 1.65;
+    }
+
+    .msg-row.user .bubble {
+      background: var(--orange-bg);
+      border: 1.5px solid var(--orange-dim);
+      color: var(--text);
+      border-bottom-right-radius: 4px;
+      font-weight: 500;
+    }
+
+    .msg-row.assistant .bubble {
+      background: var(--white);
+      border: 1.5px solid var(--grey-border);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .bubble .answer-body { display: block; }
+
+    .bubble .source-line {
+      display: block;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--grey-border);
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .bubble .source-line strong {
+      color: var(--orange);
+      font-weight: 500;
+    }
+
+    /* ─── EDIT BUTTON ─── */
+    .edit-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--white);
+      border: 1.5px solid var(--grey-border);
+      border-radius: 6px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      opacity: 0;
+      transition: opacity .15s, border-color .15s, color .15s;
+    }
+
+    .msg-row.assistant .bubble:hover .edit-btn { opacity: 1; }
+    .edit-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* Always show on touch */
+    @media (hover: none) {
+      .edit-btn { opacity: 1; }
+    }
+
+    /* ─── EDIT MODE ─── */
+    .bubble.editing {
+      background: #FAFAF8;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255,107,53,.10);
+      max-width: 98%;
+      width: 98%;
+    }
+
+    .edit-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--orange);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .edit-textarea {
+      width: 100%;
+      border: 1.5px solid var(--grey-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      resize: vertical;
+      min-height: 300px;
+      transition: border-color .15s;
+    }
+
+    .edit-textarea:focus {
+      border-color: var(--orange);
+    }
+
+    .edit-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      justify-content: flex-end;
+    }
+
+    .btn-cancel-edit {
+      padding: 7px 14px;
+      background: none;
+      border: 1.5px solid var(--grey-border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .btn-cancel-edit:hover { background: var(--grey-bg); color: var(--text); }
+
+    .btn-save-edit {
+      padding: 7px 14px;
+      background: var(--navy);
+      border: none;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .btn-save-edit:hover { background: var(--navy-light); }
+
+    /* ─── EDITED BADGE ─── */
+    .edited-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--orange);
+      background: var(--orange-bg);
+      border: 1px solid var(--orange-dim);
+      border-radius: 4px;
+      padding: 1px 6px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* Gap warning */
+    .gap-warning {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--gap-bg);
+      border: 1.5px solid var(--gap-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--gap-text);
+    }
+
+    .gap-warning .gap-icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+
+    /* Typing indicator */
+    .typing-bubble {
+      background: var(--white);
+      border: 1.5px solid var(--grey-border);
+      border-radius: var(--radius);
+      border-bottom-left-radius: 4px;
+      padding: 14px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .typing-bubble span {
+      width: 7px;
+      height: 7px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      display: inline-block;
+      animation: bounce .9s infinite ease-in-out;
+    }
+
+    .typing-bubble span:nth-child(1) { animation-delay: 0s; }
+    .typing-bubble span:nth-child(2) { animation-delay: .15s; }
+    .typing-bubble span:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: .5; }
+      30%            { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* Input area */
+    #input-area {
+      padding: 16px 20px 20px;
+      background: #F5F4F1;
+      flex-shrink: 0;
+      border-top: 1px solid var(--grey-border);
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      background: var(--white);
+      border: 1.5px solid var(--grey-border);
+      border-radius: 14px;
+      padding: 8px 8px 8px 16px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+
+    .input-row:focus-within {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255,107,53,.10);
+    }
+
+    #question {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text);
+      resize: none;
+      line-height: 1.5;
+      max-height: 120px;
+      min-height: 28px;
+      padding: 4px 0;
+    }
+
+    #question::placeholder { color: var(--text-muted); }
+
+    #send-btn {
+      width: 38px;
+      height: 38px;
+      background: var(--orange);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .15s, transform .1s;
+    }
+
+    #send-btn:hover { background: #E85A26; }
+    #send-btn:active { transform: scale(0.95); }
+    #send-btn:disabled { background: var(--grey-border); cursor: not-allowed; }
+    #send-btn svg { fill: white; width: 16px; height: 16px; }
+
+    .input-hint {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Settings modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: modalIn .2s ease both;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      padding: 11px;
+      background: var(--grey-bg);
+      border: 1.5px solid var(--grey-border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .btn-secondary:hover { background: #E8E6E2; }
+
+    .btn-save {
+      flex: 1;
+      padding: 11px;
+      background: var(--navy);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .btn-save:hover { background: var(--navy-light); }
+
+    /* ─── CORRECTIONS PANEL ─── */
+    .corrections-modal {
+      max-width: 580px;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 80px);
+    }
+
+    .corrections-modal-head {
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid var(--grey-border);
+      flex-shrink: 0;
+    }
+
+    .corrections-modal-head h2 {
+      margin-bottom: 4px;
+    }
+
+    .corrections-modal-head p {
+      margin-bottom: 0;
+    }
+
+    .corrections-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 28px;
+    }
+
+    .corrections-list::-webkit-scrollbar { width: 4px; }
+    .corrections-list::-webkit-scrollbar-thumb { background: var(--grey-border); border-radius: 99px; }
+
+    .corrections-empty {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .corrections-empty svg { fill: var(--grey-border); width: 40px; height: 40px; display: block; margin: 0 auto 12px; }
+
+    .correction-item {
+      border: 1.5px solid var(--grey-border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .correction-item:last-child { margin-bottom: 0; }
+
+    .correction-question {
+      padding: 10px 14px;
+      background: var(--grey-bg);
+      border-bottom: 1px solid var(--grey-border);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .correction-question span {
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-right: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .correction-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .correction-col {
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .correction-col + .correction-col {
+      border-left: 1px solid var(--grey-border);
+    }
+
+    .correction-col-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .correction-col:first-child .correction-col-label { color: var(--text-muted); }
+    .correction-col:last-child .correction-col-label { color: var(--orange); }
+
+    .correction-col:first-child { color: var(--text-muted); }
+    .correction-col:last-child { color: var(--text); }
+
+    .correction-meta {
+      padding: 8px 14px;
+      border-top: 1px solid var(--grey-border);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'DM Mono', monospace;
+      background: var(--grey-bg);
+    }
+
+    .corrections-footer {
+      padding: 16px 28px;
+      border-top: 1px solid var(--grey-border);
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn-danger {
+      flex: 1;
+      padding: 11px;
+      background: none;
+      border: 1.5px solid #FCA5A5;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: #DC2626;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .btn-danger:hover { background: #FEF2F2; }
+
+    @media (max-width: 500px) {
+      .correction-cols { grid-template-columns: 1fr; }
+      .correction-col + .correction-col { border-left: none; border-top: 1px solid var(--grey-border); }
+      .corrections-modal { max-width: 100%; }
+    }
+
+    /* Error toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #DC2626;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 200;
+      transition: transform .3s ease;
+      white-space: nowrap;
+      max-width: calc(100vw - 40px);
+      text-align: center;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 600px) {
+      .setup-card { padding: 32px 24px; }
+      .bubble { max-width: 92%; }
+      header h1 { font-size: 14px; }
+      .header-kb-count { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── SETUP SCREEN ─── -->
+<div id="setup">
+  <div class="setup-card">
+    <div class="setup-logo">
+      <div class="dot">
+        <svg viewBox="0 0 20 20"><path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg>
+      </div>
+      <span>Sauce CS</span>
+    </div>
+    <h1>Knowledge Base</h1>
+    <p>Enter your Anthropic API key to start querying CS policies in real time.</p>
+    <label class="input-label" for="api-key-field">Anthropic API Key</label>
+    <div class="input-wrap">
+      <input type="password" id="api-key-field" placeholder="sk-ant-api03-..." autocomplete="off" spellcheck="false">
+      <button class="toggle-eye" onclick="toggleEye()" title="Show/hide key">
+        <svg id="eye-icon" viewBox="0 0 20 20" width="18" height="18" fill="currentColor">
+          <path d="M10 4C5.5 4 1.7 6.9 0 10c1.7 3.1 5.5 6 10 6s8.3-2.9 10-6c-1.7-3.1-5.5-6-10-6zm0 10a4 4 0 110-8 4 4 0 010 8zm0-6a2 2 0 100 4 2 2 0 000-4z"/>
+        </svg>
+      </button>
+    </div>
+    <p class="setup-hint">Get your key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>. Stored locally in your browser only.</p>
+    <button class="btn-primary" onclick="saveKey()">
+      <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M9 12l-4-4 1.4-1.4L9 9.2l6.6-6.6L17 4l-8 8z"/></svg>
+      Get Started
+    </button>
+  </div>
+</div>
+
+<!-- ─── MAIN APP ─── -->
+<div id="app">
+  <header>
+    <div class="header-left">
+      <div class="header-dot">
+        <svg viewBox="0 0 20 20"><path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg>
+      </div>
+      <h1>Sauce CS Knowledge Base</h1>
+      <span class="header-kb-count" id="kb-count"></span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="clearChat()" title="Clear chat">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 3H7L6 4H3v2h14V4h-3l-1-1H9zM5 7l1 10h8l1-10H5z"/></svg>
+      </button>
+      <button class="icon-btn" id="corrections-btn" onclick="openCorrectionsPanel()" title="Correction log">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
+      </button>
+      <button class="icon-btn" onclick="openSettings()" title="Settings">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M11.5 2h-3l-.5 2.1a6 6 0 00-1.5.9L4.4 4 2 7l1.6 1.4A6.2 6.2 0 003.5 10a6.2 6.2 0 00.1 1.6L2 13l2.4 3 2.1-1a6 6 0 001.5.9l.5 2.1h3l.5-2.1a6 6 0 001.5-.9l2.1 1 2.4-3-1.6-1.4a6.2 6.2 0 00.1-1.6 6.2 6.2 0 00-.1-1.6L18 7l-2.4-3-2.1 1a6 6 0 00-1.5-.9L11.5 2zM10 7a3 3 0 110 6 3 3 0 010-6z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="messages">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">
+        <svg viewBox="0 0 28 28"><path d="M14 2C7.37 2 2 7.37 2 14s5.37 12 12 12 12-5.37 12-12S20.63 2 14 2zm1 17h-2v-7h2v7zm0-9h-2V8h2v2z"/></svg>
+      </div>
+      <h2>Ask a policy question</h2>
+      <p>Type any question an agent might ask during a live ticket — get a grounded answer with the policy source.</p>
+      <div class="pill-hints">
+        <div class="pill-hint" onclick="useHint(this)">Customer says item is missing</div>
+        <div class="pill-hint" onclick="useHint(this)">How do I cancel an ASAP order?</div>
+        <div class="pill-hint" onclick="useHint(this)">Customer wants a tip refund</div>
+        <div class="pill-hint" onclick="useHint(this)">Restaurant asking to disable their store</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="input-area">
+    <div class="input-row">
+      <textarea id="question" placeholder="Ask a policy question..." rows="1"></textarea>
+      <button id="send-btn" onclick="sendMessage()" title="Send (Enter)">
+        <svg viewBox="0 0 16 16"><path d="M1.5 1.5l13 6.5-13 6.5V9.5l9-1.5-9-1.5V1.5z"/></svg>
+      </button>
+    </div>
+    <p class="input-hint">Press Enter to send · Shift+Enter for new line</p>
+  </div>
+</div>
+
+<!-- ─── SETTINGS MODAL ─── -->
+<div class="modal-overlay" id="settings-modal" onclick="closeSettingsOutside(event)">
+  <div class="modal">
+    <h2>Update API Key</h2>
+    <p>Replace your Anthropic API key. The new key will be saved locally.</p>
+    <label class="input-label" for="settings-key-field">New API Key</label>
+    <div class="input-wrap">
+      <input type="password" id="settings-key-field" placeholder="sk-ant-api03-..." autocomplete="off" spellcheck="false">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeSettings()">Cancel</button>
+      <button class="btn-save" onclick="updateKey()">Save Key</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CORRECTIONS PANEL ─── -->
+<div class="modal-overlay" id="corrections-modal" onclick="closeCorrectionsOutside(event)">
+  <div class="modal corrections-modal">
+    <div class="corrections-modal-head">
+      <h2>Correction Log</h2>
+      <p>Answers you've corrected. Download as markdown to update KB entries.</p>
+    </div>
+    <div class="corrections-list" id="corrections-list"></div>
+    <div class="corrections-footer">
+      <button class="btn-danger" onclick="clearCorrections()">Clear all</button>
+      <button class="btn-save" onclick="downloadCorrections()" style="flex:2">Download .md</button>
+      <button class="btn-secondary" onclick="closeCorrectionsPanel()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ERROR TOAST ─── -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── KB CONTENT ──────────────────────────────────────────────────────────────
+const KB_CONTENT = KB_CONTENT_PLACEHOLDER;
+
+// ── STATE ───────────────────────────────────────────────────────────────────
+let apiKey = localStorage.getItem('sauce_kb_api_key') || '';
+let isLoading = false;
+let editStash = {}; // bubbleId -> originalHTML for cancel
+
+const SYSTEM_PROMPT =
+  `You are a CS support assistant for Sauce. Answer agent questions using only the KB entries in your context. Do not fabricate policies.\n\n` +
+  `FORMAT RULES:\n` +
+  `- For simple questions (single policy or fact): answer in 1-3 sentences.\n` +
+  `- For multi-step processes: use a numbered list, one step per line.\n` +
+  `- For if/then logic: use clear conditional blocks, e.g.:\n` +
+  `    If [condition]: [action]\n` +
+  `    If [other condition]: [action]\n` +
+  `- For decisions with multiple branches: use a short header per branch, then bullet the steps under each.\n` +
+  `- Never compress a multi-step process into a paragraph. Each distinct action gets its own line.\n` +
+  `- Always end your answer with "Source: [entry title]" on its own line.\n` +
+  `- If no KB entry applies, respond with exactly: "No KB entry found for this question. Please escalate to a team lead."\n\n` +
+  `--- KNOWLEDGE BASE ---\n\n` + KB_CONTENT;
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+(function init() {
+  const count = (KB_CONTENT.match(/^## Entry /gm) || []).length;
+  const el = document.getElementById('kb-count');
+  if (el) el.textContent = count + ' entries';
+
+  if (!apiKey) {
+    document.getElementById('setup').style.display = 'flex';
+    document.getElementById('api-key-field').addEventListener('keydown', e => {
+      if (e.key === 'Enter') saveKey();
+    });
+  } else {
+    showApp();
+  }
+
+  updateCorrectionsBadge();
+})();
+
+// ── SETUP ────────────────────────────────────────────────────────────────────
+function saveKey() {
+  const val = document.getElementById('api-key-field').value.trim();
+  if (!val.startsWith('sk-ant-')) {
+    showToast('That doesn\'t look like a valid Anthropic key.');
+    return;
+  }
+  apiKey = val;
+  localStorage.setItem('sauce_kb_api_key', apiKey);
+  showApp();
+}
+
+function showApp() {
+  document.getElementById('setup').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  setupTextarea();
+  document.getElementById('question').focus();
+}
+
+function toggleEye() {
+  const input = document.getElementById('api-key-field');
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+// ── TEXTAREA AUTO-RESIZE ──────────────────────────────────────────────────────
+function setupTextarea() {
+  const ta = document.getElementById('question');
+  ta.addEventListener('input', () => {
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
+  });
+  ta.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+}
+
+// ── CHAT ─────────────────────────────────────────────────────────────────────
+async function sendMessage() {
+  if (isLoading) return;
+  const ta = document.getElementById('question');
+  const question = ta.value.trim();
+  if (!question) return;
+
+  ta.value = '';
+  ta.style.height = 'auto';
+
+  hideEmpty();
+  addUserBubble(question);
+  showTyping();
+  setLoading(true);
+
+  try {
+    const answer = await callClaude(question);
+    removeTyping();
+    addAnswerBubble(answer, question);
+  } catch (err) {
+    removeTyping();
+    const msg = err.message.includes('401')
+      ? 'Invalid API key. Update it in Settings.'
+      : err.message.includes('429')
+      ? 'Rate limit reached. Wait a moment and try again.'
+      : 'API error: ' + err.message;
+    showToast(msg);
+    addAnswerBubble('⚠️ ' + msg, question);
+  } finally {
+    setLoading(false);
+    scrollBottom();
+    document.getElementById('question').focus();
+  }
+}
+
+async function callClaude(question) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 1024,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: question }]
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(res.status + ' ' + (err.error?.message || res.statusText));
+  }
+
+  const data = await res.json();
+  return data.content[0].text;
+}
+
+// ── RENDERING ────────────────────────────────────────────────────────────────
+function addUserBubble(text) {
+  const row = document.createElement('div');
+  row.className = 'msg-row user';
+  row.innerHTML = `<div class="bubble">${escHtml(text)}</div>`;
+  document.getElementById('messages').appendChild(row);
+  scrollBottom();
+}
+
+function addAnswerBubble(text, question) {
+  const bubbleId = 'b' + Date.now();
+  const row = document.createElement('div');
+  row.className = 'msg-row assistant';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.id = bubbleId;
+  bubble.setAttribute('data-raw', text);
+  bubble.setAttribute('data-question', question || '');
+
+  renderBubbleContent(bubble);
+  row.appendChild(bubble);
+  document.getElementById('messages').appendChild(row);
+  scrollBottom();
+}
+
+function renderBubbleContent(bubble, isEdited) {
+  const text = bubble.getAttribute('data-raw');
+  const bubbleId = bubble.id;
+  const isGap = text.includes('No KB entry found');
+  const parts = splitSource(text);
+
+  let html = '';
+
+  // Edit button
+  html += `<button class="edit-btn" onclick="enterEditMode('${bubbleId}')" title="Edit this answer">
+    <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
+      <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+    </svg>
+  </button>`;
+
+  // Answer body with optional edited badge
+  const editedBadge = isEdited ? `<span class="edited-badge">edited</span>` : '';
+  html += `<span class="answer-body">${formatAnswer(parts.body)}${editedBadge}</span>`;
+
+  // Source line
+  if (parts.source) {
+    html += `<span class="source-line"><strong>${escHtml(parts.source)}</strong></span>`;
+  }
+
+  // Gap warning
+  if (isGap) {
+    html += `<div class="gap-warning">
+      <span class="gap-icon">⚠️</span>
+      <span>This question has been flagged as a <strong>KB gap</strong>. Consider adding a policy entry.</span>
+    </div>`;
+  }
+
+  bubble.innerHTML = html;
+}
+
+function splitSource(text) {
+  const match = text.match(/\nSource:\s*(.+)$/i);
+  if (!match) return { body: text, source: null };
+  return {
+    body: text.slice(0, match.index).trim(),
+    source: match[1].trim()
+  };
+}
+
+function formatAnswer(text) {
+  return escHtml(text).replace(/\n/g, '<br>');
+}
+
+// ── EDIT MODE ─────────────────────────────────────────────────────────────────
+function enterEditMode(bubbleId) {
+  const bubble = document.getElementById(bubbleId);
+  if (!bubble) return;
+
+  editStash[bubbleId] = bubble.innerHTML;
+  const rawText = bubble.getAttribute('data-raw');
+
+  bubble.classList.add('editing');
+  bubble.innerHTML = `
+    <span class="edit-label">Edit answer</span>
+    <textarea class="edit-textarea" id="eta-${bubbleId}">${escHtml(rawText)}</textarea>
+    <div class="edit-actions">
+      <button class="btn-cancel-edit" onclick="cancelEdit('${bubbleId}')">Cancel</button>
+      <button class="btn-save-edit" onclick="saveEdit('${bubbleId}')">Save correction</button>
+    </div>`;
+
+  const ta = bubble.querySelector('textarea');
+  ta.style.height = 'auto';
+  ta.style.height = 'auto';
+  ta.style.height = Math.max(ta.scrollHeight, 300) + 'px';
+  ta.addEventListener('input', () => {
+    ta.style.height = 'auto';
+    ta.style.height = Math.max(ta.scrollHeight, 300) + 'px';
+  });
+  ta.addEventListener('keydown', e => {
+    if (e.key === 'Escape') cancelEdit(bubbleId);
+  });
+  ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
+function cancelEdit(bubbleId) {
+  const bubble = document.getElementById(bubbleId);
+  if (!bubble) return;
+  bubble.innerHTML = editStash[bubbleId] || '';
+  bubble.classList.remove('editing');
+  delete editStash[bubbleId];
+}
+
+function saveEdit(bubbleId) {
+  const bubble = document.getElementById(bubbleId);
+  if (!bubble) return;
+
+  const ta = bubble.querySelector('textarea');
+  const newText = ta.value.trim();
+  const originalText = bubble.getAttribute('data-raw');
+  const question = bubble.getAttribute('data-question');
+
+  if (!newText || newText === originalText) {
+    cancelEdit(bubbleId);
+    return;
+  }
+
+  // Log the correction
+  logCorrection({
+    question: question,
+    originalAnswer: originalText,
+    correctedAnswer: newText
+  });
+
+  // Update the bubble
+  bubble.setAttribute('data-raw', newText);
+  bubble.classList.remove('editing');
+  delete editStash[bubbleId];
+  renderBubbleContent(bubble, true);
+
+  showToast('Correction saved to log', false);
+  updateCorrectionsBadge();
+}
+
+// ── CORRECTIONS LOG ───────────────────────────────────────────────────────────
+function loadCorrections() {
+  try {
+    return JSON.parse(localStorage.getItem('sauce_kb_corrections') || '[]');
+  } catch(e) { return []; }
+}
+
+function saveCorrectionsData(data) {
+  localStorage.setItem('sauce_kb_corrections', JSON.stringify(data));
+}
+
+function logCorrection(data) {
+  const corrections = loadCorrections();
+  corrections.unshift({
+    id: Date.now().toString(),
+    timestamp: new Date().toISOString(),
+    question: data.question,
+    originalAnswer: data.originalAnswer,
+    correctedAnswer: data.correctedAnswer
+  });
+  saveCorrectionsData(corrections);
+}
+
+function updateCorrectionsBadge() {
+  const corrections = loadCorrections();
+  const btn = document.getElementById('corrections-btn');
+  if (!btn) return;
+
+  // Remove existing badge
+  const existing = btn.querySelector('.corrections-badge');
+  if (existing) existing.remove();
+
+  if (corrections.length > 0) {
+    const badge = document.createElement('span');
+    badge.className = 'corrections-badge';
+    badge.textContent = corrections.length > 9 ? '9+' : corrections.length;
+    btn.appendChild(badge);
+  }
+}
+
+function openCorrectionsPanel() {
+  renderCorrectionsList();
+  document.getElementById('corrections-modal').classList.add('open');
+}
+
+function closeCorrectionsPanel() {
+  document.getElementById('corrections-modal').classList.remove('open');
+}
+
+function closeCorrectionsOutside(e) {
+  if (e.target === document.getElementById('corrections-modal')) closeCorrectionsPanel();
+}
+
+function renderCorrectionsList() {
+  const corrections = loadCorrections();
+  const container = document.getElementById('corrections-list');
+
+  if (corrections.length === 0) {
+    container.innerHTML = `
+      <div class="corrections-empty">
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        No corrections yet. When you edit an answer, it will appear here.
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = corrections.map(c => {
+    const date = new Date(c.timestamp);
+    const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
+                    ' at ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+    return `<div class="correction-item">
+      <div class="correction-question">
+        <span>Q</span>${escHtml(c.question)}
+      </div>
+      <div class="correction-cols">
+        <div class="correction-col">
+          <div class="correction-col-label">AI said</div>
+          ${escHtml(c.originalAnswer).replace(/\n/g, '<br>')}
+        </div>
+        <div class="correction-col">
+          <div class="correction-col-label">Corrected to</div>
+          ${escHtml(c.correctedAnswer).replace(/\n/g, '<br>')}
+        </div>
+      </div>
+      <div class="correction-meta">${dateStr}</div>
+    </div>`;
+  }).join('');
+}
+
+function clearCorrections() {
+  if (!confirm('Clear all corrections? This cannot be undone.')) return;
+  localStorage.removeItem('sauce_kb_corrections');
+  updateCorrectionsBadge();
+  renderCorrectionsList();
+  showToast('Corrections cleared', false);
+}
+
+function downloadCorrections() {
+  const corrections = loadCorrections();
+  if (corrections.length === 0) {
+    showToast('No corrections to download.');
+    return;
+  }
+
+  const now = new Date().toLocaleString('en-US', {
+    month: 'long', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit'
+  });
+
+  let md = `# Sauce KB — Correction Log\nGenerated: ${now}\n\n`;
+  md += `_${corrections.length} correction(s). Use this to update the relevant KB entries._\n\n---\n\n`;
+
+  corrections.forEach((c, i) => {
+    const date = new Date(c.timestamp).toLocaleString('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric',
+      hour: 'numeric', minute: '2-digit'
+    });
+    md += `## Correction ${i + 1} — ${date}\n\n`;
+    md += `**Agent question:**\n${c.question}\n\n`;
+    md += `**AI said:**\n${c.originalAnswer}\n\n`;
+    md += `**Corrected to:**\n${c.correctedAnswer}\n\n---\n\n`;
+  });
+
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `kb-corrections-${new Date().toISOString().slice(0,10)}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── TYPING INDICATOR ──────────────────────────────────────────────────────────
+function showTyping() {
+  const row = document.createElement('div');
+  row.className = 'msg-row assistant';
+  row.id = 'typing-row';
+  row.innerHTML = `<div class="typing-bubble"><span></span><span></span><span></span></div>`;
+  document.getElementById('messages').appendChild(row);
+  scrollBottom();
+}
+
+function removeTyping() {
+  const el = document.getElementById('typing-row');
+  if (el) el.remove();
+}
+
+function hideEmpty() {
+  const el = document.getElementById('empty-state');
+  if (el) el.remove();
+}
+
+function scrollBottom() {
+  const m = document.getElementById('messages');
+  m.scrollTop = m.scrollHeight;
+}
+
+function setLoading(val) {
+  isLoading = val;
+  document.getElementById('send-btn').disabled = val;
+}
+
+// ── HINT PILLS ───────────────────────────────────────────────────────────────
+function useHint(el) {
+  const ta = document.getElementById('question');
+  ta.value = el.textContent;
+  ta.focus();
+  sendMessage();
+}
+
+// ── SETTINGS ─────────────────────────────────────────────────────────────────
+function openSettings() {
+  document.getElementById('settings-key-field').value = '';
+  document.getElementById('settings-modal').classList.add('open');
+  document.getElementById('settings-key-field').focus();
+}
+
+function closeSettings() {
+  document.getElementById('settings-modal').classList.remove('open');
+}
+
+function closeSettingsOutside(e) {
+  if (e.target === document.getElementById('settings-modal')) closeSettings();
+}
+
+function updateKey() {
+  const val = document.getElementById('settings-key-field').value.trim();
+  if (!val.startsWith('sk-ant-')) {
+    showToast('That doesn\'t look like a valid Anthropic key.');
+    return;
+  }
+  apiKey = val;
+  localStorage.setItem('sauce_kb_api_key', apiKey);
+  closeSettings();
+  showToast('API key updated.', false);
+}
+
+// ── CLEAR CHAT ───────────────────────────────────────────────────────────────
+function clearChat() {
+  editStash = {};
+  const messages = document.getElementById('messages');
+  messages.innerHTML = `
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">
+        <svg viewBox="0 0 28 28"><path d="M14 2C7.37 2 2 7.37 2 14s5.37 12 12 12 12-5.37 12-12S20.63 2 14 2zm1 17h-2v-7h2v7zm0-9h-2V8h2v2z"/></svg>
+      </div>
+      <h2>Ask a policy question</h2>
+      <p>Type any question an agent might ask during a live ticket — get a grounded answer with the policy source.</p>
+      <div class="pill-hints">
+        <div class="pill-hint" onclick="useHint(this)">Customer says item is missing</div>
+        <div class="pill-hint" onclick="useHint(this)">How do I cancel an ASAP order?</div>
+        <div class="pill-hint" onclick="useHint(this)">Customer wants a tip refund</div>
+        <div class="pill-hint" onclick="useHint(this)">Restaurant asking to disable their store</div>
+      </div>
+    </div>`;
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, isError = true) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = isError ? '#DC2626' : '#16A34A';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+</script>
+</body>
+</html>
