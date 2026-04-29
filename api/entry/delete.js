@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
   let cfg, octokit;
   try {
     cfg = getOctokitConfig();
-    octokit = getOctokit();
+    octokit = await getOctokit();
   } catch (e) {
     return res.status(500).json({ ok: false, error: e.message });
   }

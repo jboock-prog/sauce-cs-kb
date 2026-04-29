@@ -194,9 +194,9 @@ function getOctokitConfig() {
 }
 
 let _octokitInstance = null;
-function getOctokit() {
+async function getOctokit() {
   if (!_octokitInstance) {
-    const { Octokit } = require('@octokit/rest');
+    const { Octokit } = await import('@octokit/rest');
     const cfg = getOctokitConfig();
     _octokitInstance = new Octokit({ auth: cfg.token });
   }
