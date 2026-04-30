@@ -52,13 +52,13 @@ Entry count: 18
 
 ---
 
-## Entry OPS-3: WhatsApp Message Handling
+## Entry OPS-3: How to Handle WhatsApp Messages
 
 **Title:** How to Handle WhatsApp Messages
-**Issue Type:** Policies & Rules
+**Issue Type:** 
 **Situation:** A customer or restaurant contacts CS via WhatsApp. WhatsApp messages do not auto-create HubSpot tickets.
 **Resolution:**
-1. Assign yourself to the WhatsApp conversation (not auto-assigned).
+1. WhatsApp is auto assigned. Prioritize as it is usually a restaurant or internal partner with an urgent need.
 2. Acknowledge you're working on it and provide updates as needed.
 3. Create a ticket from scratch manually in HubSpot for the request.
 4. Add a comment on the inbox linking to the ticket so the connection is visible.
@@ -67,7 +67,7 @@ Entry count: 18
 
 **Exceptions:** None — a manual ticket must always be created; WhatsApp will not auto-generate one.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-04-30 — updated
 
 ---
 
@@ -447,7 +447,6 @@ Click **Create Order** then **Create**.
 **Exceptions:** None.
 **Approval Required:** No.
 **Last Updated:** 2026-02-25 — extracted from Playbook
-
 
 ---
 
