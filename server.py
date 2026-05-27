@@ -27,9 +27,11 @@ from flask import Flask, jsonify, request
 
 SERVER_DIR = os.path.dirname(os.path.abspath(__file__))
 DOCS_DIR   = SERVER_DIR  # KB files live alongside server.py in the repo root
-KB_FILES   = ['kb-refunds.md', 'kb-b2c.md', 'kb-b2b.md', 'kb-general.md', 'kb-operations.md']
-MODEL      = 'claude-sonnet-4-6'
-SEPARATOR  = '\n\n' + ('=' * 80) + '\n\n'
+KB_FILES        = ['kb-refunds.md', 'kb-b2c.md', 'kb-b2b.md', 'kb-general.md', 'kb-operations.md']
+QUERY_MODEL     = 'claude-haiku-4-5-20251001'  # /kb lookups — cheap, fast
+WORKFLOW_MODEL  = 'claude-sonnet-4-6'           # /release, /kb-update — needs reasoning
+MODEL           = WORKFLOW_MODEL                 # backwards-compat alias
+SEPARATOR       = '\n\n' + ('=' * 80) + '\n\n'
 
 SLACK_SIGNING_SECRET = os.environ.get('SLACK_SIGNING_SECRET', '')
 SLACK_BOT_TOKEN      = os.environ.get('SLACK_BOT_TOKEN', '')
@@ -91,12 +93,18 @@ claude = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env automatically
 
 
 def query_claude(question: str) -> str:
+    # System prompt is cached — 35K+ tokens only billed at cache-read rate after
+    # the first request, cutting per-query input cost by ~90%.
     for attempt in range(3):
         try:
             msg = claude.messages.create(
-                model=MODEL,
+                model=QUERY_MODEL,
                 max_tokens=1024,
-                system=SYSTEM_PROMPT,
+                system=[{
+                    'type': 'text',
+                    'text': SYSTEM_PROMPT,
+                    'cache_control': {'type': 'ephemeral', 'ttl': '1h'},
+                }],
                 messages=[{'role': 'user', 'content': question}],
             )
             return msg.content[0].text
@@ -112,9 +120,13 @@ def query_claude_workflow(system_prompt: str, user_message: str) -> str:
     for attempt in range(3):
         try:
             msg = claude.messages.create(
-                model=MODEL,
+                model=WORKFLOW_MODEL,
                 max_tokens=4096,
-                system=system_prompt,
+                system=[{
+                    'type': 'text',
+                    'text': system_prompt,
+                    'cache_control': {'type': 'ephemeral', 'ttl': '1h'},
+                }],
                 messages=[{'role': 'user', 'content': user_message}],
             )
             return msg.content[0].text
@@ -636,8 +648,6 @@ def slack_release():
                 f'{draft_line}\n\n'
                 f'_Review the announcement draft in Notion before posting to the support team._'
             )
-            if RELEASE_CHANNEL_ID:
-                post_to_slack_channel(RELEASE_CHANNEL_ID, confirmation)
 
             # Step 6: Confirm back to the invoking user
             requests.post(response_url, json={
@@ -820,7 +830,8 @@ def health():
     return jsonify({
         'ok': True,
         'kb_chars': len(KB_CONTENT),
-        'model': MODEL,
+        'query_model': QUERY_MODEL,
+        'workflow_model': WORKFLOW_MODEL,
         'api_key_set': bool(key),
         'api_key_prefix': key[:10] if key else None,
         'slack_bot_token_set': bool(SLACK_BOT_TOKEN),
