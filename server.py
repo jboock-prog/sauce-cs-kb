@@ -14,6 +14,7 @@ Environment variables required:
 
 import hashlib
 import hmac
+import json
 import os
 import re
 import threading
@@ -92,10 +93,68 @@ SYSTEM_PROMPT = build_system_prompt(KB_CONTENT)
 claude = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env automatically
 
 
-def query_claude(question: str) -> str:
+def usage_token_count(usage, field: str) -> int:
+    return int(getattr(usage, field, 0) or 0)
+
+
+def log_anthropic_call(
+    *,
+    route: str,
+    model: str,
+    max_tokens: int,
+    attempt: int,
+    started_at: float,
+    input_chars: int,
+    user_name: str = '',
+    metadata: dict = None,
+    usage=None,
+    error: Exception = None,
+) -> None:
+    payload = {
+        'event': 'anthropic_call',
+        'route': route,
+        'model': model,
+        'max_tokens': max_tokens,
+        'attempt': attempt,
+        'latency_ms': round((time.time() - started_at) * 1000),
+        'input_chars': input_chars,
+        'success': error is None,
+    }
+    if user_name:
+        payload['user_name'] = user_name
+    if metadata:
+        payload.update({
+            key: value
+            for key, value in metadata.items()
+            if value not in (None, '')
+        })
+    if usage:
+        payload.update({
+            'input_tokens': usage_token_count(usage, 'input_tokens'),
+            'output_tokens': usage_token_count(usage, 'output_tokens'),
+            'cache_creation_input_tokens': usage_token_count(usage, 'cache_creation_input_tokens'),
+            'cache_read_input_tokens': usage_token_count(usage, 'cache_read_input_tokens'),
+        })
+    if error:
+        payload['error_type'] = error.__class__.__name__
+        status_code = getattr(error, 'status_code', None)
+        if status_code:
+            payload['status_code'] = status_code
+
+    print(json.dumps(payload, sort_keys=True), flush=True)
+
+
+def query_claude(
+    question: str,
+    *,
+    route: str = 'unknown',
+    user_name: str = '',
+    metadata: dict = None,
+) -> str:
     # System prompt is cached — 35K+ tokens only billed at cache-read rate after
     # the first request, cutting per-query input cost by ~90%.
     for attempt in range(3):
+        started_at = time.time()
         try:
             msg = claude.messages.create(
                 model=QUERY_MODEL,
@@ -107,17 +166,60 @@ def query_claude(question: str) -> str:
                 }],
                 messages=[{'role': 'user', 'content': question}],
             )
+            log_anthropic_call(
+                route=route,
+                model=QUERY_MODEL,
+                max_tokens=1024,
+                attempt=attempt + 1,
+                started_at=started_at,
+                input_chars=len(question),
+                user_name=user_name,
+                metadata=metadata,
+                usage=msg.usage,
+            )
             return msg.content[0].text
         except anthropic.APIStatusError as e:
             if e.status_code == 529 and attempt < 2:
                 time.sleep(2 ** attempt)  # 1s, 2s
                 continue
+            log_anthropic_call(
+                route=route,
+                model=QUERY_MODEL,
+                max_tokens=1024,
+                attempt=attempt + 1,
+                started_at=started_at,
+                input_chars=len(question),
+                user_name=user_name,
+                metadata=metadata,
+                error=e,
+            )
+            raise
+        except Exception as e:
+            log_anthropic_call(
+                route=route,
+                model=QUERY_MODEL,
+                max_tokens=1024,
+                attempt=attempt + 1,
+                started_at=started_at,
+                input_chars=len(question),
+                user_name=user_name,
+                metadata=metadata,
+                error=e,
+            )
             raise
 
 
-def query_claude_workflow(system_prompt: str, user_message: str) -> str:
+def query_claude_workflow(
+    system_prompt: str,
+    user_message: str,
+    *,
+    route: str = 'unknown',
+    user_name: str = '',
+    metadata: dict = None,
+) -> str:
     """Call Claude for workflow generation tasks (higher token limit)."""
     for attempt in range(3):
+        started_at = time.time()
         try:
             msg = claude.messages.create(
                 model=WORKFLOW_MODEL,
@@ -129,11 +231,46 @@ def query_claude_workflow(system_prompt: str, user_message: str) -> str:
                 }],
                 messages=[{'role': 'user', 'content': user_message}],
             )
+            log_anthropic_call(
+                route=route,
+                model=WORKFLOW_MODEL,
+                max_tokens=4096,
+                attempt=attempt + 1,
+                started_at=started_at,
+                input_chars=len(system_prompt) + len(user_message),
+                user_name=user_name,
+                metadata=metadata,
+                usage=msg.usage,
+            )
             return msg.content[0].text
         except anthropic.APIStatusError as e:
             if e.status_code == 529 and attempt < 2:
                 time.sleep(2 ** attempt)
                 continue
+            log_anthropic_call(
+                route=route,
+                model=WORKFLOW_MODEL,
+                max_tokens=4096,
+                attempt=attempt + 1,
+                started_at=started_at,
+                input_chars=len(system_prompt) + len(user_message),
+                user_name=user_name,
+                metadata=metadata,
+                error=e,
+            )
+            raise
+        except Exception as e:
+            log_anthropic_call(
+                route=route,
+                model=WORKFLOW_MODEL,
+                max_tokens=4096,
+                attempt=attempt + 1,
+                started_at=started_at,
+                input_chars=len(system_prompt) + len(user_message),
+                user_name=user_name,
+                metadata=metadata,
+                error=e,
+            )
             raise
 
 
@@ -456,6 +593,9 @@ def slack_command():
     question    = request.form.get('text', '').strip()
     response_url = request.form.get('response_url', '')
     user_name   = request.form.get('user_name', 'agent')
+    user_id     = request.form.get('user_id', '')
+    channel_id  = request.form.get('channel_id', '')
+    channel_name = request.form.get('channel_name', '')
 
     # Empty query — show usage hint
     if not question:
@@ -471,7 +611,17 @@ def slack_command():
     # Then call Claude in the background and post the answer via response_url
     def answer_async():
         try:
-            answer = query_claude(question)
+            answer = query_claude(
+                question,
+                route='/slack/command',
+                user_name=user_name,
+                metadata={
+                    'command': '/kb',
+                    'slack_user_id': user_id,
+                    'slack_channel_id': channel_id,
+                    'slack_channel_name': channel_name,
+                },
+            )
         except Exception as e:
             answer = f'Something went wrong querying the KB: {e}'
 
@@ -498,7 +648,7 @@ def query():
     if not question:
         return jsonify({'ok': False, 'error': 'question is required'}), 400
     try:
-        answer = query_claude(question)
+        answer = query_claude(question, route='/query')
         return jsonify({'ok': True, 'answer': answer})
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 500
@@ -520,6 +670,7 @@ def test_release():
         response = query_claude_workflow(
             RELEASE_SYSTEM_PROMPT,
             build_release_user_message(release_text),
+            route='/test/release',
         )
         parts = parse_workflow_response(response)
         target_file = parts.get('TARGET_KB_FILE', 'kb-general.md').strip()
@@ -555,6 +706,7 @@ def test_kb_update():
         response = query_claude_workflow(
             KB_UPDATE_SYSTEM_PROMPT,
             build_update_user_message(update_text),
+            route='/test/kb-update',
         )
         parts = parse_workflow_response(response)
         target_file = parts.get('TARGET_KB_FILE', 'kb-general.md').strip()
@@ -607,6 +759,8 @@ def slack_release():
             response = query_claude_workflow(
                 RELEASE_SYSTEM_PROMPT,
                 build_release_user_message(release_text),
+                route='/slack/release',
+                user_name=user_name,
             )
             parts = parse_workflow_response(response)
 
@@ -707,6 +861,8 @@ def slack_kb_update():
             response = query_claude_workflow(
                 KB_UPDATE_SYSTEM_PROMPT,
                 build_update_user_message(update_text),
+                route='/slack/kb-update',
+                user_name=user_name,
             )
             parts = parse_workflow_response(response)
 
