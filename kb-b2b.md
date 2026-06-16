@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 25
+Entry count: 32
 
 ---
 
@@ -144,17 +144,21 @@ Refer to the dedicated phone number spreadsheet for the following restaurants:
 
 **Title:** Help a Restaurant Understand a Refund Deduction from Their Payout
 **Issue Type:** Restaurant Relations
-**Situation:** A restaurant reaches out confused about why a specific dollar amount was deducted from their payout.
+**Situation:** A restaurant reaches out confused about why a specific dollar amount was deducted from their payout (e.g., "Why was $8.37 taken from my payout on July 23rd?").
 **Resolution:**
-1. Download the Sales Report from the restaurant's Sauce Dashboard for the relevant date.
-2. In the report, locate the refunded order — it will show the customer info and Order ID.
-3. Search for that customer's ticket in the ePayments pipeline using the Order ID.
-4. Review the ticket request to understand what was refunded and why.
-5. Provide this explanation to the restaurant.
+1. Open the Sauce Dashboard → navigate to the restaurant's account.
+2. Go to **Store Settings → Reports** and download the Sales Report for the date in question.
+3. In the spreadsheet, search or sort for a **negative value** matching the deduction amount. Confirm the Invoice ID, Customer Name, and Refund Amount.
+4. Go to HubSpot → **ePayments pipeline**. Search using the Invoice ID, customer name, or order date to find the related ticket.
+5. Open the ticket and read the request — confirm what was refunded and why (e.g., missing item, cancellation, delivery issue).
+6. Respond to the restaurant with: the customer name, order date and Invoice ID, and a clear reason the refund was issued.
+
+**Sample response:**
+> "Hi [Restaurant Name], I looked into the $[amount] deduction from your [date] payout. It was related to a refund for an order placed by [Customer Name] on [date] (Invoice ID #[ID]). The refund was issued due to [reason]. Please let me know if you have any other questions."
 
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-04-30 — expanded with Dashboard navigation steps and sample response (from Confluence: Refunds & Sales Report Matching)
 
 ---
 
@@ -658,3 +662,142 @@ Some printers have a "Pair" button on the back. Hold it for 5 seconds to make th
 **Exceptions:** If connectivity issues persist after pairing, the issue may be hardware-related — escalate.
 **Approval Required:** No.
 **Last Updated:** 2026-02-25 — extracted from Playbook
+
+---
+
+## Entry B2B-28: Menu & Website Escalation Routing
+
+**Title:** Routing Menu, Photo, and Website Change Requests to the Correct Team
+**Issue Type:** Escalation / Internal Routing
+**Situation:** A restaurant or internal team submits a request to change a menu item, food photos, or website. You need to know which team handles it.
+**Resolution:**
+
+**Route based on request type:**
+
+| Request Type | Route To | HubSpot Category |
+|---|---|---|
+| Change a menu item, price, name, or category (non-POS) | Menu Team | B2B: Menu Changes |
+| Add/remove food photos on Toast | Menu Team | Menu: Toast Photos |
+| Change website design (fonts, images, slogans, logo) | BO Team | BO B2B: Website Changes |
+| Change delivery radius, credit card fees, or POS config | BO Team | BO Config Changes |
+| Change integration or POS platform (e.g. Square → Toast) | OB Team | Change POS/Integration |
+
+**Quick check:** If the menu is editable in the Sauce Dashboard → it's Sauce-managed (Menu Team). If not → it's likely Toast-managed (also Menu Team for photos, BO for config).
+
+**Required ticket fields for every routing ticket:**
+- **Company:** Correct restaurant location
+- **Ticket Owner:** The restaurant's CS Manager
+- **Category:** See chart above
+- **Ticket Request:** Short summary of the change
+- **Task Name:** Concise (e.g., "Chifa Kendall | Add Brunch Menu")
+
+After updating fields, move ticket to **Received** to trigger automation.
+
+**Exceptions:** If you're unsure, check whether the menu is editable in the Dashboard first.
+**Approval Required:** No.
+**Last Updated:** 2026-04-30 — added from Confluence: Menu & Website Escalation Routing
+
+---
+
+## Entry B2B-29: Toast Future Order Printing
+
+**Title:** Restaurant Complaining That Future Orders Print Too Close to Fulfillment Time
+**Issue Type:** Tablet / POS Issues
+**Situation:** A restaurant using Toast is receiving future orders that print too close to the scheduled fulfillment time, and they want them to print immediately when the order comes in.
+**Resolution:**
+1. Direct the restaurant (or escalate to the appropriate team) to the Toast Online Ordering admin: **https://www.toasttab.com/restaurants/admin/onlineordering**
+2. In that panel, they can configure orders to print immediately rather than scheduling print time closer to fulfillment.
+3. Identify which printer is printing the future order tickets and confirm auto-approval settings in Toast.
+
+**Relevant Toast help articles for escalation notes:**
+- Future Order Setup, Pickup Mode, and Auto-Send
+- Scheduling Future Orders
+- Managing Your Takeout and Delivery Schedule
+- Item Fire by Prep Time
+
+**Exceptions:** This is a Toast configuration — Sauce cannot make this change on the restaurant's behalf. Walk them through it or escalate to BO.
+**Approval Required:** No.
+**Last Updated:** 2026-04-30 — added from Confluence: Toast Future Order Printing
+
+---
+
+## Entry B2B-30: Updating a Restaurant Phone Number via Virtual Answering
+
+**Title:** Change a Restaurant's Phone Number in the Virtual Answering System
+**Issue Type:** Restaurant Account Updates
+**Situation:** A restaurant requests that their phone number be updated in the Sauce Virtual Answering system.
+**Resolution:**
+1. Open the restaurant's location in the Sauce Dashboard.
+2. Click **Virtual Answering**.
+3. Click **Edit Phone Number**.
+4. Select **"This is not the right number. Please change it to"**.
+5. Enter the new phone number.
+6. Click **Next**.
+7. Confirm the update message appears indicating the phone number has been changed.
+
+**Exceptions:** See B2B-5 for context on restaurants with specific phone number configurations.
+**Approval Required:** No.
+**Last Updated:** 2026-04-30 — added from Confluence: Updating Restaurant Phone Number with Virtual Answering
+
+---
+
+## Entry B2B-31: Restaurant Updates Handled by Support
+
+**Title:** Other Restaurant Account Updates That Support Can Make
+**Issue Type:** Restaurant Account Updates
+**Situation:** A restaurant requests a change that falls outside standard B2B entries — these are tasks transferred to the Support team's scope.
+**Resolution:**
+
+Support can make the following updates directly:
+
+| Request | How |
+|---|---|
+| Change prep time | Via Dashboard website only (not tablet) |
+| Change sales report frequency | Via Dashboard settings |
+| Add or remove restaurant phone number | See B2B-30 (Virtual Answering) |
+| Locations whitelist | Via Dashboard admin |
+| Restaurant address update | Via Dashboard admin |
+| Google Analytics / Meta Pixel setup | Share setup link; provide guidance |
+| Enable Discount v2 | Share setup link (Fathom video available) |
+| Discount code setup | See B2B-18 |
+
+**Exceptions:** If the request is not listed above, route to BO Team or escalate for guidance.
+**Approval Required:** Varies — most updates do not require approval unless flagged otherwise.
+**Last Updated:** 2026-04-30 — added from Confluence: Restaurant Updates Done by Support
+
+---
+
+## Entry B2B-32: Tablet Setup and FAQ
+
+**Title:** Tablet Setup, Eligibility, and Common Issues
+**Issue Type:** Tablet / Hardware
+**Situation:** A restaurant requests a new tablet, has questions about tablet vs. dashboard differences, or needs setup guidance.
+**Resolution:**
+
+**Tablet vs. Dashboard:**
+- **Tablet app** — daily operations: acts as a POS for online orders, provides tracking links, monitors incoming orders in real time.
+- **Web Dashboard** — management & setup: includes all tablet features plus analytics, menu management, user management, store hours, marketing tools.
+- Rule of thumb: Tablet = real-time orders. Dashboard = management & configuration.
+
+**Who should get a tablet:**
+- Best for restaurants without an existing POS (Toast, Clover, Square).
+- Restaurants with their own POS may request one, but **requires Noy's approval**.
+- Useful for tracking links and order visibility when owners want it.
+
+**Printer connection methods (ranked by reliability):**
+1. **USB** — direct connection, rarely fails. Best option.
+2. **Bluetooth** — simple setup, generally stable.
+3. **Wi-Fi** — least reliable; vulnerable to weak or unstable network.
+
+**Physical damage:**
+- Overheating, drops, or broken screens → tablet replacement.
+- If urgent and within Carlos' field range → may be hand-delivered.
+- Always requires Noy's approval.
+
+**Printer connection lost:**
+- Usually caused by too many tablets on one printer or weak Wi-Fi.
+- Fix order: restart tablet and printer → check Wi-Fi → test print from other tablets → if others work, delete and reconnect printer on the Sauce tablet.
+
+**Exceptions:** Tablet replacements always require Noy's approval. See B2B-12 for replacement process, B2B-26 for app updates, B2B-27 for printer reconnection.
+**Approval Required:** Yes — for new tablet issuance and physical replacements (Noy).
+**Last Updated:** 2026-04-30 — added from Confluence: Tablet Setup and FAQ

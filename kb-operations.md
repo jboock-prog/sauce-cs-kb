@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 18
+Entry count: 19
 
 ---
 
@@ -482,3 +482,51 @@ Click **Create Order** then **Create**.
 **Exceptions:** If the partner reports that the Printer Settings option is missing from their Settings menu, or that toggling the settings has no effect, escalate to the Tablet/Tech support team as this may indicate a tablet configuration or software issue.
 **Approval Required:** No
 **Last Updated:** 2026-04-09 — added via KB update workflow
+
+---
+
+## Entry OPS-19: Irate Customer Handling Policy
+
+**Title:** Framework for Managing Escalating Customer Interactions
+**Issue Type:** Agent Guidelines / Escalation
+**Situation:** A customer interaction is escalating — the customer is using profanity, refusing resolution, or directing personal attacks at the agent.
+**Resolution:**
+
+**Core principle:** Confidence is your most important tool. Frustrated customers are looking for someone in control. Do not over-apologize, match their energy, or show hesitation — stay steady, warm, and in control. Customers are upset about a situation, not about you personally.
+
+---
+
+**LEVEL 1 — General Frustration or Cursing About the Situation**
+**Trigger:** Customer uses profanity or strong frustration directed at the *situation*, not the agent.
+**Script:** "I understand you are really frustrated with this situation. I am here to help you with the best resolution I can provide."
+**Guidance:** Hold your ground. Acknowledge, redirect, and keep moving toward resolution.
+
+---
+
+**LEVEL 2 — Customer Refuses Resolution or Stops Communicating Constructively**
+**Trigger:** Agent has offered the best available resolution and the customer continues without productive engagement — repeating the same demands, not responding to explanations, or refusing to leave the chat.
+**Script:** "It seems like we are unable to communicate successfully on this matter. I will ask my supervisor to reach out as soon as possible to work toward a resolution."
+**Guidance:** Once this script is sent, you are not required to continue engaging. Stop responding. When the customer closes the chat or goes inactive, close the ticket. Do not re-engage — the matter is now escalated.
+
+---
+
+**LEVEL 3 — Personal Attack**
+**Trigger:** Customer directs a targeted personal insult or wishes harm on the agent.
+**Script:** "It seems like we are no longer able to work together toward a resolution. I will have my supervisor reach out as soon as possible to help with this matter."
+**Guidance:** Firm, non-negotiable exit. You do not owe further engagement. Send the message, stop responding, and close when the customer goes inactive. Log the interaction and flag for supervisor review.
+
+---
+
+**Documentation requirement (Level 2 and Level 3):**
+Note in the ticket: which script was used and when, a brief summary of what triggered the escalation, and whether the customer closed the chat or went inactive.
+
+**Edge cases:**
+- *Customer attacked you but immediately apologized:* Use judgment — attempt to re-engage once. If behavior repeats, go straight to Level 3 with no second reset. Document both incidents.
+- *Restaurant owner or operator is abusive:* Same scripts apply. Partner status does not change the threshold. Do not close unilaterally — flag for supervisor before closing. Note: "Restaurant partner — escalated per irate customer policy."
+- *Customer appears in genuine distress or mentions self-harm:* Do NOT use escalation scripts. Respond with care: "I hear that you're going through something really difficult right now. If you're in crisis, please reach out to the 988 Suicide and Crisis Lifeline by calling or texting 988." Flag for supervisor immediately.
+- *Customer abusive in another language:* Behavior is the trigger, not the words. Invoke the appropriate script in the customer's language if possible, or in English.
+- *Customer sent escalation script but keeps messaging:* You are not required to respond. Close when inactive. If they open a new ticket, note the prior escalation for context.
+
+**Exceptions:** Supervisor escalations for restaurant partners are prioritized. End-customer escalations are reviewed based on available capacity. Agents are not responsible for the supervisor response timeline.
+**Approval Required:** No.
+**Last Updated:** 2026-04-30 — added from Confluence: Irate Customer Handling Policy (Josh Boock, April 2026)

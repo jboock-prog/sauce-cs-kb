@@ -809,13 +809,54 @@ If the restaurant admits to forgetting the item and the customer requests re-del
 | Restaurant | Receives a credit on their Sauce BYOC invoice (courier → restaurant) |
 | CS action | Submit normal HubSpot refund ticket — courier to restaurant |
 
-**BYOC Snippets — Use these for all BYOC chats:**
+**⚠️ Critical: In-Progress Deliveries**
+Do NOT mention a refund until the delivery is complete. Let the customer know the delivery must finish first so the restaurant and platform can confirm what happened. Once complete, any refund is handled by the third-party marketplace — not Sauce. Use `#byoc_completefirst`.
+
+**BYOC Snippets — Chat (use #byoc_ tags):**
+
+| Tag | Use When |
+|---|---|
+| #byoc_general | Standard refund explanation |
+| #byoc_short | Quick chat, customer just wants an answer |
+| #byoc_completefirst | Customer asks for refund before delivery finishes |
+| #byoc_insist | Customer keeps insisting Sauce should refund |
+| #byoc_upset | Customer is frustrated or angry |
+| #byoc_why | Customer asks "why can't you refund me?" |
+| #byoc_credit | Restaurant offers in-store credit |
+| #byoc_quick | SMS or WhatsApp, needs to be brief |
+| #byoc_closure | Wrapping up, confirming next steps |
+
+**#byoc_general** — Standard refund explanation:
+> "I totally get how frustrating this is — I'd feel the same. Since your order was placed through [Uber Eats / DoorDash / Grubhub], they still hold the payment. Sauce only handled the delivery, so any refund would need to come from that platform or the restaurant directly. I've made a note so they're aware of what happened."
+
+**#byoc_short** — Quick answer:
+> "I completely understand how disappointing that feels! Because the order was placed through [Uber Eats / DoorDash / Grubhub], they still have the payment — we only manage the delivery. I recommend reaching out to them directly for a refund."
+
+**#byoc_completefirst** — Delivery still in progress:
+> "I understand this has been frustrating, and I truly want to help. Right now, we need to let the delivery finish so the restaurant knows exactly what happened with the order. If it does come to needing a refund, [Uber Eats / DoorDash / Grubhub] will handle that directly since the payment went through their system."
+
+**#byoc_insist** — Customer keeps pushing for Sauce to refund:
+> "I wish I could help with the refund myself — truly. The order and payment went through [Uber Eats / DoorDash / Grubhub], so we don't have access to process refunds. We only manage the delivery, but I've flagged your feedback so it's shared with the right team."
+
+**#byoc_upset** — Frustrated or angry customer:
+> "I hear you — that's really frustrating, and I'm sorry for the trouble. Since [Uber Eats / DoorDash / Grubhub] handled the payment, they're the only ones who can process a refund. I've documented your feedback on our end so it's shared with their team."
+
+**#byoc_why** — Customer asks why Sauce can't refund:
+> "Great question — the reason is that we don't process the payment. The order and payment went through [Uber Eats / DoorDash / Grubhub], and they pay the restaurant directly. Sauce only provides the delivery service, so we can't issue or adjust refunds."
+
+**#byoc_credit** — Restaurant offers in-store credit:
+> "Thanks for your patience! The restaurant manages payments directly through [Uber Eats / DoorDash / Grubhub], and they're offering in-store credit instead of a refund. I know that's not ideal, but your feedback has been shared so they understand how this impacted you."
+
+**#byoc_quick** — SMS/WhatsApp, brief:
+> "Totally get you — that's frustrating 😕 Since you ordered through [Uber Eats / DoorDash / Grubhub], they still have the payment. We only handled the delivery, so the refund would need to come from them."
+
+**#byoc_closure** — Wrapping up:
+> "I completely understand how this situation feels — it's never ideal. Since your payment went through [Uber Eats / DoorDash / Grubhub], they'll be the ones to process any refund. We'll make sure your experience is documented so it's on their radar."
+
+**BYOC Snippets — Restaurant/Email (legacy tags):**
 
 **#long delivery BYOC** — Delivery is taking longer than expected:
 > "We're sorry the delivery is taking longer than expected. This may be due to the distance from the restaurant. Could you please confirm your address so we can ensure everything is accurate and get your order to you as quickly as possible?"
-
-**#refund request BYOC** — Customer asks for a refund:
-> "We're sorry for the inconvenience with your order. While we can assist with delivery issues, refunds are managed directly by the platform where you placed your order."
 
 **#restaurant refund BYOC** — Informing the restaurant a delivery issue has been escalated:
 > "The delivery issue has been escalated to our payments team. Applicable refunds will be applied to your next BYOC invoice."
@@ -826,6 +867,12 @@ If the restaurant admits to forgetting the item and the customer requests re-del
 **#restaurant refund email** — Email to restaurant about BYOC refunds:
 > "Thank you for bringing these refunds to our attention. We will escalate to our ePayments team to apply the appropriate refunds to your BYOC invoice."
 
+**Agent tips:**
+- Always confirm the customer's ordering platform before responding.
+- Don't mention refunds until delivery status is confirmed.
+- Never promise or imply Sauce can issue a refund.
+- Lead with empathy → clarify refund ownership → close with reassurance.
+
 **Exceptions:** Delivery issue handling follows standard Entry 15 protocols. Customer refund = third-party marketplace. CS refund ticket = courier to restaurant via HubSpot.
 **Approval Required:** No — follow normal ePayments process.
-**Last Updated:** 2026-02-26 — added 5 BYOC snippets (#long delivery BYOC, #refund request BYOC, #restaurant refund BYOC, #invoice BYOC, #restaurant refund email)
+**Last Updated:** 2026-04-30 — expanded with 9 new #byoc_ chat snippets and agent tips (from Confluence: BYOC Snippets)
