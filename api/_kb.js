@@ -1,5 +1,7 @@
 'use strict';
 
+const crypto = require('crypto');
+
 const KNOWN_FIELDS = new Set([
   'Title', 'Issue Type', 'Situation', 'Resolution', 'Exceptions',
   'Approval Required', 'Last Updated',
@@ -179,6 +181,17 @@ function readBody(req) {
   });
 }
 
+function checkAuth(req) {
+  const expected = process.env.ADMIN_PASSWORD;
+  if (!expected) return false;
+  const provided = req && req.headers && req.headers['x-admin-password'];
+  if (typeof provided !== 'string' || provided.length === 0) return false;
+  const a = Buffer.from(provided);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
+
 function getOctokitConfig() {
   const required = ['GITHUB_TOKEN', 'GITHUB_OWNER', 'GITHUB_REPO', 'GITHUB_BRANCH'];
   const missing = required.filter(k => !process.env[k]);
@@ -236,4 +249,5 @@ module.exports = {
   readBody,
   getOctokit, getOctokitConfig,
   loadKbFile, commitKbFile, mapWriteError,
+  checkAuth,
 };

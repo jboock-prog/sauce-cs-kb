@@ -1,9 +1,10 @@
-const { describe, it, before } = require('node:test');
+const { describe, it, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const {
   parseEntry, parseKbFile,
   serializeEntry, serializeKbFile,
   stripInternal, nextEntryId,
+  checkAuth,
 } = require('./_kb');
 
 const SAMPLE_ENTRY_TEXT = `## Entry 5: Test Refund
@@ -156,6 +157,35 @@ describe('nextEntryId', () => {
   it('preserves prefix', () => {
     const entries = [{ raw_id: 'B2B-4' }, { raw_id: 'B2B-9' }];
     assert.equal(nextEntryId(entries), 'B2B-10');
+  });
+});
+
+describe('checkAuth', () => {
+  const ORIG = process.env.ADMIN_PASSWORD;
+  before(() => { process.env.ADMIN_PASSWORD = 'hunter2'; });
+  after(() => {
+    if (ORIG === undefined) delete process.env.ADMIN_PASSWORD;
+    else process.env.ADMIN_PASSWORD = ORIG;
+  });
+
+  const reqWith = pw => ({ headers: pw === undefined ? {} : { 'x-admin-password': pw } });
+
+  it('accepts the correct password', () => {
+    assert.equal(checkAuth(reqWith('hunter2')), true);
+  });
+  it('rejects a wrong password', () => {
+    assert.equal(checkAuth(reqWith('nope')), false);
+  });
+  it('rejects a different-length password', () => {
+    assert.equal(checkAuth(reqWith('x')), false);
+  });
+  it('rejects a missing header', () => {
+    assert.equal(checkAuth(reqWith(undefined)), false);
+  });
+  it('rejects when ADMIN_PASSWORD is unset', () => {
+    delete process.env.ADMIN_PASSWORD;
+    assert.equal(checkAuth(reqWith('hunter2')), false);
+    process.env.ADMIN_PASSWORD = 'hunter2';
   });
 });
 
