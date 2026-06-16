@@ -1,4 +1,5 @@
 {
+  "buildCommand": "python3 query-interface/build.py",
   "outputDirectory": "query-interface",
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
