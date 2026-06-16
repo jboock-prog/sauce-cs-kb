@@ -2,8 +2,10 @@
   "framework": null,
   "buildCommand": "python3 query-interface/build.py",
   "outputDirectory": "query-interface",
+  "redirects": [
+    { "source": "/", "destination": "/admin", "permanent": false }
+  ],
   "rewrites": [
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/", "destination": "/admin.html" }
+    { "source": "/admin", "destination": "/admin.html" }
   ]
 }
