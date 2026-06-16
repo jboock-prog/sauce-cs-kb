@@ -1,8 +1,7 @@
 {
-  "buildCommand": "python3 query-interface/build.py",
   "outputDirectory": "query-interface",
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/", "destination": "/index.built.html" }
+    { "source": "/", "destination": "/admin.html" }
   ]
 }
