@@ -3,12 +3,16 @@
 const {
   loadKbFile, commitKbFile, mapWriteError,
   getOctokit, getOctokitConfig,
-  readBody,
+  readBody, checkAuth,
 } = require('../_kb');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
+  }
+
+  if (!checkAuth(req)) {
+    return res.status(401).json({ ok: false, error: 'Unauthorized' });
   }
 
   let cfg, octokit;

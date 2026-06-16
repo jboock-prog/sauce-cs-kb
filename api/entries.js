@@ -4,6 +4,7 @@ const {
   stripInternal,
   loadKbFile,
   getOctokit, getOctokitConfig,
+  checkAuth,
 } = require('./_kb');
 
 const KB_FILES = [
@@ -27,6 +28,10 @@ async function readOne(octokit, cfg, filename) {
 module.exports = async (req, res) => {
   if (req.method !== 'GET') {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
+  }
+
+  if (!checkAuth(req)) {
+    return res.status(401).json({ ok: false, error: 'Unauthorized' });
   }
 
   let cfg, octokit;
