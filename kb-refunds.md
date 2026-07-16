@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 31
+Entry count: 32
 
 ---
 
@@ -19,12 +19,18 @@ Entry count: 31
 4. Double-check Invoice ID — confirm it matches the correct order (customers sometimes have multiple orders).
 5. Move the ticket to the Refund Request status, which sends it automatically to the epayments pipeline
 
+**Refund status definitions (renamed 2026-07-02):**
+- **Refund Request** — sends the ticket to ePayments for processing.
+- **Refund Follow Up Needed** (formerly "Pending Refunds") — Support status for tickets that need more info and were sent back by ePayments. Work these oldest to newest.
+
+**Stray refund emails:** Any refund confirmations or refund-related emails from DoorDash or other third parties that you don't know how to handle — forward to refunds@getsauce.com.
+
 **Exceptions:**
 - If ePayments returns the ticket saying a refund cannot be processed, ALWAYS send the customer the **End Client: Refund Denial** template — unless ePayments Manager (Yuval) writes "just close" in the notes.
 
 **Approval Required:** No (for submission). ePayments team makes final determination.
 **Critical Rule:** NEVER confirm or guarantee a refund to a customer. Use language like: "We will submit a refund request" or "Our Refunds Team will review your order in 1-3 business days."
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-07-16 — added status rename (Refund Follow Up Needed) and refunds@getsauce.com forwarding rule
 
 ---
 
@@ -413,7 +419,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Restaurant Delivery:**
 - CS cannot assist — the restaurant handled the delivery and is responsible for any refund—direct customer to the restaurant.
-- If the restaurant is unresponsive → try calling ourselves. If no answer → leave on Pending Refunds, continue reaching out over the next few days.
+- If the restaurant is unresponsive → try calling ourselves. If no answer → leave on Refund Follow Up Needed (formerly "Pending Refunds"), continue reaching out over the next few days.
   - Restaurant approves → send to Refund Request.
   - Restaurant denies or never answers → tell customer we cannot assist, they must take it up with the restaurant.
 
@@ -511,14 +517,13 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 **Issue Type:** Order Issues
 **Situation:** The customer complains that their order was delivered earlier than scheduled. Only applies to future (pre-scheduled) orders.
 **Resolution:**
-1. Check the Dispatch Service to confirm the order was actually delivered early. The order must be 30 minutes early or more to qualify for a refund
-2. If the delivery provider is **DoorDash**: call DoorDash directly to request a refund over the phone. Ask them to email support@getsauce.com the refund confirmation.
-3. If the customer explicitly requests a refund/compensation, send a ticket to Refund Request.
-4. If the customer is just reporting the issue without requesting a refund, apologize for the inconvenience and report the issue to the dispatch team. No refund ticket needed.
+1. **Sauce does not provide refunds or compensation for early deliveries.** This applies to all orders, including scheduled future orders.
+2. Apologize for the inconvenience and report the issue to the dispatch team so delivery timing can be reviewed.
+3. Do not send a ticket to Refund Request for early delivery — the request will be denied.
 
-**Exceptions:** Does not apply to ASAP orders — ASAP means "as soon as possible" so there is no guaranteed time window.
-**Approval Required:** No.
-**Last Updated:** 2026-03-03 — updated
+**Exceptions:** None — no refund or compensation for early deliveries under any circumstances. ASAP orders have no guaranteed time window in the first place.
+**Approval Required:** N/A — no refund is offered.
+**Last Updated:** 2026-07-16 — policy change (per Yuval, announced 2026-05-27): refunds/compensation for early deliveries discontinued
 
 ---
 
@@ -651,9 +656,14 @@ If the restaurant admits to forgetting the item and the customer requests re-del
 
 **Note (internal):** Wrong ingredients (not missing, but wrong) → move to refunds without restaurant approval.
 
+**ePayments Refund Reasons (updated 2026-06-07):** When submitting, pick the matching reason:
+- **Wrong Item(s)** — some items were wrong; 100% store fault.
+- **Wrong Order Received (the same merchant)** — wrong order from the same restaurant; store's fault.
+- **Wrong Order Received (the different merchant)** — driver mixed up orders between restaurants; driver fault.
+
 **Exceptions:** If the customer did not follow up with a photo and insists, escalate to Refund Request for final decision.
 **Approval Required:** No — ePayments decides.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-07-16 — added updated ePayments refund reasons
 
 ---
 
@@ -672,9 +682,14 @@ If the restaurant admits to forgetting the item and the customer requests re-del
      - Restaurant remaking (original order no longer at store) → open a refund ticket for the restaurant (making food twice).
      - Restaurant not remaking (original order still at store) → no refund needed.
 
-**Exceptions:** A photo is required to validate any claim of a wrong item or wrong order.
+**ePayments Refund Reasons (updated 2026-06-07):** When submitting, pick the matching reason:
+- **Wrong Item(s)** — some items were wrong; 100% store fault.
+- **Wrong Order Received (the same merchant)** — wrong order from the same restaurant; store's fault.
+- **Wrong Order Received (the different merchant)** — driver mixed up orders between restaurants; driver fault.
+
+**Exceptions:** A photo is required to validate any claim of a wrong item or wrong order. For **smoke shops**, see Entry 31 — most require the wrong item to be returned before any refund.
 **Approval Required:** No (unless restaurant is on restricted list).
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-07-16 — added updated ePayments refund reasons and smoke shop cross-reference
 
 ---
 
@@ -876,3 +891,19 @@ Do NOT mention a refund until the delivery is complete. Let the customer know th
 **Exceptions:** Delivery issue handling follows standard Entry 15 protocols. Customer refund = third-party marketplace. CS refund ticket = courier to restaurant via HubSpot.
 **Approval Required:** No — follow normal ePayments process.
 **Last Updated:** 2026-04-30 — expanded with 9 new #byoc_ chat snippets and agent tips (from Confluence: BYOC Snippets)
+
+---
+
+## Entry 31: Smoke Shops — Wrong Item Return Policy
+
+**Title:** Smoke Shops — Wrong Item Must Be Returned for a Refund
+**Issue Type:** Order Issues / Refunds & Credits
+**Situation:** An end customer reports receiving incorrect items on an order from a smoke shop.
+**Resolution:**
+- Smoke shops usually have a strict policy: the customer must **return the wrong item to the store** or no refund will be given.
+- Set this expectation when speaking with the customer via live chat or email before escalating a refund.
+- Otherwise follow the standard wrong item process (Entries 23/24).
+
+**Exceptions:** Individual store policies may vary — confirm with the store if unsure.
+**Approval Required:** Store's return condition applies before refund.
+**Last Updated:** 2026-07-16 — added from #support-policy-process (Danny, 2026-06-27)

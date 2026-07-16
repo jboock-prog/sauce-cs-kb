@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 19
+Entry count: 27
 
 ---
 
@@ -60,14 +60,19 @@ Entry count: 19
 **Resolution:**
 1. WhatsApp is auto assigned. Prioritize as it is usually a restaurant or internal partner with an urgent need.
 2. Acknowledge you're working on it and provide updates as needed.
-3. Create a ticket from scratch manually in HubSpot for the request.
-4. Add a comment on the inbox linking to the ticket so the connection is visible.
-5. Unassign yourself from the WhatsApp chat and close the conversation.
-6. Make sure the ticket includes a link to the WhatsApp conversation as the source.
+3. **Never create tickets directly from the WhatsApp conversation.** Create a **separate ticket from scratch** in HubSpot for each issue/order, and paste the original case ticket number into the Notes section.
+4. Set the ticket **Source to "Manual WhatsApp"** — this separates active WhatsApp conversations from tickets created to document issues.
+5. Add a comment on the inbox linking to the ticket so the connection is visible.
+6. **Do NOT unassign yourself from the WhatsApp chat.** When the conversation is finished, **close the ticket** — if the customer comes back, it auto-assigns to someone available and moves to New. (Procedure changed 2026-06-03; the old "unassign yourself" rule no longer applies.)
+7. The WhatsApp ticket itself should only ever be **closed** once processed — do not treat it as a regular ticket.
 
-**Exceptions:** None — a manual ticket must always be created; WhatsApp will not auto-generate one.
+**Ticket naming:** WhatsApp tickets are renamed to the format `WA - Restaurant Name - Contact Name`. If you recognize a WA ticket (small WhatsApp icon on the interaction), rename it to this format. My Chats has been renamed **My New Conversations** and combines WhatsApp and Chat.
+
+**Converting to email:** If you change a WhatsApp conversation to email, the WhatsApp transcript is attached by default.
+
+**Exceptions:** None — a separate manual ticket must always be created; WhatsApp will not auto-generate one.
 **Approval Required:** No.
-**Last Updated:** 2026-04-30 — updated
+**Last Updated:** 2026-07-16 — new close-don't-unassign procedure, Manual WhatsApp source, WA naming format, separate ticket per issue, transcript auto-attach
 
 ---
 
@@ -426,9 +431,18 @@ Click **Create Order** then **Create**.
    - **POS system restaurants:** explicitly confirm with the restaurant they did not receive it.
 4. If ePayments cancels an uncaptured charge: **no refund ticket is needed** — the payment was never received on Sauce's end.
 
+**Mandatory snippets (use in order):**
+1. **#Uncaptured Payment – Asking for Info** — collect the customer details above (statement descriptor appears as "SAUCE*RESTAURANT").
+2. **#Uncaptured Payment – Checking with ePayments** — after info is gathered; tells the customer the Payments Team is investigating and they'll receive an email update within 24 hours.
+3. **#Uncaptured Payment – Canceled on Stripe** — once the Payments Team confirms the payment never completed; explains the transaction was denied and funds return automatically within a few days, depending on their bank.
+
+**Follow-up after chat ends:** use the email template **"Uncaptured Payment – Canceled on Stripe (CONFIRMATION)"**.
+
+**Critical:** Do not confirm any refund until it is confirmed by ePayments.
+
 **Exceptions:** Always confirm with the restaurant before ePayments cancels an uncaptured charge.
 **Approval Required:** No — ePayments handles the cancellation.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-07-16 — added mandatory snippets, confirmation email template, and 24-hour update expectation
 
 ---
 
@@ -530,3 +544,160 @@ Note in the ticket: which script was used and when, a brief summary of what trig
 **Exceptions:** Supervisor escalations for restaurant partners are prioritized. End-customer escalations are reviewed based on available capacity. Agents are not responsible for the supervisor response timeline.
 **Approval Required:** No.
 **Last Updated:** 2026-04-30 — added from Confluence: Irate Customer Handling Policy (Josh Boock, April 2026)
+
+---
+
+## Entry OPS-20: Ticket Status Guide — Aircall, Next Action, Training Tickets
+
+**Title:** Ticket Status Usage — Aircall, Next Action, Conversation Closed, Training Tickets
+**Issue Type:** Policies & Rules
+**Situation:** Agent needs to know which status a Support pipeline ticket belongs in and how long it may stay there.
+**Resolution:**
+
+- **Aircall** (formerly "Aircall/Need to Organize") — used ONLY for Aircall tickets.
+- **Next Action** — all open tickets that still need to be worked on. Standard flows: New → Next Action → Closed/Pending/Escalated, or New → Closed/Pending/Escalated. **Tickets returned from other teams that land in Next Action must be followed up within 24 hours** — escalate to the proper column/team to keep the pipeline clean.
+- **Conversation Closed** — temporary holding status for tickets not processed immediately; clean it up every shift. Best habit: move tickets to the correct next status straight from New.
+- **Training Tickets** — all SPAM, auto-reply, or irrelevant tickets go here so they can be excluded from reporting.
+- **Refund Request / Refund Follow Up Needed** — see kb-refunds Entry 1 for definitions.
+
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-07-16 — consolidated from #support-policy-process (Josh, May–July 2026)
+
+---
+
+## Entry OPS-21: Grubhub Connect Partner Support Guide
+
+**Title:** Grubhub Connect — Delivery Service Partner Support Line
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** A support request involves an in-flight Grubhub Connect delivery and you need to contact Grubhub about it.
+**Resolution:**
+1. Call the **GH Connect live support line for Delivery Service Partners: 312-601-2093**.
+2. **Always identify yourself as a Delivery Service Partner** when calling.
+3. You must provide the **customer's phone number** — GH uses it to look up the delivery.
+
+**What GH Connect support CAN do:**
+- Confirm courier location/status
+- Relay information to couriers
+- Cancel the delivery if fulfillment isn't possible
+
+**What GH Connect support CANNOT do:**
+- Unassign couriers
+- Dispatch replacement couriers
+- Investigate completed deliveries
+
+**Completed deliveries:** GH Connect support is a dead end for anything about a completed delivery — escalate internally instead.
+
+**Exceptions:** If GH Connect support can't be reached during a critical in-flight situation, escalate to your Sauce team lead. Do not attempt to contact GH couriers directly.
+**Approval Required:** No.
+**Last Updated:** 2026-07-16 — consolidated from the 2026-07-06 announcement and the deployed KB entry
+
+---
+
+## Entry OPS-22: Escalation Channels — #ops-escalations vs Back Office
+
+**Title:** Where to Escalate Urgent Operational Issues in Slack
+**Issue Type:** Escalation Paths
+**Situation:** An urgent operational issue needs another team's help, or you need a status update on a cross-team issue.
+**Resolution:**
+- **#ops-escalations** — for urgent cross-team operational issues (especially delivery/dispatch problems). Use it instead of Tier 2 for delivery ops issues — it gives better visibility and coordination. Also use it to find the owner/process for a ticket with no clear owner.
+- **#backoffice-support-coordination** — still used for BO/Support-specific matters.
+- Escalations should always go to the corresponding pipelines; these channels are for urgent resolution or status updates, not a replacement for proper ticket routing.
+
+**Exceptions:** Tickets with a clear process and owner should be handled through their normal pipeline.
+**Approval Required:** No.
+**Last Updated:** 2026-07-16 — added from #support-policy-process (Josh/Danny, June 2026)
+
+---
+
+## Entry OPS-23: Screenshot and Data Sharing Policy
+
+**Title:** What Information May Be Shared with Restaurants and Customers
+**Issue Type:** Policies & Rules
+**Situation:** Agent is about to share a screenshot or internal information with a restaurant or end customer.
+**Resolution:**
+- Do **NOT** share images or screenshots from **Stripe, Stream, Slack, or OpsCopilot** with end customers or restaurants.
+- **Restaurants** should only receive information from the **Dashboard**.
+- **End customers** should only receive the **Receipt**.
+- Always use the approved sources to protect internal information and maintain data security.
+
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-07-16 — added from #support-policy-process (Sofia, 2026-06-09)
+
+---
+
+## Entry OPS-24: Email Handling Standards
+
+**Title:** Email Handling — Reply All, New Tickets for External Emails, Accounting Contacts
+**Issue Type:** Policies & Rules
+**Situation:** Agent is responding to or sending emails from HubSpot.
+**Resolution:**
+- **Always Reply All** to an email.
+- **Always reply to emails** — first-response snippets exist for every scenario: **#CC - Email Internal Response** (emails from CS/Onboarding/Sales — Sauce accounts only), **#B2C - Email First Response** (end customers), **#B2B - Email First Response** (restaurants — we should always reply to restaurant emails).
+- If you're sending an **external email after an internal conversation**, create a **new ticket** to send the external email from.
+- **Think twice before emailing accounting contacts.** If unsure who to email, look up the email on the order notifications; if still unsure, ask Josh. Getting the right contact speeds up approvals on large accounts.
+- **AI email handoffs:** responses signed with Josh's name on tickets may be AI email handoffs — this is expected.
+- Review **Escalated Emails Need Response** daily (use Table View) — these are emails across pipelines where an end customer or restaurant replied to an existing ticket.
+
+**Exceptions:** Internal CS→B2B responses that need no reply can sit until sent back or closed — respond only if it makes sense.
+**Approval Required:** No.
+**Last Updated:** 2026-07-16 — consolidated from #support-policy-process (June–July 2026)
+
+---
+
+## Entry OPS-25: Breaks and End-of-Shift Approval
+
+**Title:** Break and EOS Requests Require Lead Approval
+**Issue Type:** Policies & Rules
+**Situation:** Agent wants to take a break or end their shift.
+**Resolution:**
+- All **Break + EOS requests must be approved** by Josh, Danny (especially on Saturdays), or Sofia. This ensures a partner is available during challenging situations and coverage is maintained.
+- You may go **unavailable 10 minutes before a break** so you can leave on time — coordinate with each other when only 2 agents are on.
+
+**Exceptions:** None.
+**Approval Required:** Yes — Josh, Danny, or Sofia.
+**Last Updated:** 2026-07-16 — added from #support-policy-process (May–June 2026)
+
+---
+
+## Entry OPS-26: Phone/Email Role — Priority Order
+
+**Title:** Priorities for Agents on the Phone/Email Role
+**Issue Type:** Agent Guidelines
+**Situation:** Agent is scheduled on the Phone/Email role type.
+**Resolution:**
+Work in this priority order — you should always be on a call, answering Slack, or working a ticket:
+1. Answer phones when they ring for you
+2. Answer @ support requests in Slack
+3. Clean up **Next Action** and **Refund Follow Up** (oldest to newest) that came back from other teams
+4. Grab any unassigned tickets
+5. Review **Tickets Requiring a Response**
+6. Review **Pending B2B** for tickets over 72 hours old
+
+**Agents still on mixed roles:** work as normal — stay on phones and answer as usual. You remain accountable for tickets assigned to you, especially initial processing and escalation or closure.
+
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-07-16 — added from #support-policy-process (Josh, 2026-07-15)
+
+---
+
+## Entry OPS-27: Closing a Restaurant Until Further Notice
+
+**Title:** How to Close a Restaurant Until Further Notice (Indefinite Closure)
+**Issue Type:** Restaurant Relations
+**Situation:** A restaurant needs to be closed indefinitely (until further notice) due to operational issues, restaurant request, or other circumstances requiring an open-ended suspension of service.
+**Resolution:**
+1. Indefinite restaurant closures are **not performed by standard CS agents** — this action requires elevated access.
+2. The closure is executed directly in **Admin** by authorized personnel only: **Director, Senior agents, or the Backoffice team**.
+3. If you are not one of the above, do not attempt to process this yourself.
+4. Submit a request in the **#backoffice-support-coordination** Slack channel, including:
+   - Restaurant name and ID
+   - Reason for closure
+   - Any relevant context or urgency
+5. An authorized team member will action the closure from Admin.
+
+**Exceptions:** If the request is urgent (e.g., food safety concern, legal issue), flag it explicitly in #backoffice-support-coordination to ensure prompt handling.
+**Approval Required:** Yes — must be carried out by Director, Senior, or Backoffice team member.
+**Last Updated:** 2026-07-16 — recovered from deployed KB (originally added 2026-07-02 via KB update workflow)

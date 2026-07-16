@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 32
+Entry count: 35
 
 ---
 
@@ -67,9 +67,14 @@ Entry count: 32
 5. Set a reminder (Slack scheduled message, personal reminder, or ticket follow-up) to revert the hours on the end date.
 6. When the end date arrives, revert the hours back to the original and close the ticket.
 
+**Holiday Hours feature (updated behavior, 2026-05-24):**
+- Select only the **days impacted** — do not enter the day before or the day after, and multiple days now mean the days impacted (no longer "last day closed + first day open" like before).
+- For each impacted day choose **closed** or **custom hours**.
+- Example: restaurant closed from the 21st to the 23rd → select the 21st through the 23rd. Closed just for Memorial Day → select only the 25th.
+
 **Exceptions:** None — at least one reminder mechanism is required to ensure the revert doesn't get missed.
 **Approval Required:** No — restaurant or account manager request is sufficient.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-07-16 — added new Holiday Hours day-selection behavior
 
 ---
 
@@ -106,12 +111,18 @@ Entry count: 32
 
 **Do NOT escalate to CS by default for Stripe login/access issues** — most are resolved once the restaurant has the correct email.
 
+**Stripe scope for Support (policy 2026-05-24):** Stripe-related issues should NOT be escalated to CS by default. Support handles:
+- **Missing last payment reports**
+- **Bank account update requests** (guide the restaurant per this entry — email template: "How to Update Your Bank Account on Stripe: Step-by-Step Instructions"; snippet: `#B2B - Stripe Issues/Change Bank Account`)
+
+Anything related to **taxes, payout setup, payment configuration, or subscriptions** must still go to CS — subscription models vary by location and tax preference, and Support has no visibility into that. Note: Support has no direct Stripe account access — only ePayments information. Full guide: Confluence "Stripe Login and Troubleshooting" (https://say2eat.atlassian.net/wiki/spaces/SD/pages/2064547848).
+
 **How to find the CS manager (if escalation is truly needed):**
 HubSpot → Companies → Customer Care View → search for the specific restaurant.
 
 **Exceptions:** CS cannot make banking changes directly. Only the restaurant can update their own Stripe Connect account.
 **Approval Required:** N/A — restaurant self-serves through Stripe Connect.
-**Last Updated:** 2026-02-26 — clarified CS can only provide Stripe login email; added Stripe Connect login troubleshooting flow
+**Last Updated:** 2026-07-16 — added Support vs CS Stripe scope policy and Confluence reference
 
 ---
 
@@ -210,9 +221,11 @@ Move it to the column **"BO, CS, or Menu (Check Category)."** This automatically
 **Ticket naming format:** `Restaurant Name | Task` (e.g., "Shelsky's Of Brooklyn | Flyer" or "Smash House Miami | Change of plan")
 **Request type:** "Internal" if an internal agent requested it; "B2B" if the store reached out.
 
+**Slack tagging rule:** Do NOT tag all of CS when a restaurant has a CS Owner — tag the restaurant's **CS Owner** directly. If the restaurant has no owner, tag **Mariana**.
+
 **Exceptions:** None — always use the automation column, never manual pipeline changes.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-07-16 — added CS Owner tagging rule (Josh, 2026-07-07)
 
 ---
 
@@ -703,8 +716,16 @@ After updating fields, move ticket to **Received** to trigger automation.
 
 **Title:** Restaurant Complaining That Future Orders Print Too Close to Fulfillment Time
 **Issue Type:** Tablet / POS Issues
-**Situation:** A restaurant using Toast is receiving future orders that print too close to the scheduled fulfillment time, and they want them to print immediately when the order comes in.
+**Situation:** A restaurant is unhappy with when future orders print — too close to fulfillment time, or too early.
 **Resolution:**
+
+**General rule (all restaurants):** Future orders can print in 2 different ways:
+1. **Based on prep time** — e.g., 15-minute prep prints 15 minutes before the fulfillment time.
+2. **When the order is placed** — prints immediately.
+
+This is a setting on the **tablet** for restaurants that print from the tablet, or in their **POS** if they print from the POS — set it to whichever mode the restaurant wants.
+
+**Toast-specific:**
 1. Direct the restaurant (or escalate to the appropriate team) to the Toast Online Ordering admin: **https://www.toasttab.com/restaurants/admin/onlineordering**
 2. In that panel, they can configure orders to print immediately rather than scheduling print time closer to fulfillment.
 3. Identify which printer is printing the future order tickets and confirm auto-approval settings in Toast.
@@ -715,9 +736,9 @@ After updating fields, move ticket to **Received** to trigger automation.
 - Managing Your Takeout and Delivery Schedule
 - Item Fire by Prep Time
 
-**Exceptions:** This is a Toast configuration — Sauce cannot make this change on the restaurant's behalf. Walk them through it or escalate to BO.
+**Exceptions:** POS-side print timing is the restaurant's configuration — Sauce cannot make the change on their behalf. Walk them through it or escalate to BO.
 **Approval Required:** No.
-**Last Updated:** 2026-04-30 — added from Confluence: Toast Future Order Printing
+**Last Updated:** 2026-07-16 — generalized: two print modes (prep-time offset or at placement) apply to tablet and all POS restaurants, not just Toast
 
 ---
 
@@ -801,3 +822,50 @@ Support can make the following updates directly:
 **Exceptions:** Tablet replacements always require Noy's approval. See B2B-12 for replacement process, B2B-26 for app updates, B2B-27 for printer reconnection.
 **Approval Required:** Yes — for new tablet issuance and physical replacements (Noy).
 **Last Updated:** 2026-04-30 — added from Confluence: Tablet Setup and FAQ
+
+---
+
+## Entry B2B-33: BYOC — Pausing Third-Party Ordering
+
+**Title:** BYOC Restaurants — Pausing Sauce and Third-Party Ordering
+**Issue Type:** Restaurant Relations
+**Situation:** A BYOC restaurant (aggregating 3rd parties and/or using their own POS) wants to pause ordering — either everything or only specific third parties.
+**Resolution:**
+- **Pause everything:** BYOC restaurants can pause themselves **from their POS** — this affects Sauce AND all 3rd parties. (Important for Casa Louie - Waterline, which uses Toast + BYOC.)
+- **Pause a subset or a single 3rd party:** Support can do this in **Stream** — we have a support login that can pause and un-pause individual 3rd parties (credentials in kb-reference REF-5).
+- The ability to pause individual 3rd parties from the Sauce dashboard is in development.
+
+**Exceptions:** Never share Stream screenshots externally (see OPS-23).
+**Approval Required:** No — restaurant request is sufficient.
+**Last Updated:** 2026-07-16 — added from #support-policy-process (Josh, May–June 2026)
+
+---
+
+## Entry B2B-34: Orders Arriving After Closing Time — Feature Flag
+
+**Title:** Restaurant Receiving Orders After Close
+**Issue Type:** Restaurant Relations
+**Situation:** A restaurant complains that orders keep coming in after their closing time.
+**Resolution:**
+1. There is a **closing-time feature flag** that can be removed so ordering ends with a prep-time buffer before the closing time.
+2. Ask **Josh or Back Office** to remove the flag for the restaurant, then confirm with the restaurant that the issue is resolved.
+3. Reference example: HubSpot ticket 45740934033.
+
+**Exceptions:** None.
+**Approval Required:** Yes — Josh or Back Office removes the flag.
+**Last Updated:** 2026-07-16 — added from #support-policy-process (Josh, 2026-06-15)
+
+---
+
+## Entry B2B-35: Reaching a Restaurant — AI Answering Services and SMS
+
+**Title:** How to Reach a Restaurant When Calls or Texts Aren't Landing
+**Issue Type:** Restaurant Relations
+**Situation:** You need to reach a restaurant owner/manager (e.g., for a refund approval) but the phone is answered by an AI virtual assistant, or texts are going unanswered.
+**Resolution:**
+- **AI virtual assistant answers the restaurant's phone:** Google the restaurant and call the number on their **Google My Business listing** instead.
+- **Texting for approvals:** Prefer **Aircall SMS** over Sakari — responses tend to come back much faster. Use it when you need a restaurant owner/manager to approve a refund ticket.
+
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-07-16 — added from #support-policy-process (Josh 2026-05-31, Danny 2026-07-04)
