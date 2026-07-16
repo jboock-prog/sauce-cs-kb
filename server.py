@@ -12,6 +12,7 @@ Environment variables required:
   SLACK_SIGNING_SECRET  — from your Slack app's Basic Information page
 """
 
+import base64
 import hashlib
 import hmac
 import json
@@ -47,6 +48,14 @@ NOTION_REDIRECT_URI             = os.environ.get('NOTION_REDIRECT_URI', '')
 NOTION_RELEASE_NOTES_PAGE_ID    = os.environ.get('NOTION_RELEASE_NOTES_PAGE_ID', '33d3f4388bf9815bb637d368e5395fcf')
 NOTION_ANNOUNCEMENTS_PAGE_ID    = os.environ.get('NOTION_ANNOUNCEMENTS_PAGE_ID', '33d3f4388bf9819e947dcb53ba684810')
 NOTION_VERSION = '2022-06-28'
+
+# GitHub persistence — KB entries written at runtime are committed back to the
+# repo so they survive redeploys (Railway's disk is ephemeral; without this,
+# every redeploy silently dropped entries added via /kb-update and /release).
+GITHUB_TOKEN  = os.environ.get('GITHUB_TOKEN', '')
+GITHUB_OWNER  = os.environ.get('GITHUB_OWNER', 'jboock-prog')
+GITHUB_REPO   = os.environ.get('GITHUB_REPO', 'sauce-cs-kb')
+GITHUB_BRANCH = os.environ.get('GITHUB_BRANCH', 'main')
 
 kb_lock = threading.Lock()
 
@@ -314,8 +323,47 @@ def update_entry_count(filepath: str):
         f.write(content)
 
 
-def append_kb_entry(kb_filename: str, entry_markdown: str):
-    """Append a new KB entry to disk and update in-memory KB (thread-safe)."""
+def commit_kb_file_to_github(kb_filename: str, message: str) -> dict:
+    """Commit the current on-disk KB file to GitHub via the Contents API.
+
+    Returns {'ok': bool, 'error': str|None, 'commit_url': str|None}. A failure
+    never raises — the entry is still live locally, just not durable.
+    Note: a push to the deploy branch triggers a Railway redeploy, which is
+    what makes the entry survive (the new image is built from the repo).
+    """
+    if not GITHUB_TOKEN:
+        return {'ok': False, 'error': 'GITHUB_TOKEN not configured', 'commit_url': None}
+    url = f'https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/contents/{kb_filename}'
+    headers = {
+        'Authorization': f'Bearer {GITHUB_TOKEN}',
+        'Accept': 'application/vnd.github+json',
+    }
+    try:
+        with open(os.path.join(DOCS_DIR, kb_filename), 'r', encoding='utf-8') as f:
+            content = f.read()
+        current = requests.get(url, headers=headers, params={'ref': GITHUB_BRANCH}, timeout=15)
+        sha = current.json().get('sha') if current.status_code == 200 else None
+        payload = {
+            'message': message,
+            'content': base64.b64encode(content.encode('utf-8')).decode('ascii'),
+            'branch': GITHUB_BRANCH,
+        }
+        if sha:
+            payload['sha'] = sha
+        resp = requests.put(url, headers=headers, json=payload, timeout=30)
+        if resp.status_code in (200, 201):
+            commit_url = (resp.json().get('commit') or {}).get('html_url')
+            return {'ok': True, 'error': None, 'commit_url': commit_url}
+        return {'ok': False, 'error': f'GitHub API {resp.status_code}: {resp.text[:200]}', 'commit_url': None}
+    except Exception as e:
+        return {'ok': False, 'error': str(e), 'commit_url': None}
+
+
+def append_kb_entry(kb_filename: str, entry_markdown: str) -> dict:
+    """Append a new KB entry to disk, update in-memory KB (thread-safe), and
+    commit the file to GitHub so the entry survives redeploys.
+
+    Returns the GitHub commit result dict from commit_kb_file_to_github."""
     global KB_CONTENT, SYSTEM_PROMPT
     with kb_lock:
         filepath = os.path.join(DOCS_DIR, kb_filename)
@@ -324,6 +372,8 @@ def append_kb_entry(kb_filename: str, entry_markdown: str):
         update_entry_count(filepath)
         KB_CONTENT = load_kb()
         SYSTEM_PROMPT = build_system_prompt(KB_CONTENT)
+    entry_title = (entry_markdown.strip().splitlines() or [kb_filename])[0].lstrip('# ')
+    return commit_kb_file_to_github(kb_filename, f'kb-update: {entry_title[:72]}')
 
 
 # ─── Notion helpers ──────────────────────────────────────────────────────────
@@ -712,14 +762,16 @@ def test_kb_update():
         target_file = parts.get('TARGET_KB_FILE', 'kb-general.md').strip()
         if target_file not in KB_FILES:
             target_file = 'kb-general.md'
+        github_result = None
         if commit and parts.get('KB_ENTRY'):
-            append_kb_entry(target_file, parts['KB_ENTRY'])
+            github_result = append_kb_entry(target_file, parts['KB_ENTRY'])
         return jsonify({
             'ok': True,
             'committed': commit,
             'target_kb_file': target_file,
             'kb_entry': parts.get('KB_ENTRY'),
             'announcement': parts.get('ANNOUNCEMENT'),
+            'github': github_result,
         })
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e)}), 500
@@ -771,8 +823,12 @@ def slack_release():
             if target_file not in KB_FILES:
                 target_file = 'kb-general.md'
 
-            # Step 2: Append KB entry to disk + memory
-            append_kb_entry(target_file, parts['KB_ENTRY'])
+            # Step 2: Append KB entry to disk + memory, commit to GitHub
+            gh = append_kb_entry(target_file, parts['KB_ENTRY'])
+            gh_line = (
+                f'• Committed to GitHub: {gh["commit_url"] or "done"}' if gh.get('ok')
+                else f'• :warning: GitHub commit failed ({gh.get("error")}) — entry is live now but will be lost on the next redeploy'
+            )
 
             # Step 3: Publish external article to Notion Product Release Notes
             notion_url = None
@@ -798,6 +854,7 @@ def slack_release():
             confirmation = (
                 f':white_check_mark: *Release processed by {user_name}*\n\n'
                 f'*KB entry added to:* `{target_file}`\n'
+                f'{gh_line}\n'
                 f'{notion_line}\n'
                 f'{draft_line}\n\n'
                 f'_Review the announcement draft in Notion before posting to the support team._'
@@ -809,6 +866,7 @@ def slack_release():
                 'text': (
                     f':white_check_mark: Release workflow complete.\n'
                     f'• KB updated in `{target_file}`\n'
+                    f'{gh_line}\n'
                     f'• External article published to Notion\n'
                     f'• Announcement saved as draft in Notion — review before posting'
                 ),
@@ -873,8 +931,12 @@ def slack_kb_update():
             if target_file not in KB_FILES:
                 target_file = 'kb-general.md'
 
-            # Step 2: Append KB entry
-            append_kb_entry(target_file, parts['KB_ENTRY'])
+            # Step 2: Append KB entry to disk + memory, commit to GitHub
+            gh = append_kb_entry(target_file, parts['KB_ENTRY'])
+            gh_line = (
+                f'• Committed to GitHub: {gh["commit_url"] or "done"}' if gh.get('ok')
+                else f'• :warning: GitHub commit failed ({gh.get("error")}) — entry is live now but will be lost on the next redeploy'
+            )
 
             # Step 3: Save announcement draft to Notion for review before posting
             draft_url = None
@@ -891,6 +953,7 @@ def slack_kb_update():
                 'text': (
                     f':white_check_mark: KB update complete.\n'
                     f'• KB updated in `{target_file}`\n'
+                    f'{gh_line}\n'
                     f'{draft_line}\n'
                     f'_Review the announcement draft in Notion before posting to the support team._'
                 ),
@@ -996,6 +1059,8 @@ def health():
         'notion_api_key_set': bool(NOTION_API_KEY),
         'notion_release_notes_page_id': NOTION_RELEASE_NOTES_PAGE_ID,
         'notion_announcements_page_id': NOTION_ANNOUNCEMENTS_PAGE_ID,
+        'github_token_set': bool(GITHUB_TOKEN),
+        'github_target': f'{GITHUB_OWNER}/{GITHUB_REPO}@{GITHUB_BRANCH}',
         'env_keys': [k for k in os.environ if 'ANTHROPIC' in k or 'API' in k],
     })
 
