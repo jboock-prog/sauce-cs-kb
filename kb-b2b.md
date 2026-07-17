@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 35
+Entry count: 37
 
 ---
 
@@ -869,3 +869,35 @@ Support can make the following updates directly:
 **Exceptions:** None.
 **Approval Required:** No.
 **Last Updated:** 2026-07-16 — added from #support-policy-process (Josh 2026-05-31, Danny 2026-07-04)
+
+---
+
+## Entry B2B-36: BYOC Analytics in the Merchant Dashboard
+
+**Title:** BYOC Analytics Now Live in the Merchant Dashboard
+**Issue Type:** Restaurant Relations
+**Situation:** A BYOC (Bring Your Own Courier) restaurant asks how to see performance data for their self-delivery orders vs. their marketplace/direct orders.
+**Resolution:**
+- BYOC locations can now view self-delivery performance directly in the **Analytics tab of the Merchant Dashboard**.
+- They can choose to view results for **direct orders, self-delivery orders, or both channels combined**.
+- Based on the selected view, they can explore total sales, customers, average order value, peak hours, and more.
+- Coming next (not yet live as of 2026-07-15): these analytics will also be added to the relevant dashboard home widget and the Owner App.
+
+**Exceptions:** No per-3rd-party-channel breakdown yet (requested, not yet built as of 2026-07-15).
+**Approval Required:** No.
+**Last Updated:** 2026-07-17 — applied from KB Policy Scan (source: Ella Bar-Or announcement, 2026-07-15)
+
+---
+
+## Entry B2B-37: Cashback Settings in the Merchant Dashboard
+
+**Title:** Cashback Settings Now Available in the Merchant Dashboard
+**Issue Type:** Restaurant Relations
+**Situation:** A restaurant asks about setting up or managing cashback for their customers.
+**Resolution:**
+- Cashback settings are now available directly in the **merchant dashboard** as a self-serve option.
+- ⚠️ The announcement did not include exact navigation steps — confirm the precise dashboard location before walking a restaurant through it, and update this entry once confirmed.
+
+**Exceptions:** Unknown — not detailed in the source announcement.
+**Approval Required:** No — appears self-serve.
+**Last Updated:** 2026-07-17 — applied from KB Policy Scan (source: Sofia Perez huddle notes, 2026-07-11); navigation steps pending confirmation

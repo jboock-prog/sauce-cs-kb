@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 27
+Entry count: 28
 
 ---
 
@@ -701,3 +701,29 @@ Work in this priority order — you should always be on a call, answering Slack,
 **Exceptions:** If the request is urgent (e.g., food safety concern, legal issue), flag it explicitly in #backoffice-support-coordination to ensure prompt handling.
 **Approval Required:** Yes — must be carried out by Director, Senior, or Backoffice team member.
 **Last Updated:** 2026-07-16 — recovered from deployed KB (originally added 2026-07-02 via KB update workflow)
+
+---
+
+## Entry OPS-28: PauseBot Alerts — Support Team Guide
+
+**Title:** PauseBot Alerts — Support Team Guide
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** The pause/unpause bot posts an alert in **#backoffice-support-coordination** indicating a restaurant is NOT in the state it should be on a third-party platform (Uber Eats, DoorDash, Grubhub, Slice, Sauce channels).
+**Resolution:**
+Every alert requires immediate manual action in **Stream** (sauce.streamorders.com — credentials in REF-5).
+
+**Case 1 — the bot gives the location:**
+1. Log into the correct Stream org and open the Pause Menu for that location.
+2. Perform the exact action (pause/unpause all delivery apps) for the listed duration (shown in US Eastern).
+3. React ✅ on the alert once done.
+
+**Case 2 — "location could not be found on Stream":**
+1. Search Stream by address (try both abbreviated and full street forms).
+2. If found: perform the action and tell Gal the address so the bot can be corrected.
+3. If not found: escalate to Gal.
+
+**Rules of thumb:** every alert is urgent — no exceptions; times are always US Eastern; never ignore an alert; anything unclear → ask Gal.
+
+**Exceptions:** None.
+**Approval Required:** No — but escalate to Gal when a location can't be found on Stream.
+**Last Updated:** 2026-07-17 — applied from KB Policy Scan (source: Josh Boock guide in #backoffice-support-coordination, 2026-07-16)
