@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 9
+Entry count: 10
 
 ---
 
@@ -178,3 +178,20 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** Only account managers initiate this request — do not act on restaurant requests directly.
 **Approval Required:** Yes — account manager must request; BO executes.
 **Last Updated:** 2026-02-25 — extracted from Playbook
+
+
+---
+
+## Entry GEN-10: TEST - GitHub Persistence Verification (Delete Me)
+
+**Title:** TEST - GitHub Persistence Verification (Delete Me)
+**Issue Type:** Internal / Test
+**Situation:** This entry exists solely to verify that the KB update workflow correctly persists entries to GitHub. It should be deleted after confirmation.
+**Resolution:**
+1. Confirm the entry appears in kb-general.md on GitHub.
+2. Verify formatting, entry ID, and delimiters rendered correctly.
+3. Delete this entry once persistence is confirmed.
+
+**Exceptions:** N/A — this is a test entry with no real policy content.
+**Approval Required:** No
+**Last Updated:** 2026-07-17 — added via KB update workflow
