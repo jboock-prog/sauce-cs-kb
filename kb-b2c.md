@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 9
+Entry count: 10
 
 ---
 
@@ -261,3 +261,23 @@ First, determine fault if unclear — ask Tier 2 to investigate. Fault matters f
 **Last Updated:** 2026-04-09 — added via product release workflow
 
 ---
+
+
+---
+
+## Entry B2C-10: Multiple Discounts Applied to a Single Order
+
+**Title:** Customer Complaint — Multiple Discounts Being Applied Simultaneously
+**Issue Type:** Order Issues
+**Situation:** When a CS agent receives a complaint from a customer (likely a restaurant partner) reporting that their customers are able to stack or apply multiple discounts on a single order.
+**Resolution:**
+1. Ask the reporting customer to specify which discounts are being combined and on which orders this has occurred.
+2. Check the restaurant's discount/promotions settings to identify all active discounts currently configured on their account.
+3. Determine whether multiple active discounts are set up **without a required promo code** (i.e., automatic/codeless discounts).
+4. Explain to the customer that if multiple discounts are configured without a code requirement, the system will apply them all automatically — this is expected behavior.
+5. Advise the customer that to prevent stacking, they should either: (a) disable any unintended active discounts, or (b) set discounts to require a unique promo code so customers must manually enter them.
+6. Assist the customer in making the necessary changes to their discount settings if needed.
+
+**Exceptions:** If only one codeless discount is active and stacking is still occurring, escalate to the technical team as this may indicate a platform bug.
+**Approval Required:** No
+**Last Updated:** 2026-07-20 — added via KB update workflow
