@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 9
+Entry count: 10
 
 ---
 
@@ -178,3 +178,38 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** Only account managers initiate this request — do not act on restaurant requests directly.
 **Approval Required:** Yes — account manager must request; BO executes.
 **Last Updated:** 2026-02-25 — extracted from Playbook
+
+
+---
+
+## Entry GEN-10: Third-Party Delivery Platform Contact Numbers
+
+**Title:** Contact Numbers for Uber Eats, DoorDash, and Grubhub Support Lines
+**Issue Type:** Policies & Rules
+**Situation:** When a CS agent needs to contact a third-party delivery platform directly — e.g., to resolve a driver issue, missing order, or dispatch problem — and requires the correct phone number and identification instructions.
+
+**Resolution:**
+1. Identify which platform is involved in the issue.
+2. Use the corresponding number below to reach the platform's support team via **Aircall** (where applicable):
+
+   - **Uber Eats**
+     📞 `+1 (866) 987-3750` — via Aircall
+     🪪 Identify yourself as: **Sauce** or **say2eat**
+
+   - **DoorDash**
+     📞 `+1 (855) 222-8111` — via Aircall
+     🪪 Identify yourself as: **Sauce** or **say2eat**
+
+   - **Grubhub**
+     📞 `312-601-2093` — Drivers Department
+     📞 `877-799-0790` — General Support
+     *(No specific Aircall line; dial directly)*
+
+3. Always identify as **Sauce** or **say2eat** when prompted for a business name on Uber or DoorDash calls.
+4. Document the call outcome in the relevant order ticket after contact.
+
+**Exceptions:** If Aircall is unavailable, escalate to a supervisor or attempt contact through the platform's in-app/web support portal as a backup.
+**Approval Required:** No
+**Last Updated:** 2026-07-21 — added via KB update workflow
+
+---
