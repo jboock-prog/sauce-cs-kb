@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 32
+Entry count: 33
 
 ---
 
@@ -907,3 +907,35 @@ Do NOT mention a refund until the delivery is complete. Let the customer know th
 **Exceptions:** Individual store policies may vary — confirm with the store if unsure.
 **Approval Required:** Store's return condition applies before refund.
 **Last Updated:** 2026-07-16 — added from #support-policy-process (Danny, 2026-06-27)
+
+
+---
+
+## Entry 32: Refund Approval for Non-Food Stores (Smoke, Vape & Similar)
+
+**Title:** Refund Requests for Non-Food Product Stores — Store Approval Required for Non-Delivery Issues
+**Issue Type:** Policies & Rules, Order Issues, Refunds
+**Situation:** When a customer submits a refund request related to an order from a Smoke shop, Vape shop, or any store primarily selling non-food products (e.g., missing item, wrong item, pickup issue, or any other store-side complaint).
+
+**Resolution:**
+1. Identify whether the issue is **store-related** or **delivery-related**.
+   - Store-related issues include: missing items, wrong items received, pickup problems, incorrect orders, or any other issue originating at the store level.
+   - Delivery-related issues include: late delivery, driver conduct, package not delivered, etc.
+
+2. **If the issue is store-related:**
+   - Do **not** process a refund using the standard workflow.
+   - Escalate the refund request to the store for approval before taking any action.
+   - Contact the store via the standard restaurant communication channel and explain the customer's complaint.
+   - Wait for explicit store approval before issuing any refund or credit.
+   - Once approval is received, document it in the ticket and proceed with the appropriate refund.
+   - If the store is unresponsive, escalate to your team lead for further guidance.
+
+3. **If the issue is delivery-related:**
+   - Follow the normal delivery investigation process as you would for any other restaurant or store type.
+   - Store approval is **not** required for delivery-related refunds.
+
+4. Document all communications and approvals clearly in the customer's ticket before closing.
+
+**Exceptions:** Delivery-related issues (e.g., non-delivery, driver issues) follow the standard delivery investigation process and do not require store approval, even for non-food stores.
+**Approval Required:** Yes — store approval is required for all non-delivery, store-related refund requests at Smoke shops, Vape shops, and equivalent non-food product stores.
+**Last Updated:** 2026-07-27 — added via KB update workflow
