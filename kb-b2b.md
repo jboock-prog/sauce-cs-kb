@@ -901,3 +901,23 @@ Support can make the following updates directly:
 **Exceptions:** Unknown — not detailed in the source announcement.
 **Approval Required:** No — appears self-serve.
 **Last Updated:** 2026-07-17 — applied from KB Policy Scan (source: Sofia Perez huddle notes, 2026-07-11); navigation steps pending confirmation
+
+---
+
+## Entry B2B-38: Merchant Feedback Dashboard Revamp — Action-Focused Feedback and Follow-Up Tools
+
+**Title:** Merchant Feedback Dashboard Revamp — Action-Focused Feedback and Follow-Up Tools
+**Issue Type:** Restaurant Relations
+**Situation:** A restaurant asks about the redesigned feedback/reviews experience, follow-up tools, or a change to feedback emails.
+**Resolution:** The feedback experience has been redesigned to help merchants act on reviews, not just read them:
+- New action-focused feedback dashboard with an Insights section (satisfaction metrics split by pickup/delivery).
+- "Needs reply" is the default view, with summary cards and filters.
+- Full context per review: related order, new vs. repeat customer, total spend, email, phone number.
+- Smart reply suggestions tailored to positive/negative feedback, ready to copy and send.
+- Emailed, Called, and Skipped tracking so merchants can manage follow-ups.
+- Redesigned feedback emails: shorter, cleaner, with star rating + comment preview, a "Read more" CTA to the dashboard, and full UTM tracking.
+- Coming next (not yet live): discount integration to send a one-time offer to customers who leave negative feedback.
+
+**Exceptions:** Discount integration for negative feedback is not yet live.
+**Approval Required:** No.
+**Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Ella Bar-Or, 2026-07-22, forwarded by Josh Boock)

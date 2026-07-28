@@ -939,3 +939,26 @@ Do NOT mention a refund until the delivery is complete. Let the customer know th
 **Exceptions:** Delivery-related issues (e.g., non-delivery, driver issues) follow the standard delivery investigation process and do not require store approval, even for non-food stores.
 **Approval Required:** Yes — store approval is required for all non-delivery, store-related refund requests at Smoke shops, Vape shops, and equivalent non-food product stores.
 **Last Updated:** 2026-07-27 — added via KB update workflow
+
+---
+
+## Entry 33: Heavy Rain Operating Procedures — NYC
+
+**Title:** Heavy Rain / Weather Event Operating Procedures (NYC Courier Safety and Order Management)
+**Issue Type:** Order Issues / Refunds & Credits
+**Situation:** Heavy rain or flooding is affecting delivery zones (e.g., NYC), and adjusted procedures are in effect for orders in the affected geography.
+**Resolution:** Use the Heavy Rain playbook rules for any order in an affected geography once we start seeing unassigned chats — shortened chats, no remakes, no ASAP updates go into effect.
+
+Snippet reference (use once per delayed order, do not repeat or give ETA guesses unless noted):
+- **Weather Issues Rain** — send once per delayed order.
+- **Weather No ASAP Updates** — use on ASAP orders; delay alone is not grounds for cancellation.
+- **Weather Potential Refund** — use once an order is 1 hour past latest delivery time; refund starts automatically, no need to wait for customer confirmation.
+- **Weather No Remakes** — use for wrong/damaged orders and any redelivery request; refund only, no redelivery during heavy rain events.
+
+Escalation: flag yellow/red conditions in #ops-escalations, tag Yuval, Josh, Idan Lipitz.
+
+Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Procedures+for+NYC+Courier+Safety+and+Order+Management+Guidelines
+
+**Exceptions:** The "Weather Potential Refund" 1-hour/automatic-refund rule is a weather-specific exception to the general late-delivery threshold in Entry 15 (15+ minutes past latest delivery time, submitted via Refund Request rather than automatic) — not a confirmed contradiction of Entry 15, per the source announcement.
+**Approval Required:** No.
+**Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-21)

@@ -559,10 +559,11 @@ Note in the ticket: which script was used and when, a brief summary of what trig
 - **Conversation Closed** — temporary holding status for tickets not processed immediately; clean it up every shift. Best habit: move tickets to the correct next status straight from New.
 - **Training Tickets** — all SPAM, auto-reply, or irrelevant tickets go here so they can be excluded from reporting.
 - **Refund Request / Refund Follow Up Needed** — see kb-refunds Entry 1 for definitions.
+- **CSAT timing** (added 2026-07-27): since the move to Helpdesk, the CSAT survey request is NOT sent to the customer until the ticket itself is closed (not just the conversation/chat). Close resolved tickets promptly from the Helpdesk view to capture CSAT responses on quick, positive interactions.
 
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-07-16 — consolidated from #support-policy-process (Josh, May–July 2026)
+**Last Updated:** 2026-07-27 — added CSAT-timing detail (Helpdesk ticket close vs. conversation close), source: Sofia Perez, 2026-07-21, via KB Policy Scan
 
 ---
 
@@ -727,3 +728,39 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Exceptions:** None.
 **Approval Required:** No — but escalate to Gal when a location can't be found on Stream.
 **Last Updated:** 2026-07-17 — applied from KB Policy Scan (source: Josh Boock guide in #backoffice-support-coordination, 2026-07-16)
+
+---
+
+## Entry OPS-29: Identifying a "Book-a-Driver, No Order Associated" Situation
+
+**Title:** Identifying a "Book-a-Driver, No Order Associated" Situation
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** A restaurant partner (especially pizza places) says they are waiting for a driver or need a driver, but no matching order/driver is visible to CS at first glance.
+**Resolution:** Before telling the restaurant we don't see anything, check ops-copilot or the restaurant dashboard — the driver may be booked via a "Book a Driver" with no order associated (i.e., not tied to a normal order record). Be thorough before concluding nothing is found.
+**Exceptions:** None specified in source.
+**Approval Required:** No.
+**Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-26)
+
+---
+
+## Entry OPS-30: Sharing Context When Asking Josh Questions After Hours
+
+**Title:** Sharing Context When Asking Questions After Hours
+**Issue Type:** Policies & Rules
+**Situation:** An agent needs to ask Josh a question after hours.
+**Resolution:** Share the situation along with the ticket link — it can be difficult to review full conversations from a phone. Including the ticket link helps even when a full read of the conversation isn't needed.
+**Exceptions:** None specified in source.
+**Approval Required:** No.
+**Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-20)
+
+---
+
+## Entry OPS-31: Add Invoice ID When Helping With an Order via Chat
+
+**Title:** Add Invoice ID When Helping With an Order via Chat
+**Issue Type:** Policies & Rules
+**Situation:** An agent helps with any order-related issue over chat.
+**Resolution:** Add the Invoice ID to the ticket so the subject line updates automatically — this makes it easier to review the ticket later.
+**Exceptions:** None specified in source.
+**Approval Required:** No.
+**Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-22)
