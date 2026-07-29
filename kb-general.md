@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 10
+Entry count: 11
 
 ---
 
@@ -211,5 +211,26 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** If Aircall is unavailable, escalate to a supervisor or attempt contact through the platform's in-app/web support portal as a backup.
 **Approval Required:** No
 **Last Updated:** 2026-07-21 — added via KB update workflow
+
+---
+
+
+---
+
+## Entry GEN-11: Sauce Support Contact Link
+
+**Title:** Official Sauce Support Reference Link for Customer & Partner Inquiries
+**Issue Type:** Policies & Rules
+**Situation:** When a CS agent needs to direct a customer, restaurant partner, or any other user to Sauce's support resources, or when sharing a central support contact point across any channel (chat, email, social, etc.)
+**Resolution:**
+1. Use the following link as the official Sauce support reference when directing anyone to support resources:
+   👉 https://linktr.ee/getsaucesupport
+2. Share this link when a user asks how to contact support, where to submit a request, or where to find help options.
+3. This link can be used across all contexts — B2C customers, B2B partners, and internal escalations where external-facing support options are needed.
+4. Do not create or share unofficial support links; always refer to this centralized Linktree as the single source of truth.
+
+**Exceptions:** If a user requires a direct escalation channel (e.g., urgent restaurant partner issue), follow standard escalation procedures in addition to sharing this link.
+**Approval Required:** No
+**Last Updated:** 2026-07-29 — added via KB update workflow
 
 ---
