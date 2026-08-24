@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 32
+Entry count: 34
 
 ---
 
@@ -124,9 +124,11 @@ Entry count: 32
 - Paste the long URL in the ticket into a browser tab, OR
 - Search for the survey in Slack by customer name or email and click "Photo link."
 
+**Survey send timing (changed 2026-08-06):** For non-dispatch restaurant delivery orders, the delay between order placement and the post-order survey send has been extended, so customers no longer receive the feedback request before their order has actually been delivered. Expect fewer "I got a survey before my food" complaints on those orders.
+
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-08-24 — added post-order survey timing change via KB Policy Scan (source: Ella Bar-Or, 2026-08-06); 2026-02-25 — extracted from Playbook
 
 ---
 
@@ -305,7 +307,9 @@ Entry count: 32
 **Situation:** A catering order needs a driver booked through the Dlivrd/Expedite platform.
 **Resolution:**
 
-**Login:** https://expedite.dlivrd.io/dashboard — see REF-6 for credentials.
+> **Known bug — use this process, not the dashboard (added 2026-07-30):** The in-dashboard "Catering BaD" (Book-a-Driver) flow currently sends deliveries as **standard**, not catering. Until that is fixed, **all** catering driver bookings must go through the Expedite/Dlivrd process below rather than the dashboard BaD feature. Remove this caveat once the bug is confirmed fixed.
+
+**Login:** https://brand.expedite.io/ — see REF-6 for credentials. (The older https://expedite.dlivrd.io/dashboard URL still works, but `brand.expedite.io` is the current one; prefer it.)
 
 **To book a driver — click "Create Order" (top left green button):**
 
@@ -337,9 +341,9 @@ Click **Create Order** then **Create**.
 - Category: CC Catering Order Delivery.
 - Status: Closed.
 
-**Exceptions:** Always inform the store before placing a test order. Never skip dropoff instructions check.
+**Exceptions:** Always inform the store before placing a test order. Never skip dropoff instructions check. Temporary: the Catering BaD caveat above applies until the dashboard bug is fixed.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-08-24 — added Catering BaD bug caveat and updated the login URL to brand.expedite.io (both sourced to Josh Boock, 2026-07-30; URL confirmed current by Josh 2026-08-24, old dlivrd URL still functional); 2026-02-25 — extracted from Playbook
 
 ---
 
@@ -549,7 +553,7 @@ Note in the ticket: which script was used and when, a brief summary of what trig
 
 ## Entry OPS-20: Ticket Status Guide — Aircall, Next Action, Training Tickets
 
-**Title:** Ticket Status Usage — Aircall, Next Action, Conversation Closed, Training Tickets
+**Title:** Ticket Status Usage — Aircall, Next Action, Conversation Closed, Closed Conversation, Training Tickets
 **Issue Type:** Policies & Rules
 **Situation:** Agent needs to know which status a Support pipeline ticket belongs in and how long it may stay there.
 **Resolution:**
@@ -557,13 +561,23 @@ Note in the ticket: which script was used and when, a brief summary of what trig
 - **Aircall** (formerly "Aircall/Need to Organize") — used ONLY for Aircall tickets.
 - **Next Action** — all open tickets that still need to be worked on. Standard flows: New → Next Action → Closed/Pending/Escalated, or New → Closed/Pending/Escalated. **Tickets returned from other teams that land in Next Action must be followed up within 24 hours** — escalate to the proper column/team to keep the pipeline clean.
 - **Conversation Closed** — temporary holding status for tickets not processed immediately; clean it up every shift. Best habit: move tickets to the correct next status straight from New.
+- **Closed Conversation** (rolled out 2026-07-27 — *a different status from "Conversation Closed" above; read carefully*): the status that ends a chat and sends the Chat CSAT survey. Setting it sends the survey, closes the conversation, and routes the ticket back to **New** so any remaining work can continue — it does not fully close the ticket. Confirm it worked by checking the ticket's left panel for **"Feedback survey sent."**
 - **Training Tickets** — all SPAM, auto-reply, or irrelevant tickets go here so they can be excluded from reporting.
 - **Refund Request / Refund Follow Up Needed** — see kb-refunds Entry 1 for definitions.
 - **CSAT timing** (added 2026-07-27): since the move to Helpdesk, the CSAT survey request is NOT sent to the customer until the ticket itself is closed (not just the conversation/chat). Close resolved tickets promptly from the Helpdesk view to capture CSAT responses on quick, positive interactions.
 
+**How to close a chat (current process as of 2026-08-15):**
+Do **NOT** close chats manually by sending a snippet, and do not use the old **"End Chat" button** — both are retired. Use the **"End Chat" Macro** instead. One action (**Send and Apply → Closed Conversation → New**) sends the closing snippet, sets the ticket to Closed Conversation, and routes it to New — which is what triggers the CSAT survey send.
+
+Macro variants available: **Inactive**, **Spanish**, and **Close Ticket**.
+
+> ⚠️ The retired **"End Chat" button** and the current **"End Chat" Macro** share a name but are not the same thing. The macro is the supported path.
+
+Don't skip sending the survey out of concern that a rough interaction will reflect badly — roughly 80% of negative CSATs that were reviewed turned out to be unrelated to agent performance.
+
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-07-27 — added CSAT-timing detail (Helpdesk ticket close vs. conversation close), source: Sofia Perez, 2026-07-21, via KB Policy Scan
+**Last Updated:** 2026-08-24 — consolidated the chat-closing changes from the 2026-08-03, 2026-08-10 and 2026-08-17 scans into one current-state description: added the Closed Conversation status and the End Chat Macro requirement replacing manual snippet closing and the old End Chat button (sources: Josh Boock 2026-07-27 and 2026-08-13 w/ thread through 2026-08-15; Sofia Perez 2026-08-04). 2026-07-27 — added CSAT-timing detail (source: Sofia Perez, 2026-07-21)
 
 ---
 
@@ -678,11 +692,13 @@ Work in this priority order — you should always be on a call, answering Slack,
 
 **Agents still on mixed roles:** work as normal — stay on phones and answer as usual. You remain accountable for tickets assigned to you, especially initial processing and escalation or closure.
 
-**Shared responsibility for Slack support channels (added 2026-08-24):** Answering requests in `#support-new` and `#support-team-help` is everyone's responsibility — not just the more experienced or longer-tenured agents. When only a few people consistently pick these up, it overloads them and makes the team look less responsive. Every agent should keep an eye on both channels regardless of role or ticket ownership.
+**Responding to waiting customers is a team effort (added 2026-07-31):** Responding to any customer who needs a response applies to **all** agents, regardless of ticket ownership or role — not just agents scheduled on the Phone/Email role. Check the views for tickets requiring a response whether or not they sit in your own pipeline, so customers are acknowledged and get whatever update is available.
+
+**Shared responsibility for Slack support channels (added 2026-08-19):** Answering requests in `#support-new` and `#support-team-help` is everyone's responsibility — not just the more experienced or longer-tenured agents. When only a few people consistently pick these up, it overloads them and makes the team look less responsive. Every agent should keep an eye on both channels regardless of role or ticket ownership.
 
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-08-24 — added shared-responsibility note for #support-new / #support-team-help via KB Policy Scan (source: Sofia Perez, 2026-08-19); originally added 2026-07-16 from #support-policy-process (Josh, 2026-07-15)
+**Last Updated:** 2026-08-24 — added the team-effort framing for waiting customers (source: Josh Boock, 2026-07-31) and the shared-responsibility note for #support-new / #support-team-help (source: Sofia Perez, 2026-08-19), both via KB Policy Scan; originally added 2026-07-16 from #support-policy-process (Josh, 2026-07-15)
 
 ---
 
@@ -780,3 +796,34 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Exceptions:** None documented.
 **Approval Required:** No.
 **Last Updated:** 2026-08-24 — applied from KB Policy Scan (source: Josh Boock, 2026-08-17, #support-policy-process; tracking-ID workaround from the same thread)
+
+---
+
+## Entry OPS-33: Do Not Merge a Call Ticket Into an Active Chat
+
+**Title:** Do Not Merge a Call Ticket Into an Active Chat
+**Issue Type:** Policies & Rules
+**Situation:** An agent is handling a live chat and also has a related call ticket for the same customer interaction.
+**Resolution:**
+- Do **NOT** merge the call ticket into the chat ticket while the chat is still active. A current bug can make the chat disappear, which blocks reaching the customer through that channel and blocks the CSAT survey.
+- Wait until the chat has ended, then merge the call ticket into it.
+- If the chat has already disappeared, reach the customer by phone and relay the outcome of the case that way.
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-10 (source: Natalia Heredia, 2026-08-05)
+
+---
+
+## Entry OPS-34: Pending B2B vs. Pending B2C vs. Schedule Future Action
+
+**Title:** Choosing a Follow-Up Status — Pending B2B, Pending B2C, and Schedule Future Action
+**Issue Type:** Policies & Rules
+**Situation:** An agent needs to park a ticket for follow-up later and must choose the correct status.
+**Resolution:**
+- **Need to reach a restaurant later → Pending B2B.** Tickets here move automatically to Next Actions after 24 hours, so the automation resurfaces them for follow-up.
+- **Need to reach a customer later → Pending B2C.**
+- **Schedule Future Action** is ONLY for cases a specific protocol requires it — e.g. Cancel Future Order, Reschedule Future Order. In those cases also set a Slack reminder for the day of the order.
+- Do **not** park regular follow-ups in Schedule Future Action. There is no automation to bring them back to the queue, so they go silent until someone stumbles on them.
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-17 (source: Sofia Perez, 2026-08-12)

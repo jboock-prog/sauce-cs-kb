@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 39
+Entry count: 46
 
 ---
 
@@ -935,3 +935,106 @@ Support can make the following updates directly:
 **Exceptions:** None documented.
 **Approval Required:** No.
 **Last Updated:** 2026-08-24 — applied from KB Policy Scan (source: Sofia Perez, 2026-08-18, #support-policy-process; restated in the 2026-08-22 weekly huddle)
+
+---
+
+## Entry B2B-40: Customer Insights in the Merchant Dashboard
+
+**Title:** Customer Insights — Merchant Dashboard Feature
+**Issue Type:** Restaurant-Facing Features
+**Situation:** A restaurant asks about a new "Customer Insights" page in their Merchant Dashboard.
+**Resolution:** A **Customers → Customer Insights** page is rolling out gradually in the Merchant Dashboard. It provides:
+- A breakdown of customer segments (Total, New, Occasional, Frequent) with flexible date filters.
+- Top Recommendations — win back lapsed customers, reward frequent customers, convert new customers into regulars.
+- A customer-location heat map, filterable by segment and ZIP code.
+- A Top Customers ranked view (order count, total spend, ZIP code).
+
+Direct restaurants asking about this to the Dashboard, and note the gradual rollout — not every merchant will see it yet.
+**Exceptions:** Gradual rollout — some restaurants may not have access yet.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-03 (source: Ella Bar-Or, 2026-07-28, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-41: Customer Experience Team — Non-VIP Restaurant Support Routing
+
+**Title:** Customer Experience Team — Non-VIP Restaurant Support Routing
+**Issue Type:** Restaurant Relations
+**Situation:** A non-Tier 1 / Tier 2 restaurant (no assigned CS Owner) has an issue Support can't resolve, or a restaurant issue needs escalation and no CS contact is assigned.
+**Resolution:** A **Customer Experience Team** (Mariana Fonseca, Tomas Sarmiento) launched 2026-08-05 to handle all non-VIP restaurants — any restaurant that is not Tier 1 or Tier 2. To support this, CS Owner / CS agent assignments were removed from roughly 80% of restaurants in HubSpot.
+
+When an issue can't be resolved and the restaurant has no assigned CS contact:
+1. Do **NOT** tell them you'll escalate to their Account Manager. Tell them it will be forwarded to the Customer Experience Team, who will follow up directly.
+2. Open a ticket, assign it to Tomas or Mariana, and send it to their pipeline.
+3. Add the restaurant name to the ticket's **Company Level** field.
+4. Use the updated `#B2B - CS Transfer` snippet: "I'll forward this to our Customer Experience Team, who will follow up on your concern... You can also contact them directly at success@getsauce.com, and they'll get back to you within 24 business hours."
+
+See also **B2B-7** for the Slack tagging rule this replaced.
+**Exceptions:** Tier 1 / Tier 2 (high-volume / high-revenue) restaurants keep their existing CS Owner assignment and process.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-10 (source: Sofia Perez, 2026-08-05)
+
+---
+
+## Entry B2B-42: Direct Storefront QR Code — Self-Serve Download from Dashboard
+
+**Title:** Direct Storefront QR Code — Self-Serve Download from Dashboard
+**Issue Type:** Restaurant Relations
+**Situation:** A restaurant asks for a QR code linking to their Direct Storefront.
+**Resolution:** Restaurants can now download their Direct Storefront QR code directly from the Merchant Dashboard — no BO ticket needed for this specific request. B2B-7's `BO B2B: Flyer Request` category still applies to other flyer/QR requests.
+**Exceptions:** None noted.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-10 (source: Noy Shavit, 2026-08-04, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-43: Storefront Banner Message — Self-Serve Edit from Dashboard
+
+**Title:** Storefront Banner Message — Self-Serve Edit from Dashboard
+**Issue Type:** Restaurant Relations
+**Situation:** A restaurant wants to add or change the banner message at the top of their Storefront menu page.
+**Resolution:** Merchants can now add or edit the Storefront banner message (up to 1,000 characters) directly from the Merchant Dashboard — no CS/Support ticket through Core Admin needed. It is a two-way sync, so the value stays consistent across the Dashboard, Core Admin, and Storefront.
+**Exceptions:** None noted.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-10 (source: Ella Bar-Or, 2026-08-06, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-44: Sauce Manager App — Restaurant Mobile App
+
+**Title:** Sauce Manager App — Restaurant Mobile App
+**Issue Type:** Restaurant Relations
+**Situation:** A restaurant asks about, or needs help downloading, the Sauce/Merchant mobile manager app.
+**Resolution:** The **Sauce Manager (Merchant) App** is available on Apple and Android. The Merchant Dashboard shows a pop-up announcing it — on desktop the pop-up includes a QR code to scan, and on mobile it provides a direct download link.
+**Exceptions:** None noted.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-10 (source: Noy Shavit / Ella Bar-Or, 2026-08-06, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-45: Restaurant Review Replies — Dashboard Login Requirement
+
+**Title:** Restaurant Review Replies — Dashboard Login Requirement (Email Link Bug)
+**Issue Type:** Merchant Dashboard / Known Bug
+**Situation:** A restaurant tries to reply to a customer review using the link in their review-notification email and gets a "you don't have access to this review" error.
+**Resolution:**
+1. This is a known bug — the email reply link only works if the restaurant is already logged into the Merchant Dashboard.
+2. Have the restaurant log into the Merchant Dashboard first; they can then reply to the review successfully.
+3. A fix to smooth this out is in progress — no ETA given yet.
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-17 (source: Josh Boock, 2026-08-10; restated in weekly huddle, Sofia Perez, 2026-08-15)
+
+---
+
+## Entry B2B-46: Discount Summary Report
+
+**Title:** Discount Summary Report (Merchant Dashboard → Reports)
+**Issue Type:** Merchant Dashboard Feature
+**Situation:** A restaurant asks about reviewing a summary of discounts applied to their orders.
+**Resolution:**
+1. Direct the restaurant to **Reports → Discount Summary** in the Merchant Dashboard.
+2. No detail on report contents or fields has been announced yet — confirm specifics with the Field/Growth team if a restaurant asks.
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-17 (source: Sofia Perez, 2026-08-15, weekly huddle)

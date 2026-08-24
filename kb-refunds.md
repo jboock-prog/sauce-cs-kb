@@ -61,10 +61,11 @@ Entry count: 34
 - ALL iPizza NY locations, Vinny's Gluten Free Kitchen, Chelsea Acai Cafe — owner Mahbubur Rahman: +1 (917) 392-5391
 - Tacolmos
 - Tiberias
+- Merkado 31 — requires refund confirmation before the ticket is escalated to ePayments (added 2026-08-04)
 
 **Exceptions:** Delivery issues and cancellations bypass this restriction — those go to Refund Request regardless
 **Approval Required:** Yes — restaurant must approve before CC moves to Refund Request.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-08-24 — added Merkado 31 to the Restricted Restaurant List via KB Policy Scan (source: Sofia Perez, 2026-08-04); 2026-03-03 — updated
 
 ---
 
@@ -501,11 +502,11 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 **#eta_byoc_explained** — BYOC (restaurant-managed delivery):
 > "The initial delivery estimate uses the settings on their ordering system, so the ETA comes from them directly. It should keep updating as it moves — I can still reach out to confirm if it stalls."
 
-**⚠️ Open question — snippet naming (flagged 2026-08-24):** The 2026-08-22 announcement referenced two snippets under names that differ from the ones documented above: `#B2C - Not Late Yet` (wording matches `#eta_not_late_yet` minus the "[x mins] to go") and `#ETA Late Delivery` (wording matches `#eta_late_delivery` verbatim). It is **not confirmed** whether these rename/replace the existing snippets or are additional HubSpot snippets that duplicate them. Until Support leadership confirms: use whichever of the two names actually exists in HubSpot, and treat the wording above as correct. Do not delete the `#eta_*` snippets on the assumption they were renamed.
+**Note on the 2026-08-22 announcement:** That post referred to the not-late-yet and late-delivery snippets by informal names (`#B2C - Not Late Yet`, `#ETA Late Delivery`). Those are the existing `#eta_not_late_yet` and `#eta_late_delivery` snippets above — nothing was renamed or replaced. `#ETA - Order Running Late` is the only new snippet from that announcement.
 
 **Exceptions:** None — use the snippet that matches the customer's specific situation.
 **Approval Required:** No.
-**Last Updated:** 2026-08-24 — added `#ETA - Order Running Late` mid-tier snippet and flagged the `#B2C - Not Late Yet` / `#ETA Late Delivery` naming question via KB Policy Scan (source: Sofia Perez, 2026-08-22); 2026-03-03 — updated
+**Last Updated:** 2026-08-24 — added `#ETA - Order Running Late` mid-tier snippet via KB Policy Scan (source: Sofia Perez, 2026-08-22); 2026-03-03 — updated
 
 ---
 
@@ -615,10 +616,16 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Step 3 — Determine: Remake or Refund:**
 
+> **Establishing fault before offering a remake or redelivery (clarified 2026-08-24).** Two separate paths — do not merge them:
+> - **Restaurant fault** — the restaurant admits it forgot the item. A remake/redelivery **can** be offered. The restaurant absorbs the cost, so no courier-fault verification is needed.
+> - **Courier fault** — fault must be **clearly established** before offering a redelivery or granting a Sauce-funded remake. Do not offer either on the assumption of courier error; verify first.
+>
+> This resolves the apparent conflict with the 2026-07-31 "only offer redelivery when we can verify courier fault" reminder. That reminder governs the **courier-fault** path — it does not remove the restaurant-admission path below.
+
 *Remake (Pickup or Restaurant Delivery):*
 1. Call the restaurant to find out if the item was sent or forgotten.
-If the restaurant admits to forgetting the item and the customer requests re-delivery, ask if we can send a driver to deliver it.
-2. If courier error → move ticket to Refund Request to compensate the restaurant for remaking.
+If the restaurant admits to forgetting the item (restaurant fault) and the customer requests re-delivery, ask if we can send a driver to deliver it.
+2. If courier error — and only where courier fault is clearly established → move ticket to Refund Request to compensate the restaurant for remaking.
 3. If the restaurant approves the remake:
    - Inform the customer.
    - Pickup: the customer can collect the missing item.
@@ -631,7 +638,7 @@ If the restaurant admits to forgetting the item and the customer requests re-del
 
 **Exceptions:** Restaurant-delivered orders require a mandatory call to the restaurant for approval (see Entry 22).
 **Approval Required:** Depends — restaurant approval needed if on restricted list or restaurant handles delivery.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-08-24 — separated the restaurant-fault and courier-fault paths to resolve the conflict flagged in the 2026-08-03 scan; restaurant admission still supports redelivery, courier fault must be clearly established (decision: Josh Boock, 2026-08-24; source reminder: Josh Boock, 2026-07-31). 2026-03-03 — updated
 
 ---
 
