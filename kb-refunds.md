@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 33
+Entry count: 34
 
 ---
 
@@ -23,6 +23,8 @@ Entry count: 33
 - **Refund Request** — sends the ticket to ePayments for processing.
 - **Refund Follow Up Needed** (formerly "Pending Refunds") — Support status for tickets that need more info and were sent back by ePayments. Work these oldest to newest.
 
+**Refund Follow Up Needed — 48-hour SLA (added 2026-08-24):** Do not let a ticket sit in Refund Follow Up Needed for more than 48 hours without a follow-up. Refunds must be submitted inside the delivery company (DC)'s refund-submission window; a ticket that stalls past 48 hours risks falling outside that window and losing the refund entirely.
+
 **Stray refund emails:** Any refund confirmations or refund-related emails from DoorDash or other third parties that you don't know how to handle — forward to refunds@getsauce.com.
 
 **Exceptions:**
@@ -30,7 +32,7 @@ Entry count: 33
 
 **Approval Required:** No (for submission). ePayments team makes final determination.
 **Critical Rule:** NEVER confirm or guarantee a refund to a customer. Use language like: "We will submit a refund request" or "Our Refunds Team will review your order in 1-3 business days."
-**Last Updated:** 2026-07-16 — added status rename (Refund Follow Up Needed) and refunds@getsauce.com forwarding rule
+**Last Updated:** 2026-08-24 — added 48-hour follow-up SLA for Refund Follow Up Needed via KB Policy Scan (source: Danny Canabe, 2026-08-22); 2026-07-16 — added status rename (Refund Follow Up Needed) and refunds@getsauce.com forwarding rule
 
 ---
 
@@ -365,6 +367,8 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 **Situation:** Customer complains their order is taking too long or arrived late.
 **Resolution:**
 
+**Guiding principle (added 2026-08-24):** Do not argue with the customer about whether the order is "technically" late. Acknowledge their experience first, then act. Quoting the policy window at a frustrated customer before acknowledging the wait is the wrong opening move even when the order is genuinely still in-window.
+
 **Key rule:** Refundable late = **15+ minutes past the Latest Delivery Time** shown on the tracking link (dropoff time — not pickup time). Dispatch V2 shows both a dynamic ETA and a fixed latest delivery time. Dispatch V1 shows dynamic ETA only.
 
 **If no driver is assigned or the driver is far from pickup:**
@@ -389,6 +393,10 @@ Customer says the driver isn't moving or the GPS is frozen. Use `#eta_driver_stu
 **Tier 3 — Customer says "it's late" but still within the policy window**
 ETA hasn't passed yet. Use `#eta_not_late_yet` or `#eta_late_definition` to show the exact remaining time.
 - Re-check ETA. If still within the window → close. If passed → Tier 4.
+
+**Tier 3b — Still within the window, but the customer is frustrated by the pace** (added 2026-08-24)
+The order is not past the delivery window, but the customer feels it's dragging. Do not re-argue the window. Use `#ETA - Order Running Late` — acknowledge the expectation gap, state the current estimated delivery time, check on the delay, and commit to keeping them updated.
+- If the window then passes → Tier 4.
 
 **Tier 4 — ETA has passed, order not delivered**
 Use `#eta_late_delivery`. Apologize and confirm follow-up. Contact the courier.
@@ -443,7 +451,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Exceptions:** Under 15 min late by dropoff time = not eligible for guaranteed refund. Restaurant delivery and pickup of late orders are not Support's responsibility.
 **Approval Required:** No for Sauce Dispatch. Yes (restaurant approval) for restaurant delivery refunds.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-08-24 — added "acknowledge, don't argue" guiding principle and Tier 3b (`#ETA - Order Running Late`) via KB Policy Scan (source: Sofia Perez, 2026-08-22); 2026-03-03 — updated
 
 ---
 
@@ -472,6 +480,9 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 **#eta_late_definition** — Customer insists it's late; confirm still within policy window:
 > "I get why it feels late — I just checked and it still has about [x mins] left before it's considered delayed. I'll keep monitoring to be sure it stays on track."
 
+**#ETA - Order Running Late** (new 2026-08-24) — Order is still within the delivery window, but the customer is frustrated by the pace. Acknowledge the expectation gap; do not argue the technicality:
+> "We understand the order isn't meeting your expectations. The current estimated delivery time is [X], and I'll check on the delay to see if there's anything we can do to get it to you faster. I'll keep you updated as soon as I have more information."
+
 **#eta_late_delivery** — Latest ETA has passed and order not delivered:
 > "I can see your order's running a bit late — thanks so much for your patience. I'm checking with the courier to help move things along and will keep you posted."
 
@@ -490,9 +501,11 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 **#eta_byoc_explained** — BYOC (restaurant-managed delivery):
 > "The initial delivery estimate uses the settings on their ordering system, so the ETA comes from them directly. It should keep updating as it moves — I can still reach out to confirm if it stalls."
 
+**⚠️ Open question — snippet naming (flagged 2026-08-24):** The 2026-08-22 announcement referenced two snippets under names that differ from the ones documented above: `#B2C - Not Late Yet` (wording matches `#eta_not_late_yet` minus the "[x mins] to go") and `#ETA Late Delivery` (wording matches `#eta_late_delivery` verbatim). It is **not confirmed** whether these rename/replace the existing snippets or are additional HubSpot snippets that duplicate them. Until Support leadership confirms: use whichever of the two names actually exists in HubSpot, and treat the wording above as correct. Do not delete the `#eta_*` snippets on the assumption they were renamed.
+
 **Exceptions:** None — use the snippet that matches the customer's specific situation.
 **Approval Required:** No.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-08-24 — added `#ETA - Order Running Late` mid-tier snippet and flagged the `#B2C - Not Late Yet` / `#ETA Late Delivery` naming question via KB Policy Scan (source: Sofia Perez, 2026-08-22); 2026-03-03 — updated
 
 ---
 
@@ -936,9 +949,14 @@ Do NOT mention a refund until the delivery is complete. Let the customer know th
 
 4. Document all communications and approvals clearly in the customer's ticket before closing.
 
+**Customer-facing wording while awaiting store confirmation (added 2026-08-24):**
+
+**#B2C - Smoke Shop Issue**
+> "I'm so sorry about this issue. Since this request is related to a non-food item, this location manages refunds and replacements directly on their end and may have different policies for these types of requests. I will reach out to them to see if they're able to process your request. Please hold for a minute while we check with the location."
+
 **Exceptions:** Delivery-related issues (e.g., non-delivery, driver issues) follow the standard delivery investigation process and do not require store approval, even for non-food stores.
 **Approval Required:** Yes — store approval is required for all non-delivery, store-related refund requests at Smoke shops, Vape shops, and equivalent non-food product stores.
-**Last Updated:** 2026-07-27 — added via KB update workflow
+**Last Updated:** 2026-08-24 — added #B2C - Smoke Shop Issue customer snippet via KB Policy Scan (source: Sofia Perez, 2026-08-19); store-approval process unchanged. 2026-07-27 — added via KB update workflow
 
 ---
 

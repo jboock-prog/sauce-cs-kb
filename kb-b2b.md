@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 37
+Entry count: 39
 
 ---
 
@@ -921,3 +921,17 @@ Support can make the following updates directly:
 **Exceptions:** Discount integration for negative feedback is not yet live.
 **Approval Required:** No.
 **Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Ella Bar-Or, 2026-07-22, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-39: Disputed Charge Notification to Restaurants
+
+**Title:** Notifying Restaurants of Disputed Charges (incl. Pelicana)
+**Issue Type:** Restaurant Relations / Billing
+**Situation:** A customer disputes a charge on one of a restaurant's orders and the restaurant needs to be informed. Pelicana locations in particular have been seeing an increase in these requests.
+**Resolution:**
+1. Use the HubSpot email template **"B2B: Disputed Charge Info"** to notify the restaurant that a charge on one of their orders has been disputed.
+2. The template applies to any restaurant needing a dispute notification — it was created in response to volume at Pelicana, but is not Pelicana-specific.
+**Exceptions:** None documented.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan (source: Sofia Perez, 2026-08-18, #support-policy-process; restated in the 2026-08-22 weekly huddle)

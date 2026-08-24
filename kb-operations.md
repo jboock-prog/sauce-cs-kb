@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 28
+Entry count: 32
 
 ---
 
@@ -666,7 +666,7 @@ Note in the ticket: which script was used and when, a brief summary of what trig
 
 **Title:** Priorities for Agents on the Phone/Email Role
 **Issue Type:** Agent Guidelines
-**Situation:** Agent is scheduled on the Phone/Email role type.
+**Situation:** Agent is scheduled on the Phone/Email role type; or any agent is deciding whether to pick up a request in `#support-new` or `#support-team-help`.
 **Resolution:**
 Work in this priority order — you should always be on a call, answering Slack, or working a ticket:
 1. Answer phones when they ring for you
@@ -678,9 +678,11 @@ Work in this priority order — you should always be on a call, answering Slack,
 
 **Agents still on mixed roles:** work as normal — stay on phones and answer as usual. You remain accountable for tickets assigned to you, especially initial processing and escalation or closure.
 
+**Shared responsibility for Slack support channels (added 2026-08-24):** Answering requests in `#support-new` and `#support-team-help` is everyone's responsibility — not just the more experienced or longer-tenured agents. When only a few people consistently pick these up, it overloads them and makes the team look less responsive. Every agent should keep an eye on both channels regardless of role or ticket ownership.
+
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-07-16 — added from #support-policy-process (Josh, 2026-07-15)
+**Last Updated:** 2026-08-24 — added shared-responsibility note for #support-new / #support-team-help via KB Policy Scan (source: Sofia Perez, 2026-08-19); originally added 2026-07-16 from #support-policy-process (Josh, 2026-07-15)
 
 ---
 
@@ -764,3 +766,17 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Exceptions:** None specified in source.
 **Approval Required:** No.
 **Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-22)
+
+---
+
+## Entry OPS-32: BYOC Miami — Reaching the Customer via Uber
+
+**Title:** BYOC Miami — Reaching the Customer and Locating a Delivery ID via Uber
+**Issue Type:** Restaurant Relations / Dispatch
+**Situation:** A BYOC order in Miami needs customer contact but only an Uber masked phone number is available; or Uber support cannot find a Book-a-Driver (BaD) delivery using the standard 5-character delivery ID.
+**Resolution:**
+1. **Masked number:** Check the order in the Sauce dashboard — it shows the customer's real phone number and the PIN code needed to reach them directly. Use that instead of the Uber masked number.
+2. **Uber can't find the delivery ID:** Open the Uber tracking link and locate the long, case-sensitive tracking number (the one with dashes) rather than the short 5-character code. Give Uber support the long tracking number — it matches more uniquely and usually resolves the lookup.
+**Exceptions:** None documented.
+**Approval Required:** No.
+**Last Updated:** 2026-08-24 — applied from KB Policy Scan (source: Josh Boock, 2026-08-17, #support-policy-process; tracking-ID workaround from the same thread)
