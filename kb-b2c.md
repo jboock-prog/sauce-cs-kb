@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 10
+Entry count: 13
 
 ---
 
@@ -281,3 +281,48 @@ First, determine fault if unclear — ask Tier 2 to investigate. Fault matters f
 **Exceptions:** If only one codeless discount is active and stacking is still occurring, escalate to the technical team as this may indicate a platform bug.
 **Approval Required:** No
 **Last Updated:** 2026-07-20 — added via KB update workflow
+
+---
+
+## Entry B2C-11: Storefront Cashback Credit Recovery for Guests & Referral Award in Profile
+
+**Title:** Storefront Cashback Credit Recovery for Guests & Referral Award Visibility
+**Issue Type:** Storefront Feature
+**Situation:** A customer asks why they were prompted to sign in after checking out as a guest, whether they can still earn cashback on an order they already placed, or where to find a referral reward from Invite a Bite.
+**Resolution:**
+1. **Cashback credit recovery (guest checkout):** Guests who check out without signing in now see a "last chance" prompt on the order confirmation page. Signing in there retroactively earns them cashback on the order they just placed. If a guest says they missed out on cashback, check whether they completed that prompt.
+2. **Referral Award in the customer profile:** Under Invite a Bite, a referrer earns a discount once their friend's first order lands. That reward used to be sent by email only and was frequently missed. Customers now see a **Referral Award** section directly in their profile showing the pending discount, with a tooltip explaining how to use it. The section disappears automatically once the reward is applied.
+3. If a customer says they never received a referral reward, point them to the Referral Award section in their profile before escalating.
+**Exceptions:** The Referral Award section only appears while a reward is pending — a customer who has already redeemed it will not see it.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-08-31 (source: Ella Bar-Or, 2026-08-23, forwarded by Josh Boock 2026-08-27)
+
+---
+
+## Entry B2C-12: Reorder App — Cashback Balances and Streaks
+
+**Title:** Reorder App Release — Per-Location Cashback Balances and Streaks
+**Issue Type:** Product Feature
+**Situation:** A customer asks about the Reorder App, their cashback balance in it, or the new Streaks feature.
+**Resolution:**
+1. The latest Reorder App release shows **Cashback Program availability and live balances per location** for users who have them — a customer's balance is specific to each restaurant location, not a single global balance.
+2. **Streaks** is a new gamification feature: customers can see their ordering streaks and the impact they've had on their favorite local restaurants.
+3. The release also includes general bug fixes and performance improvements.
+**Exceptions:** Cashback balances only appear for locations where the Cashback Program is active.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-08-31 (source: Ezra Mosseri, 2026-08-27, forwarded by Josh Boock)
+
+---
+
+## Entry B2C-13: Storefront Checkout — Cashback Redeemed Row and Saved Addresses
+
+**Title:** Storefront Checkout Improvements — Cashback Redeemed Row & Saved Address Book
+**Issue Type:** Storefront Feature
+**Situation:** A customer asks why their receipt shows a separate cashback line, or asks about addresses being saved and pre-filled at checkout.
+**Resolution:**
+1. **Cashback Redeemed row:** Cashback redemptions used to be folded into the **Discount** row. They now appear in their own **Cashback Redeemed** row (with an icon) so the customer can see savings from discounts separately from savings from cashback. The row only appears when cashback was actually used.
+2. **Saved addresses:** When a signed-in customer places an order, the delivery address is now automatically saved to their address book and pre-populated on future orders. Customers can save multiple addresses and tag them (e.g. **Home**, **Work**) to pick the right one per order.
+3. If a customer reports an unexpected address pre-filled at checkout, have them review and re-tag the entries in their saved address book.
+**Exceptions:** Address saving applies to signed-in customers only — guest checkouts are not saved to an address book.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: Ella Bar-Or, 2026-09-03, forwarded by Josh Boock)

@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 11
+Entry count: 12
 
 ---
 
@@ -234,3 +234,18 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Last Updated:** 2026-07-29 — added via KB update workflow
 
 ---
+
+---
+
+## Entry GEN-12: CS Transfers — Use Prepared Snippets, Don't Rephrase
+
+**Title:** CS Transfers — Use the Prepared Snippets Instead of Rephrasing
+**Issue Type:** Policies & Rules
+**Situation:** An agent is transferring a case to CS (or another team) and is unsure how to word the handoff to the customer or restaurant.
+**Resolution:**
+1. Do **not** rephrase information you are not sure of. Rewording creates inconsistency and can commit Sauce to something inaccurate.
+2. Use the prepared **Snippets** — the wording for all transfer cases is already written for you.
+3. If no snippet fits the situation, ask in #support-team-help rather than improvising.
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: Sofia Perez, 2026-09-02)

@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 34
+Entry count: 40
 
 ---
 
@@ -827,3 +827,94 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-17 (source: Sofia Perez, 2026-08-12)
+
+---
+
+## Entry OPS-35: PTO Requests — Multi-Date Selection and Deel Coverage Note
+
+**Title:** PTO Requests — Consecutive-Date Selection and the Deel Coverage Plan Note
+**Issue Type:** Team Process
+**Situation:** An agent is submitting a PTO request.
+**Resolution:**
+1. The PTO request form in **#cc-team-attendance** now allows selecting multiple dates when they are consecutive. Use the **start date** as the first day off and the **end date** as the last day off. Days off in the middle of that range are fine.
+2. When entering the same PTO in **Deel**, add a coverage plan in the notes or HR will not approve it. For Support PTO, use: **"Coverage approved by Support Leadership."**
+**Exceptions:** Non-consecutive days off still need separate requests.
+**Approval Required:** Yes — PTO is approved by Support Leadership and HR (via Deel).
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-08-31 (source: Josh Boock, 2026-08-30)
+
+---
+
+## Entry OPS-36: Lovable — Delivery Investigation Tool
+
+**Title:** Lovable (sauce-delivery-hub.lovable.app) — Delivery Investigation Tool
+**Issue Type:** Tools & Systems
+**Situation:** An agent needs extra visibility into what happened on a delivery — where the driver actually went, or why a delivery took longer than expected.
+**Resolution:**
+1. Open **Lovable** at https://sauce-delivery-hub.lovable.app.
+2. **Map** — shows where the driver ended up, so you can check whether they actually reached the delivery location.
+3. **Delivery timestamps** — individual timestamps across the delivery process, useful for explaining why a delivery ran long.
+4. **Diagnose button** — summarizes delivery performance and gives a quick overview of what happened.
+5. Use it as a supporting investigation tool alongside the existing delivery-issue procedures; it does not replace any escalation path.
+**Exceptions:** Credentials are shared privately by Support Leadership, not posted in channel. Full usage guidance is still pending a Tuesday/Thursday huddle walkthrough — this entry should be updated once that happens.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-08-31 (source: Sofia Perez, 2026-08-30)
+
+---
+
+## Entry OPS-37: "Multiple Courier Issue" Ticket Property
+
+**Title:** Multiple Courier Issue — Ticket Property (Yes / No / Blank)
+**Issue Type:** Tools & Systems
+**Situation:** A restaurant reports that multiple couriers arrived unexpectedly for the same order.
+**Resolution:**
+1. Set the **Multiple Courier Issue** ticket property to **Yes** on any ticket where a restaurant reports multiple couriers arriving unexpectedly for one order.
+2. Leave it **No** or **Blank** otherwise — the property exists so these cases can be tracked and investigated, so accuracy matters more than volume.
+3. Continue handling the underlying delivery issue through the normal process; this property is for tracking, not routing.
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: Josh Boock, 2026-09-03)
+
+---
+
+## Entry OPS-38: Aging B2B / B2C Tickets — Pipeline Hygiene and Scorecard Impact
+
+**Title:** Aging B2B / B2C Tickets — Review Expectations and Scorecard Impact
+**Issue Type:** Policies & Rules
+**Situation:** An agent has B2B or B2C tickets sitting in their pipeline without recent action.
+**Resolution:**
+1. Review your **B2B and B2C tickets regularly**, especially while on shift. Tickets over a month old are not acceptable.
+2. Be proactive about closing out or advancing aged tickets rather than waiting for them to resurface.
+3. **Ticket age is part of the team scorecard** and could affect bonuses in the near future.
+4. See **OPS-34** for choosing the right follow-up status so tickets resurface on their own instead of going silent.
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: Danny Canabe, 2026-09-03; Josh Boock reply in thread)
+
+---
+
+## Entry OPS-39: Scorecard Metric — Service Level Replaces Response Time
+
+**Title:** Team Scorecard — "Service Level" Replaces "Response Time"
+**Issue Type:** Policies & Rules
+**Situation:** An agent asks how chat responsiveness is measured on the team scorecard.
+**Resolution:**
+1. The **response time** metric on the scorecard has been replaced with **service level**: the percentage of chats answered in under **60 seconds**.
+2. The change is meant to keep a small number of outlier tickets from having an outsized impact on the metric — but consistency across all chats is now what drives the number.
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: Josh Boock, 2026-09-05)
+
+---
+
+## Entry OPS-40: "Credits Campaign" Line on a Receipt = Loyalty & Cashback Redemption
+
+**Title:** Identifying a "Credits Campaign" Discount Line on a Receipt
+**Issue Type:** Order Issues
+**Situation:** A receipt or order detail shows a discount line labeled **Credits Campaign** and the agent (or restaurant) needs to know where the discount came from.
+**Resolution:**
+1. A **Credits Campaign** discount line means the customer redeemed **Loyalty & Cashback** credit on that order — it is not a promo code or a manually applied discount.
+2. Verify it in the restaurant dashboard: **Growth → Loyalty & Cashback → Recent Cashback Orders**, and match the order.
+3. Explain to the restaurant that the amount is a cashback redemption from their own Loyalty & Cashback program, not an unexpected Sauce discount.
+**Exceptions:** None.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: #support-team-help thread re: order BPXAA1FQ)

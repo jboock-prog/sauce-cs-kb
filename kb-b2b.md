@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 46
+Entry count: 47
 
 ---
 
@@ -965,6 +965,7 @@ Direct restaurants asking about this to the Dashboard, and note the gradual roll
 
 When an issue can't be resolved and the restaurant has no assigned CS contact:
 1. Do **NOT** tell them you'll escalate to their Account Manager. Tell them it will be forwarded to the Customer Experience Team, who will follow up directly.
+   - Equally, do **NOT** tell a restaurant that they "do not have a Success Manager." Say the **Success team** will reach out — we don't want a restaurant to feel unloved. (Terminology note: this 2026-09-02 guidance says "Success team" where this entry says "Customer Experience Team"; pending confirmation of whether these are the same function, use the positive framing above and route as described here.)
 2. Open a ticket, assign it to Tomas or Mariana, and send it to their pipeline.
 3. Add the restaurant name to the ticket's **Company Level** field.
 4. Use the updated `#B2B - CS Transfer` snippet: "I'll forward this to our Customer Experience Team, who will follow up on your concern... You can also contact them directly at success@getsauce.com, and they'll get back to you within 24 business hours."
@@ -972,7 +973,7 @@ When an issue can't be resolved and the restaurant has no assigned CS contact:
 See also **B2B-7** for the Slack tagging rule this replaced.
 **Exceptions:** Tier 1 / Tier 2 (high-volume / high-revenue) restaurants keep their existing CS Owner assignment and process.
 **Approval Required:** No.
-**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-10 (source: Sofia Perez, 2026-08-05)
+**Last Updated:** 2026-09-07 — enriched from KB Policy Scan, week of 2026-09-07 (source: Josh Boock, 2026-09-02); originally applied 2026-08-24 (source: Sofia Perez, 2026-08-05)
 
 ---
 
@@ -1006,9 +1007,15 @@ See also **B2B-7** for the Slack tagging rule this replaced.
 **Issue Type:** Restaurant Relations
 **Situation:** A restaurant asks about, or needs help downloading, the Sauce/Merchant mobile manager app.
 **Resolution:** The **Sauce Manager (Merchant) App** is available on Apple and Android. The Merchant Dashboard shows a pop-up announcing it — on desktop the pop-up includes a QR code to scan, and on mobile it provides a direct download link.
+
+The 2026-08-27 release (confirmed live in both app stores) adds:
+1. **Dashboard Reports with export and share** — all reports previously only on the Merchant Dashboard are now in the app (sales summary, feedback, payout summary and more), and merchants can export or share them from the app (email, messaging apps, saved to device).
+2. **Push notifications** — the app can send pushes, with an opt-in approval screen (standard OS prompt) and a settings screen where merchants manage notification preferences.
+3. **In-app update popup** — a "what's new" popup surfaces when a new version is available, so merchants learn about updates without relying on app store changelogs.
+4. General bug fixes and stability improvements.
 **Exceptions:** None noted.
 **Approval Required:** No.
-**Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-10 (source: Noy Shavit / Ella Bar-Or, 2026-08-06, forwarded by Josh Boock)
+**Last Updated:** 2026-09-07 — enriched from KB Policy Scan, week of 2026-08-31 (source: Tanya Maslo, 2026-08-27, forwarded by Josh Boock; live in both stores confirmed by Noy Shavit)
 
 ---
 
@@ -1038,3 +1045,18 @@ See also **B2B-7** for the Slack tagging rule this replaced.
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-08-24 — applied from KB Policy Scan, week of 2026-08-17 (source: Sofia Perez, 2026-08-15, weekly huddle)
+
+---
+
+## Entry B2B-47: DoorDash Self-Delivery Deactivation Notice — Escalation Procedure
+
+**Title:** DoorDash Notice to Deactivate Self-Delivery — Escalation Procedure
+**Issue Type:** Escalation Procedure
+**Situation:** Someone reaches out reporting they received a notice from DoorDash stating they must deactivate their self-delivery service.
+**Resolution:**
+1. Post the report in **#ops-escalations** with the notice (screenshot or forwarded email) attached.
+2. Open an **Urgent** case in CS.
+3. Do not attempt to advise on whether to deactivate — this is handled by Ops.
+**Exceptions:** The announcement was worded as "every customer who reaches out," but the subject matter (DoorDash self-delivery / BYOC) is restaurant-facing. Treat any report of this notice — from a restaurant or a customer — the same way, and confirm the affected party in the escalation post.
+**Approval Required:** No.
+**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-08-31 (source: Yuval Shalom, 2026-08-24; restated in weekly huddle, Sofia Perez, 2026-09-05)
