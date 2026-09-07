@@ -915,6 +915,7 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 1. A **Credits Campaign** discount line means the customer redeemed **Loyalty & Cashback** credit on that order — it is not a promo code or a manually applied discount.
 2. Verify it in the restaurant dashboard: **Growth → Loyalty & Cashback → Recent Cashback Orders**, and match the order.
 3. Explain to the restaurant that the amount is a cashback redemption from their own Loyalty & Cashback program, not an unexpected Sauce discount.
+4. Note the naming difference across surfaces: the customer-facing Storefront checkout shows this as a **Cashback Redeemed** row (see **B2C-13**), while the restaurant-side receipt / order detail labels it **Credits Campaign**. Same money, different label — not a discrepancy to escalate.
 **Exceptions:** None.
 **Approval Required:** No.
 **Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: #support-team-help thread re: order BPXAA1FQ)
