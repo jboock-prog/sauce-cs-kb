@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 34
+Entry count: 35
 
 ---
 
@@ -987,3 +987,23 @@ Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Proce
 **Exceptions:** The "Weather Potential Refund" 1-hour/automatic-refund rule is a weather-specific exception to the general late-delivery threshold in Entry 15 (15+ minutes past latest delivery time, submitted via Refund Request rather than automatic) — not a confirmed contradiction of Entry 15, per the source announcement.
 **Approval Required:** No.
 **Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-21)
+
+
+---
+
+## Entry 34: Pho Bar — Self-Approval Required for Refunds
+
+**Title:** Pho Bar Added to Restaurant Self-Approval Refund List
+**Issue Type:** Policies & Rules
+**Situation:** When a CS agent is processing a refund for an order placed at Pho Bar and needs to determine whether they can approve the refund directly or must escalate to the restaurant first.
+**Resolution:**
+1. Identify that the order in question is from Pho Bar.
+2. Do **not** approve or issue the refund unilaterally.
+3. Contact Pho Bar directly and present the refund request for their review and approval.
+4. Wait for explicit confirmation from Pho Bar before processing any refund.
+5. Once approved by the restaurant, proceed with the refund per standard refund procedures.
+6. Document the restaurant's approval in the order notes before closing the case.
+
+**Exceptions:** If Pho Bar is unreachable after reasonable attempts (e.g., outside business hours with a time-sensitive case), escalate to a CS Team Lead for guidance before taking any independent action.
+**Approval Required:** Yes — restaurant must approve before refund is issued
+**Last Updated:** 2026-09-17 — added via KB update workflow
