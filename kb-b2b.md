@@ -908,19 +908,19 @@ Support can make the following updates directly:
 
 **Title:** Merchant Feedback Dashboard Revamp — Action-Focused Feedback and Follow-Up Tools
 **Issue Type:** Restaurant Relations
-**Situation:** A restaurant asks about the redesigned feedback/reviews experience, follow-up tools, or a change to feedback emails.
+**Situation:** A restaurant asks about the redesigned feedback/reviews experience, follow-up tools, replying to a review, or a change to feedback emails.
 **Resolution:** The feedback experience has been redesigned to help merchants act on reviews, not just read them:
 - New action-focused feedback dashboard with an Insights section (satisfaction metrics split by pickup/delivery).
 - "Needs reply" is the default view, with summary cards and filters.
 - Full context per review: related order, new vs. repeat customer, total spend, email, phone number.
-- Smart reply suggestions tailored to positive/negative feedback, ready to copy and send.
+- **Reply directly from the Feedback page** — no more copying the review into their own inbox. Hitting **Reply** opens a modal with a **suggested reply already drafted (AI-generated) from the review and personalized with the customer's name**; merchants can switch tone or edit the text before sending. The email goes out **from the restaurant's own address**, replies land in the restaurant's own inbox, and once sent the review moves to the **Replied** tab. (If a restaurant instead tries to reply from the notification-email link and gets an access error, see **B2B-45**.)
 - Emailed, Called, and Skipped tracking so merchants can manage follow-ups.
 - Redesigned feedback emails: shorter, cleaner, with star rating + comment preview, a "Read more" CTA to the dashboard, and full UTM tracking.
-- Coming next (not yet live): discount integration to send a one-time offer to customers who leave negative feedback.
+- Coming next (not yet live): merchants will be able to **auto-add a promo code to the reply** to compensate the customer.
 
-**Exceptions:** Discount integration for negative feedback is not yet live.
+**Exceptions:** The promo-code-in-reply feature is not yet live.
 **Approval Required:** No.
-**Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Ella Bar-Or, 2026-07-22, forwarded by Josh Boock)
+**Last Updated:** 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Ella Bar-Or, 2026-09-10, forwarded by Josh Boock); earlier 2026-07-27 update: Ella Bar-Or, 2026-07-22
 
 ---
 
@@ -1005,17 +1005,17 @@ See also **B2B-7** for the Slack tagging rule this replaced.
 
 **Title:** Sauce Manager App — Restaurant Mobile App
 **Issue Type:** Restaurant Relations
-**Situation:** A restaurant asks about, or needs help downloading, the Sauce/Merchant mobile manager app.
+**Situation:** A restaurant asks about, or needs help downloading, the Sauce/Merchant mobile manager app — or asks about a push notification they received from it.
 **Resolution:** The **Sauce Manager (Merchant) App** is available on Apple and Android. The Merchant Dashboard shows a pop-up announcing it — on desktop the pop-up includes a QR code to scan, and on mobile it provides a direct download link.
 
 The 2026-08-27 release (confirmed live in both app stores) adds:
 1. **Dashboard Reports with export and share** — all reports previously only on the Merchant Dashboard are now in the app (sales summary, feedback, payout summary and more), and merchants can export or share them from the app (email, messaging apps, saved to device).
-2. **Push notifications** — the app can send pushes, with an opt-in approval screen (standard OS prompt) and a settings screen where merchants manage notification preferences.
+2. **Push notifications** — the app can send pushes, with an opt-in approval screen (standard OS prompt) and a settings screen where merchants manage notification preferences. The **first push is now live: a weekly analytics push sent every Monday morning (EST)** that takes the merchant straight to the **Analytics** screen when tapped. More push types are planned.
 3. **In-app update popup** — a "what's new" popup surfaces when a new version is available, so merchants learn about updates without relying on app store changelogs.
 4. General bug fixes and stability improvements.
 **Exceptions:** None noted.
 **Approval Required:** No.
-**Last Updated:** 2026-09-07 — enriched from KB Policy Scan, week of 2026-08-31 (source: Tanya Maslo, 2026-08-27, forwarded by Josh Boock; live in both stores confirmed by Noy Shavit)
+**Last Updated:** 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock); earlier 2026-09-07 update: Tanya Maslo, 2026-08-27, live in both stores confirmed by Noy Shavit
 
 ---
 

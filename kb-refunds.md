@@ -346,7 +346,7 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 **Issue Type:** Order Issues
 **Situation:** Customer or delivery company reports in real time that the restaurant appears to be closed.
 **Resolution:**
-1. Call the restaurant at least 3-4 times, at different times if possible, to verify closure.
+1. Call the restaurant at least 3-4 times, at different times if possible, to verify closure. While doing so, also **check connected third-party platforms** (Uber Eats, DoorDash, Grubhub, etc.) for the restaurant's current status, and let the customer know the team is reviewing everything to make sure it's working as expected.
 2. **If restaurant confirms they're open**: check if they prepared the specific order. Based on their response, either send a refund denial or move to Refund Request.
 3. **If restaurant does not answer**: treat the restaurant as closed.
    - Close the restaurant until the next opening hours on the Sauce Dashboard.
@@ -355,9 +355,11 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
    - Move the original customer's ticket to Refund Request for a refund.
 4. **For delivery specifically**: if the end customer did NOT report it (you learned from the delivery company), confirm with the customer before moving to refunds.
 
+**General reminder:** always use a helpful tone, and do not assume something is resolved unless the customer confirms it is resolved.
+
 **Exceptions:** Delivery closure reported by the delivery company (not the customer) — must confirm with the customer before creating a refund ticket.
 **Approval Required:** No — if restaurant confirmed closed (or no answer after multiple attempts).
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-09-18 — updated from KB Policy Scan, week of 2026-09-14 (source: Josh Boock, 2026-09-08); adds "check connected platforms" step and tone reminder
 
 ---
 

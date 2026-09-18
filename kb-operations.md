@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 40
+Entry count: 47
 
 ---
 
@@ -919,3 +919,125 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Exceptions:** None.
 **Approval Required:** No.
 **Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: #support-team-help thread re: order BPXAA1FQ)
+
+---
+
+## Entry OPS-41: Dashboard Channel Closing Override — Marinara, Brooklyn Bread & Friendma's
+
+**Title:** Dashboard Channel Closing Override — Marinara, Brooklyn Bread & Friendma's
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** A channel appears closed for a Marinara, Brooklyn Bread, or Friendma's chain location, and it's unclear whether this is a Stream sync problem (see **OPS-28**, PauseBot Alerts) or expected behavior.
+**Resolution:**
+1. These three chains have a **"closing store" feature** that overrides Stream and lets them close their own channels directly from the Merchant Dashboard.
+2. If you see a channel closed from the Dashboard for one of these restaurants, this is **expected behavior** — do not treat it as a Stream issue or a PauseBot alert requiring manual pause/unpause action.
+**Exceptions:** Applies only to Marinara, Brooklyn Bread, and Friendma's chain locations as announced; other restaurants' channel-closed states should still be checked per **OPS-28**.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Sofia Perez, 2026-09-07)
+
+---
+
+## Entry OPS-42: Book a Driver (BaD) v2 Rollout + Automated BaD Charges Report
+
+**Title:** Book a Driver (BaD) v2 Rollout + Automated BaD Charges Report
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** A restaurant or agent asks about the newer Book a Driver experience, a "large order" multi-driver option, or where to see automated BaD delivery charges.
+**Resolution:**
+1. **BaD v2** is rolling out gradually to all locations (V1 locations will be upgraded too). As of 2026-09-09, **477 locations** were live on V1 or V2 combined (~150 daily orders), with a few hundred more added to V2 each week — full rollout was expected in about 4 weeks, after which customer education begins.
+2. V2 adds a **"large order" reason** that lets a merchant book **multiple drivers for one order**.
+3. In parallel, BaD is rolling out **automated charges** with a **web Dashboard report and CSV export** (150+ locations live since 2026-09-07). A Manager-app version of the same charges report was expected about 2 weeks after the announcement.
+4. For tipping and unassociated-order situations see **OPS-11** (BaD Tip Guide) and **OPS-29** (BaD with no order associated).
+**Exceptions:** Rollout is gradual and location-by-location — confirm a specific restaurant has BaD v2 / the charges report live before describing it as available.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock)
+
+---
+
+## Entry OPS-43: Booking a Backup (Secondary) Driver — Chat Snippet
+
+**Title:** Booking a Backup (Secondary) Driver — Chat Snippet
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** A restaurant or end customer is frustrated about a delayed order and CS wants to request a secondary rider to speed things up (usable in chats with either party).
+**Resolution:** Use the **"#CC – Booking a Backup Driver"** snippet: let them know you're requesting a secondary rider so a faster rider can pick up and deliver the order as soon as possible, and that you'll monitor the order.
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Sofia Perez, 2026-09-13)
+
+---
+
+## Entry OPS-44: Integration Types and BYOC Integration Methods — Stream, Direct, Otter, SpotOn
+
+**Title:** Integration Types and BYOC Integration Methods — Stream, Direct, Otter, SpotOn
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** An agent, restaurant, or sales contact asks how a restaurant's POS and third-party platforms connect to Sauce for BYOC delivery, why menus/orders/settings behave differently between restaurants, or whether Sauce can work with an unusual POS.
+**Resolution:**
+1. **Three integration types are in use:**
+   - **Direct** — GrubHub only, for Sauce POS (SaaS tablet) customers.
+   - **Stream** — the majority of accounts; Sauce manages menus, hours, and order acceptance.
+   - **Otter** — listener-only: Otter manages everything; Otter's API just requests a driver from Sauce and Sauce pushes delivery updates back. No Sauce tablet is needed for these customers.
+2. **BYOC integration methods (existing):**
+   - **Sauce tablet as the online POS** — Stream runs white-labeled behind the scenes (third parties are integrated invisibly); self-delivery auto-books a driver.
+   - **Sauce as aggregator into a POS (Toast, Clover, Square)** — orders push to the POS; menus and settings live in the POS; Sauce only handles driver dispatch.
+3. **Otter (newer integration layer, replaces Stream in this flow):**
+   - DoorDash, Uber, Grubhub, and Sauce Direct all flow through Otter; Sauce plugs in only as the **delivery company**, not the aggregator.
+   - Menus, reporting, and analytics live in **Otter**, not the Sauce Dashboard. The Sauce tablet shows only the orders Sauce delivers (no visibility into Uber pickups/deliveries).
+   - Customers can track driver status inside Otter, including a "ready" button.
+   - Otter supports ~73 POS integrations (Shift4, Revel, Lightspeed, Micros, etc.), which unlocks 21+ POS systems for BYOC that Sauce could not previously support. There is a **$99 integration fee paid to Otter by the customer**.
+   - **Sales tip:** for a "weird/unsupported" POS, check **tryotter.com/integrations** before walking away from the deal.
+4. **SpotOn:**
+   - Sauce plugs directly into the SpotOn POS as the delivery provider.
+   - A separate aggregator — **Chowly or Deliverect** — is still required to route third-party orders into SpotOn; Sauce is not directly integrated with either.
+   - **Sauce Direct (hybrid) requires Chowly** — Deliverect is not supported for that path. Onboarding Chowly is simple (one link click) and there is a Slack channel for coordination.
+5. **Multi-location on one tablet:** Otter allows multiple brands/locations under a single tablet (ghost kitchens). Bagel Point is the current live example, and this will become more common. Known side effect: multi-location aggregation can produce **inflated order-count alerts in BI** (e.g. 127 shown instead of ~50) — a known false positive, not a real anomaly.
+**Exceptions:** A direct SpotOn integration (like Toast) is possible in the future but does not exist today. Otter-integrated customers manage menus and settings in Otter, so Dashboard/Stream settings guidance (see **OPS-46**) does not apply to them.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — added from morning-meetings KB notes (source: Otter and SpotOn training + Joshua/Yuval meeting, 2026-09-18)
+
+---
+
+## Entry OPS-45: Velo — Exclusive Delivery Provider in Manhattan / Brooklyn
+
+**Title:** Velo — Exclusive Delivery Provider in Manhattan and Parts of Brooklyn
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** An agent is investigating a delayed, unassigned, or stuck NYC order, or asks who delivers in Manhattan/Brooklyn and how fallback works.
+**Resolution:**
+1. **Velo** is Sauce's **exclusive delivery provider in Manhattan and parts of Brooklyn** — roughly half of all daily deliveries as of 2026-09-18. It is a SaaS provider and does not work with anyone else.
+2. Velo is the **priority carrier**, ahead of Motoclique, Uber, and DoorDash.
+3. **Fallback logic:** Velo cancels, and another provider (Uber, DoorDash, etc.) should be triggered, if no driver is assigned **6 minutes before pickup**.
+4. **Velo does not currently provide Proof of Delivery (POD)** — see **OPS-47**.
+5. Bringo is no longer active in NYC.
+**Exceptions:** **Known issue (as of 2026-09-18):** the fallback sometimes fails to actually call another provider, leaving orders stuck on Velo. A fix was in QA that week — if an order looks stuck with no driver near pickup, consider this issue before assuming a customer/restaurant fault.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — added from morning-meetings KB notes (source: Joshua/Yuval meeting, 2026-09-18)
+
+---
+
+## Entry OPS-46: Dashboard vs. Stream Settings — Known Sync Gaps (Prep Time, Hours, Pause)
+
+**Title:** Dashboard vs. Stream Settings — Known Sync Gaps (Prep Time, Hours, Pause/Unpause)
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** A merchant complains that prep time, hours, or a pause/unpause change made in the Dashboard isn't reflected on a third-party platform (Uber, Grubhub, DoorDash, Slice), or the Dashboard, Stream, and tablet disagree.
+**Resolution:**
+1. **Dashboard and Stream are frequently out of sync** on settings (prep time, hours, location controls). Customers only have Dashboard access, not Stream. Example: the same location can show 15 min prep in Stream vs. 20 min on the tablet (Marinara is a recurring case). This affects all major DSPs.
+2. **Prep time set in the Dashboard only affects Sauce orders — it does not propagate to third-party DSPs.** Keep this in mind when troubleshooting merchant complaints.
+3. **Hours are similarly unreliable** — menus (and their hours) are pulled from the restaurant's POS (Toast in the cited case), not controlled by the Dashboard.
+4. **Pause/unpause is a workaround:** it works by programmatically logging into Stream as the customer.
+5. See **OPS-28** (PauseBot Alerts) and **OPS-41** (chains that can close channels from the Dashboard).
+**Exceptions:** A full action → platform mapping (cancel, adjust, refund, menu management, pause, location hours, prep time — split by Stream-connected vs. non-connected and SaaS vs. non-SaaS) was still being built as of 2026-09-18; until it exists, don't promise a Dashboard change will reach a third-party platform.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — added from morning-meetings KB notes (source: Joshua/Yuval and Product Usability meetings, 2026-09-18)
+
+---
+
+## Entry OPS-47: Proof of Delivery (POD) — Where It Comes From and Known Limits
+
+**Title:** Proof of Delivery (POD) — Sourcing, Availability, and Known Limits
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** An agent (or Quick Chat / the AI) can't retrieve a POD photo for a delivery, or asks why PODs are missing or inconsistent.
+**Resolution:**
+1. **PODs are not stored in Getsauce's own system** — they are sourced separately from each DSP/delivery provider, and coverage varies by provider.
+2. **Velo does not provide PODs yet** (see **OPS-45**), and roughly half of deliveries are Velo — a major reason overall POD availability is low.
+3. **Quick Chat (AI) retrieval is unreliable on the first request**, but agents can often find the POD later — this points to a propagation/timing delay rather than true unavailability. If it isn't there at first, check again before concluding it doesn't exist.
+4. There is no current data on what share of PODs are valid/usable across third parties, so don't treat a missing or odd POD as proof of anything on its own. For refund decisions that hinge on the POD photo, follow the refunds KB (the "Proof of Delivery (PoD) photo" step).
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — added from morning-meetings KB notes (source: Joshua/Yuval and Product Usability meetings, 2026-09-18)

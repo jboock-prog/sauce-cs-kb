@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 13
+Entry count: 14
 
 ---
 
@@ -326,3 +326,15 @@ First, determine fault if unclear — ask Tier 2 to investigate. Fault matters f
 **Exceptions:** Address saving applies to signed-in customers only — guest checkouts are not saved to an address book.
 **Approval Required:** No.
 **Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: Ella Bar-Or, 2026-09-03, forwarded by Josh Boock)
+
+---
+
+## Entry B2C-14: Ordered at the Wrong Restaurant Location
+
+**Title:** Customer Ordered at the Wrong Restaurant Location
+**Issue Type:** Order Issues
+**Situation:** A customer ordered from the wrong location of a restaurant chain (not a pickup/delivery mix-up — see **B2C-1** for that).
+**Resolution:** Use the **"#B2C – Ordered at the Wrong Location"** snippet: explain that the order **cannot be transferred** from one location to another, and that a **cancellation request must be submitted first** — the team needs to confirm with the restaurant whether they can accommodate it before proceeding. Set the expectation that this takes a few minutes to check.
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Sofia Perez, 2026-09-13)

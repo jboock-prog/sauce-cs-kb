@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 12
+Entry count: 13
 
 ---
 
@@ -249,3 +249,21 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** None.
 **Approval Required:** No.
 **Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-09-07 (source: Sofia Perez, 2026-09-02)
+
+---
+
+## Entry GEN-13: Opening Snippets by Scenario + Identifying Unknown Chat Customers
+
+**Title:** Opening Snippets by Scenario (Chat-WA) + Identifying Unknown Chat Customers via OpsCopilot
+**Issue Type:** Policies & Rules
+**Situation:** Agent opens a new chat/WhatsApp conversation and needs to pick the correct opening snippet, or the chat carries no useful context (common on B2B chats opened from the Dashboard, or when a suspected end customer opens a chat with nothing but an email).
+**Resolution:**
+1. Opening snippets have been **renamed, one per scenario (Chat-WA)** — pick the one that matches the situation.
+2. If a chat has no info, or you need to see what the customer already told the AI chat, **check the chat history first**.
+3. For a suspected end customer with only an email and no other context, use the new **"#B2C - Asking Order Information"** snippet: *"Can you provide the name of the restaurant, the name on the order, and the order ID, if you have it?"* Then:
+   - Look up the email or customer name in **OpsCopilot**.
+   - Look up the restaurant name directly on the Dashboard (and check whether it's a store phone-order / book-a-rider request).
+   - Find the Order ID via OpsCopilot or Slack.
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Sofia Perez, 2026-09-09)
