@@ -997,9 +997,9 @@ Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Proce
 
 **Title:** Pho Bar Added to Restaurant Self-Approval Refund List
 **Issue Type:** Policies & Rules
-**Situation:** When a CS agent is processing a refund for an order placed at Pho Bar and needs to determine whether they can approve the refund directly or must escalate to the restaurant first.
+**Situation:** When a CS agent is processing a refund for an order placed at Pho Bar (also written "Phobar Bklyn") and needs to determine whether they can approve the refund directly or must escalate to the restaurant first.
 **Resolution:**
-1. Identify that the order in question is from Pho Bar.
+1. Identify that the order in question is from Pho Bar — this includes the location listed as **"Phobar Bklyn"** (same restaurant, confirmed by Josh Boock, 2026-09-21).
 2. Do **not** approve or issue the refund unilaterally.
 3. Contact Pho Bar directly and present the refund request for their review and approval.
 4. Wait for explicit confirmation from Pho Bar before processing any refund.
@@ -1008,4 +1008,4 @@ Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Proce
 
 **Exceptions:** If Pho Bar is unreachable after reasonable attempts (e.g., outside business hours with a time-sensitive case), escalate to a CS Team Lead for guidance before taking any independent action.
 **Approval Required:** Yes — restaurant must approve before refund is issued
-**Last Updated:** 2026-09-17 — added via KB update workflow
+**Last Updated:** 2026-09-21 — "Phobar Bklyn" added as the same restaurant, from KB Policy Scan, week of 2026-09-21 (source: Josh Boock, 2026-09-17; identity confirmed 2026-09-21); 2026-09-17 — added via KB update workflow
