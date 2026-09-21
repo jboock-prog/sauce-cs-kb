@@ -1005,7 +1005,7 @@ See also **B2B-7** for the Slack tagging rule this replaced.
 
 **Title:** Sauce Manager App — Restaurant Mobile App
 **Issue Type:** Restaurant Relations
-**Situation:** A restaurant asks about, or needs help downloading, the Sauce/Merchant mobile manager app — or asks about a push notification they received from it.
+**Situation:** A restaurant asks about, or needs help downloading, the Sauce/Merchant mobile manager app — or asks about a push notification they received from it; or wants to close their store.
 **Resolution:** The **Sauce Manager (Merchant) App** is available on Apple and Android. The Merchant Dashboard shows a pop-up announcing it — on desktop the pop-up includes a QR code to scan, and on mobile it provides a direct download link.
 
 The 2026-08-27 release (confirmed live in both app stores) adds:
@@ -1013,9 +1013,11 @@ The 2026-08-27 release (confirmed live in both app stores) adds:
 2. **Push notifications** — the app can send pushes, with an opt-in approval screen (standard OS prompt) and a settings screen where merchants manage notification preferences. The **first push is now live: a weekly analytics push sent every Monday morning (EST)** that takes the merchant straight to the **Analytics** screen when tapped. More push types are planned.
 3. **In-app update popup** — a "what's new" popup surfaces when a new version is available, so merchants learn about updates without relying on app store changelogs.
 4. General bug fixes and stability improvements.
+
+**Store closure requests (added 2026-09-17):** If a restaurant asks to close their store, CS can suggest they download the Sauce Manager Mobile App (Android or Apple via https://qr1.be/75HEC1) to do so themselves. Use the HubSpot snippet **"B2B Download the Manager App"** for this.
 **Exceptions:** None noted.
 **Approval Required:** No.
-**Last Updated:** 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock); earlier 2026-09-07 update: Tanya Maslo, 2026-08-27, live in both stores confirmed by Noy Shavit
+**Last Updated:** 2026-09-21 — store-closure download suggestion added from KB Policy Scan, week of 2026-09-21 (source: Josh Boock, 2026-09-17); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock); earlier 2026-09-07 update: Tanya Maslo, 2026-08-27, live in both stores confirmed by Noy Shavit
 
 ---
 

@@ -338,3 +338,15 @@ First, determine fault if unclear — ask Tier 2 to investigate. Fault matters f
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Sofia Perez, 2026-09-13)
+
+---
+
+## Entry B2C-15: Loyalty 360 — In-Store Cashback via Plaid (Beta)
+
+**Title:** Loyalty 360 — In-Store Cashback via Plaid Card Linking (Beta)
+**Issue Type:** Storefront Feature
+**Situation:** A customer at a cashback-enabled location asks whether they can earn cashback on an in-store (in-person) purchase, not just online orders, or asks about linking a payment card for this.
+**Resolution:** Loyalty 360 is starting a beta at locations with cashback enabled. Customers link a payment card once from their **Profile** page — card linking is powered by **Plaid**: the customer chooses their bank, signs in via Plaid, and selects the card(s) to link. After that, earning is fully automatic: paying with the linked card in-store credits cashback, with no POS integration and nothing for the restaurant to change at the register. In-store and online cashback flow into the **same customer balance**. **Redemption stays online-only for now** — customers spend their balance at checkout on the storefront as they do today. Customers can disconnect a linked card anytime from their Profile. This is a small beta while transaction-matching accuracy and the earning pipeline are validated — if CS knows a good-fit cashback customer who wants to participate, flag to Ella Bar-Or to get them added.
+**Exceptions:** Beta is limited to a small initial set of participants; redemption is online-only, not in-store.
+**Approval Required:** No.
+**Last Updated:** 2026-09-21 — applied from KB Policy Scan, week of 2026-09-21 (source: Ella Bar-Or, 2026-09-17, forwarded by Josh Boock)

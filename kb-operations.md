@@ -680,7 +680,7 @@ Don't skip sending the survey out of concern that a rough interaction will refle
 
 **Title:** Priorities for Agents on the Phone/Email Role
 **Issue Type:** Agent Guidelines
-**Situation:** Agent is scheduled on the Phone/Email role type; or any agent is deciding whether to pick up a request in `#support-new` or `#support-team-help`.
+**Situation:** Agent is scheduled on the Phone/Email role type; or any agent is deciding whether to pick up a request in `#support-new` or `#support-team-help`; or checking which channels require mandatory Slack notifications.
 **Resolution:**
 Work in this priority order — you should always be on a call, answering Slack, or working a ticket:
 1. Answer phones when they ring for you
@@ -696,9 +696,11 @@ Work in this priority order — you should always be on a call, answering Slack,
 
 **Shared responsibility for Slack support channels (added 2026-08-19):** Answering requests in `#support-new` and `#support-team-help` is everyone's responsibility — not just the more experienced or longer-tenured agents. When only a few people consistently pick these up, it overloads them and makes the team look less responsive. Every agent should keep an eye on both channels regardless of role or ticket ownership.
 
+**Mandatory Slack notifications (added 2026-09-19):** Slack notifications must stay **on** for these priority Support and Operations channels: `#support-new`, `#support-team-help`, `#support-missed-conversations`, `#cc-epayments-connect`, and `#support-policy-process`.
+
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-08-24 — added the team-effort framing for waiting customers (source: Josh Boock, 2026-07-31) and the shared-responsibility note for #support-new / #support-team-help (source: Sofia Perez, 2026-08-19), both via KB Policy Scan; originally added 2026-07-16 from #support-policy-process (Josh, 2026-07-15)
+**Last Updated:** 2026-08-24 — added the team-effort framing for waiting customers (source: Josh Boock, 2026-07-31) and the shared-responsibility note for #support-new / #support-team-help (source: Sofia Perez, 2026-08-19), both via KB Policy Scan; originally added 2026-07-16 from #support-policy-process (Josh, 2026-07-15) | 2026-09-21 — mandatory-notifications channel list added from KB Policy Scan, week of 2026-09-21 (source: Sofia Perez, 2026-09-19)
 
 ---
 
@@ -1041,3 +1043,27 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-09-18 — added from morning-meetings KB notes (source: Joshua/Yuval and Product Usability meetings, 2026-09-18)
+
+---
+
+## Entry OPS-48: Mandatory Closing Message Before Ending WhatsApp/Chat/Text Conversations
+
+**Title:** Mandatory Closing Message Before Ending WhatsApp/Chat/Text Conversations
+**Issue Type:** Agent Guidelines
+**Situation:** An agent is ending a WhatsApp, chat, or text conversation (email is excluded from this requirement).
+**Resolution:** No WhatsApp, chat, or text conversation may be closed without sending a proper closing message first — skipping it counts as agent-fault on CSAT review. Two new mandatory snippets are available for an unresponsive customer: **"#CC - Unresponsive I - Anything else?"** ("Is there anything else we can do to help you?") and **"#CC - Unresponsive II - No Response"** ("We haven't heard back from you in a while. Are you still with us?"). Use the **"#CC- Chat closure - Unresponsive customer & CSAT Request"** snippet to close out. See **OPS-20** for the End Chat Macro mechanics that actually close the ticket and trigger the CSAT survey.
+**Exceptions:** Email conversations are excluded from the mandatory-closing-message requirement.
+**Approval Required:** No.
+**Last Updated:** 2026-09-21 — applied from KB Policy Scan, week of 2026-09-21 (source: Sofia Perez, 2026-09-15)
+
+---
+
+## Entry OPS-49: Tracking Link Cancellation — Initials and Reason Required
+
+**Title:** Tracking Link Cancellation — Initials and Reason Required
+**Issue Type:** Agent Guidelines
+**Situation:** An agent is cancelling a tracking link (e.g., a Book-a-Driver / third-party delivery tracking link) for an order.
+**Resolution:** When cancelling a tracking link, always include your **initials** and a **valid cancellation reason** in the cancellation comment. A single letter or other non-descriptive comment is not sufficient — the reason must let the team give accurate information to both customers and restaurants.
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-09-21 — applied from KB Policy Scan, week of 2026-09-21 (source: Francisco Escamilla, 2026-09-16)
