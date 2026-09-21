@@ -62,10 +62,11 @@ Entry count: 35
 - Tacolmos
 - Tiberias
 - Merkado 31 — requires refund confirmation before the ticket is escalated to ePayments (added 2026-08-04)
+- Pho Bar (also written "Phobar Bklyn") — see **Entry 34** for the full approval steps (added 2026-09-21)
 
 **Exceptions:** Delivery issues and cancellations bypass this restriction — those go to Refund Request regardless
 **Approval Required:** Yes — restaurant must approve before CC moves to Refund Request.
-**Last Updated:** 2026-08-24 — added Merkado 31 to the Restricted Restaurant List via KB Policy Scan (source: Sofia Perez, 2026-08-04); 2026-03-03 — updated
+**Last Updated:** 2026-09-21 — added Pho Bar / Phobar Bklyn to the Restricted Restaurant List (existing gap vs. Entry 34; confirmed by Josh Boock); 2026-08-24 — added Merkado 31 to the Restricted Restaurant List via KB Policy Scan (source: Sofia Perez, 2026-08-04); 2026-03-03 — updated
 
 ---
 
