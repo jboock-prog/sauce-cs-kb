@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 47
+Entry count: 50
 
 ---
 
@@ -1067,3 +1067,33 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-09-21 — applied from KB Policy Scan, week of 2026-09-21 (source: Francisco Escamilla, 2026-09-16)
+
+
+---
+
+## Entry OPS-50: Identifying BYOC vs. Order Aggregation Restaurants
+
+**Title:** How to Determine if a Restaurant is BYOC or Using Sauce Order Aggregation
+**Issue Type:** Restaurant Relations / Operations
+**Situation:** When a CS agent needs to identify whether a restaurant is operating as Bring Your Own Channel (BYOC) — where the restaurant manages their own 3rd-party integrations — or whether Sauce is aggregating their 3rd-party orders on their behalf.
+
+**Resolution:**
+Use any of the following methods to determine a restaurant's order configuration:
+
+1. **Check the Restaurant Dashboard or Ops Copilot**
+   - Navigate to the restaurant's dashboard or open Ops Copilot
+   - Look for the presence of orders originating from 3rd-party platforms (e.g. DoorDash, Uber Eats, etc.)
+   - If 3rd-party orders are visible, this indicates Sauce is aggregating those orders
+
+2. **Check Stream**
+   - Look up the restaurant in Stream
+   - Check whether they are connected to any 3rd-party platforms
+   - An active 3rd-party connection in Stream is a strong indicator of their aggregation status
+
+3. **Check the #BYOC-orders Slack Channel**
+   - Search the `#BYOC-orders` Slack channel for the restaurant's name or ID
+   - If orders for that restaurant appear there, they are operating as BYOC
+
+**Exceptions:** A restaurant may appear in both contexts during a transition period (e.g. migrating from BYOC to Sauce aggregation or vice versa). If results are ambiguous across methods, escalate to the Operations team for confirmation.
+**Approval Required:** No
+**Last Updated:** 2026-09-24 — added via KB update workflow
