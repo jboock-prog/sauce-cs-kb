@@ -24,6 +24,8 @@ import time
 import anthropic
 import requests
 from flask import Flask, jsonify, request
+from channel_answers import configure_channel_answers
+from slack_events import register_slack_events
 
 # ─── Config ───────────────────────────────────────────────────────────────────
 
@@ -630,6 +632,7 @@ def build_update_user_message(update_text: str) -> str:
 # ─── Flask app ────────────────────────────────────────────────────────────────
 
 app = Flask(__name__)
+register_slack_events(app, lambda: SLACK_SIGNING_SECRET, configure_channel_answers(query_claude))
 
 
 @app.route('/slack/command', methods=['POST'])
