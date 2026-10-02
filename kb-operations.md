@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 50
+Entry count: 51
 
 ---
 
@@ -1097,3 +1097,21 @@ Use any of the following methods to determine a restaurant's order configuration
 **Exceptions:** A restaurant may appear in both contexts during a transition period (e.g. migrating from BYOC to Sauce aggregation or vice versa). If results are ambiguous across methods, escalate to the Operations team for confirmation.
 **Approval Required:** No
 **Last Updated:** 2026-09-24 — added via KB update workflow
+
+
+---
+
+## Entry OPS-51: Submitting Driver Feedback via Restaurant Dashboard
+
+**Title:** How to Submit Driver Feedback Using the Restaurant Dashboard
+**Issue Type:** Driver Relations / Operations
+**Situation:** When a CS agent needs to submit feedback about a driver's performance (positive or negative) on behalf of a restaurant or following an order incident.
+**Resolution:**
+1. Log in to the **Restaurant Dashboard**.
+2. Locate and click on the relevant **order** in question.
+3. Click the **"Rate a Driver"** button within the order details.
+4. Provide the appropriate feedback (rating and/or written comments) and submit.
+
+**Exceptions:** If the "Rate a Driver" button is not visible on the order, the rating window may have expired or the feature may not be enabled for that restaurant — escalate to the ops team for manual review.
+**Approval Required:** No
+**Last Updated:** 2026-10-02 — added via KB update workflow
