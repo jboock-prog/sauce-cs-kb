@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 51
+Entry count: 53
 
 ---
 
@@ -668,11 +668,12 @@ Don't skip sending the survey out of concern that a rough interaction will refle
 **Situation:** Agent wants to take a break or end their shift.
 **Resolution:**
 - All **Break + EOS requests must be approved** by Josh, Danny (especially on Saturdays), or Sofia. This ensures a partner is available during challenging situations and coverage is maintained.
-- You may go **unavailable 10 minutes before a break** so you can leave on time — coordinate with each other when only 2 agents are on.
+- You'll get notifications **15 minutes and 5 minutes before** a scheduled break.
+- Go **unavailable only 5 minutes before a break** (previously 10) — coordinate with each other when only 2 agents are on.
 
 **Exceptions:** None.
 **Approval Required:** Yes — Josh, Danny, or Sofia.
-**Last Updated:** 2026-07-16 — added from #support-policy-process (May–June 2026)
+**Last Updated:** 2026-10-21 — offline window changed from 10 to 5 minutes, added 15/5-minute break notifications, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez weekly recap, 2026-10-17); 2026-07-16 — added from #support-policy-process (May–June 2026)
 
 ---
 
@@ -781,9 +782,11 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Issue Type:** Policies & Rules
 **Situation:** An agent helps with any order-related issue over chat.
 **Resolution:** Add the Invoice ID to the ticket so the subject line updates automatically — this makes it easier to review the ticket later.
+- Entering the Invoice ID also helps **auto-pull and complete the ticket information**, not just the subject line. Two short training videos cover it (one from the ticket board view, one live from the Helpdesk) — ask a team lead for the links.
+
 **Exceptions:** None specified in source.
 **Approval Required:** No.
-**Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-22)
+**Last Updated:** 2026-10-21 — Invoice ID also auto-fills ticket info, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez, 2026-09-22); 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-22)
 
 ---
 
@@ -946,11 +949,14 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Resolution:**
 1. **BaD v2** is rolling out gradually to all locations (V1 locations will be upgraded too). As of 2026-09-09, **477 locations** were live on V1 or V2 combined (~150 daily orders), with a few hundred more added to V2 each week — full rollout was expected in about 4 weeks, after which customer education begins.
 2. V2 adds a **"large order" reason** that lets a merchant book **multiple drivers for one order**.
-3. In parallel, BaD is rolling out **automated charges** with a **web Dashboard report and CSV export** (150+ locations live since 2026-09-07). A Manager-app version of the same charges report was expected about 2 weeks after the announcement.
-4. For tipping and unassociated-order situations see **OPS-11** (BaD Tip Guide) and **OPS-29** (BaD with no order associated).
+   - **Large-order auto-notification (pilot, 2026-10-06):** restaurants get an automatic notification when an order is **over $100 or has 6+ items**, with a form to create an additional BaD order. Two couriers then split pickup/delivery. Gated by the `large_order` feature flag in Dashboard and piloted at a small set of named locations (disable the flag to turn it off for a location). Known risks: not every courier arrives (orders were aggregated beforehand), multiple couriers can show up, and a courier with nothing left to pick up may cancel and complain — report restaurant complaints about this.
+   - Booking a rider for "Large Order" no longer needs a separate notification — just book the rider as regular.
+3. **Chargeable BaD reasons (live since 2026-09-23):** four reasons **automatically charge the restaurant** — **Large Order**, **Change Pickup Order to Delivery**, **Missing Item**, **Wrong Order**. Select the correct reason every time to avoid unnecessary restaurant charges; if you're unsure why an extra rider is needed, ask the restaurant and confirm before booking.
+4. In parallel, BaD is rolling out **automated charges** with a **web Dashboard report and CSV export** (150+ locations live since 2026-09-07). A Manager-app version of the same charges report was expected about 2 weeks after the announcement.
+5. For tipping and unassociated-order situations see **OPS-11** (BaD Tip Guide) and **OPS-29** (BaD with no order associated).
 **Exceptions:** Rollout is gradual and location-by-location — confirm a specific restaurant has BaD v2 / the charges report live before describing it as available.
 **Approval Required:** No.
-**Last Updated:** 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock)
+**Last Updated:** 2026-10-21 — added chargeable BaD reasons and large-order auto-notification pilot, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (sources: Sofia Perez, 2026-09-23; Kseniia Kos, 2026-10-06); 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock)
 
 ---
 
@@ -1005,11 +1011,11 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 1. **Velo** is Sauce's **exclusive delivery provider in Manhattan and parts of Brooklyn** — roughly half of all daily deliveries as of 2026-09-18. It is a SaaS provider and does not work with anyone else.
 2. Velo is the **priority carrier**, ahead of Motoclique, Uber, and DoorDash.
 3. **Fallback logic:** Velo cancels, and another provider (Uber, DoorDash, etc.) should be triggered, if no driver is assigned **6 minutes before pickup**.
-4. **Velo does not currently provide Proof of Delivery (POD)** — see **OPS-47**.
+4. **Velo now provides Proof of Delivery (POD)** — Velo PODs show in Copilot like other providers (see **OPS-47**).
 5. Bringo is no longer active in NYC.
 **Exceptions:** **Known issue (as of 2026-09-18):** the fallback sometimes fails to actually call another provider, leaving orders stuck on Velo. A fix was in QA that week — if an order looks stuck with no driver near pickup, consider this issue before assuming a customer/restaurant fault.
 **Approval Required:** No.
-**Last Updated:** 2026-09-18 — added from morning-meetings KB notes (source: Joshua/Yuval meeting, 2026-09-18)
+**Last Updated:** 2026-10-21 — Velo POD now live (previously 'no POD'), applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (sources: Josh Boock, 2026-09-24; Noy Shavit, 2026-10-06; confirmed by Josh Boock, 2026-10-21); 2026-09-18 — added from morning-meetings KB notes (source: Joshua/Yuval meeting, 2026-09-18)
 
 ---
 
@@ -1037,12 +1043,13 @@ Every alert requires immediate manual action in **Stream** (sauce.streamorders.c
 **Situation:** An agent (or Quick Chat / the AI) can't retrieve a POD photo for a delivery, or asks why PODs are missing or inconsistent.
 **Resolution:**
 1. **PODs are not stored in Getsauce's own system** — they are sourced separately from each DSP/delivery provider, and coverage varies by provider.
-2. **Velo does not provide PODs yet** (see **OPS-45**), and roughly half of deliveries are Velo — a major reason overall POD availability is low.
-3. **Quick Chat (AI) retrieval is unreliable on the first request**, but agents can often find the POD later — this points to a propagation/timing delay rather than true unavailability. If it isn't there at first, check again before concluding it doesn't exist.
-4. There is no current data on what share of PODs are valid/usable across third parties, so don't treat a missing or odd POD as proof of anything on its own. For refund decisions that hinge on the POD photo, follow the refunds KB (the "Proof of Delivery (PoD) photo" step).
+2. **Velo now provides PODs** (see **OPS-45**). Velo is roughly half of deliveries, so POD coverage should be much better than before — a missing Velo POD is now worth re-checking rather than assumed.
+3. **Restaurant-facing POD (beta):** Sauce is testing POD visibility inside the restaurant Dashboard for a few restaurants (e.g. Poke Bowl Lexington). Don't tell a restaurant they can see POD in their own Dashboard unless they're part of the test — agents still pull POD from Copilot / find-delivery.
+4. **Quick Chat (AI) retrieval is unreliable on the first request**, but agents can often find the POD later — this points to a propagation/timing delay rather than true unavailability. If it isn't there at first, check again before concluding it doesn't exist.
+5. There is no current data on what share of PODs are valid/usable across third parties, so don't treat a missing or odd POD as proof of anything on its own. For refund decisions that hinge on the POD photo, follow the refunds KB (the "Proof of Delivery (PoD) photo" step).
 **Exceptions:** None stated.
 **Approval Required:** No.
-**Last Updated:** 2026-09-18 — added from morning-meetings KB notes (source: Joshua/Yuval and Product Usability meetings, 2026-09-18)
+**Last Updated:** 2026-10-21 — Velo POD now live; added restaurant-Dashboard POD beta, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (sources: Josh Boock, 2026-09-24; Noy Shavit, 2026-10-06); 2026-09-18 — added from morning-meetings KB notes (source: Joshua/Yuval and Product Usability meetings, 2026-09-18)
 
 ---
 
@@ -1115,3 +1122,41 @@ Use any of the following methods to determine a restaurant's order configuration
 **Exceptions:** If the "Rate a Driver" button is not visible on the order, the rating window may have expired or the feature may not be enabled for that restaurant — escalate to the ops team for manual review.
 **Approval Required:** No
 **Last Updated:** 2026-10-02 — added via KB update workflow
+
+---
+
+## Entry OPS-52: CS Escalations Must Use the "CS Follow Up" Category
+
+**Title:** CS Escalations — Mandatory "CS Follow Up" HubSpot Category
+**Issue Type:** Policies & Rules
+**Situation:** An agent needs to escalate an issue to Customer Success and is choosing the HubSpot ticket category.
+**Resolution:**
+- Use the **"CS Follow Up"** category for **all** CS escalations, so the ticket is routed and tracked correctly.
+- See **OPS-8** for the general mechanics of moving a ticket between team pipelines via category.
+
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez, 2026-10-06; restated in weekly recap, 2026-10-10)
+
+---
+
+## Entry OPS-53: Pause/Close Requests at Otter-Integrated Restaurants
+
+**Title:** Handling Pause/Close Requests for Otter-Integrated Restaurants
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** An Otter-integrated restaurant (see **OPS-44**) asks CS to stop orders, pause, or close their store; or CS needs to investigate a failed Otter delivery.
+**Resolution:**
+1. Otter is the restaurant's system of record — menu, orders, and tablet live in Otter. Sauce only receives the driver request and sends delivery updates back. ETA, driver assignment, courier location, and "ready" status all show in Otter; there is no Sauce tablet.
+2. One Otter account can run several brands/locations (e.g. Bagel Point) as Otter dispatch IDs inside one Sauce location — don't treat the extra locations as missing from the dashboard.
+3. Only deliveries Otter sends to Sauce appear in the restaurant dashboard/our system. Failed deliveries are reported in Slack and worked by support leadership and Back Office.
+4. **Pausing on Sauce only pauses the Sauce Storefront** — it does NOT stop Otter or the 3PDs (Uber, Grubhub, DoorDash) running through Otter.
+5. When a restaurant asks to stop orders, first confirm what they mean: stop orders vs. push out prep time, and which channels (Sauce, Uber, DoorDash, all).
+6. If they want everything stopped, they must **close in Otter themselves** — walk them through it; don't send to Tier 2. (Example: Friedman's Tribeca kept receiving Otter orders after pausing on Sauce only.)
+7. If the restaurant can't do it themselves, send a request to **Back Office**. Uber and Grubhub pauses can't be timed — someone must reopen them manually.
+8. CS can check Otter directly before escalating — Danny, Sofia, Mary Joy, Rene, and Josh have Otter restaurant logins.
+9. A cancellation reading "Otter canceled the delivery" originated on Otter's side, not Sauce's.
+10. Otter restaurants as of 2026-09-26: Bagel Point (multi-location), Fortuna, Il Taglio, Suram – Tribeca, Friedman's – Tribeca, Mirna's Pupuseria, Testo.
+
+**Exceptions:** This is a newer integration — explain fully and patiently, and don't close the ticket until it's actually resolved.
+**Approval Required:** No.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Josh Boock, 2026-09-26)

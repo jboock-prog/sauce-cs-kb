@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 13
+Entry count: 14
 
 ---
 
@@ -267,3 +267,22 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-09-18 — applied from KB Policy Scan, week of 2026-09-14 (source: Sofia Perez, 2026-09-09)
+
+---
+
+## Entry GEN-14: Progressive Review Snippets — Keep the Customer Updated
+
+**Title:** Progressive "Customer Review Level" Snippets (Starting Review → Final Check)
+**Issue Type:** Policies & Rules
+**Situation:** You need more time to investigate a customer's request and must keep them updated so they're never left waiting in silence.
+**Resolution:** Use these snippets in order, moving up a level each time you need more time:
+1. **Starting Review** — "#Hello! (Chat/WA - Checking)"
+2. **Investigating – Refresh 1** — "#CC - Refresh 1"
+3. **Reviewing Context – Refresh 2** — "#CC - Refresh 2"
+4. **Extended Review – Refresh 3** — "#CC - Refresh 3"
+5. **Still Working – Refresh 4** — "#CC - Refresh 4"
+6. **Final Check** — "#CC - Refresh 5"
+
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez, 2026-10-07; restated in weekly recap, 2026-10-17)

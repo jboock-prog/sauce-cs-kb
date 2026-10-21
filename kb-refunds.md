@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 35
+Entry count: 36
 
 ---
 
@@ -251,9 +251,9 @@ How to check PoD :
 Go to: https://dashboard.getsauce.com/managers/find-delivery
 Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Find Delivery.
 
-**Exceptions:** None documented.
+**Exceptions:** **Uber + Sauce Dispatch orders under $200** (marked Delivered, never received, no prior refund, no open ePayments ticket) now go through the automated Order Summary + Request Refund tool — see **Entry 35**. Use this manual process for everything else (BYOC, Book-a-Driver, Otter, other providers, $200+).
 **Approval Required:** No — but document all findings in the ticket before submitting to ePayments.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-10-21 — added pointer to Entry 35 automated tool, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21; 2026-03-03 — updated
 
 ---
 
@@ -833,7 +833,9 @@ If the restaurant admits to forgetting the item (restaurant fault) and the custo
 
 **Refunds — Critical Difference:**
 - The customer **cannot receive a refund through Sauce or ePayments** — they paid the third-party marketplace (Uber Eats, DoorDash, etc.), not Sauce.
-- Direct the customer to contact the third-party marketplace directly for any refund.
+- Direct the customer to contact the third-party marketplace directly for any refund — **start by guiding them to that platform's in-app "Help" section for the affected order**; only point them to the platform's customer support if they can't submit the request there.
+- Full step-by-step guide: Confluence **"BYOC Customer Refund Manual"** (say2eat.atlassian.net/wiki/spaces/SD/pages/1497530394), which has the direct per-platform help links: Uber Eats (general help + wrong/missing items), DoorDash (missing/incorrect items + order never arrived), Grubhub (refund request + customer help), Slice (customer contacts + chat/refund timing).
+- Grubhub's help link is IP-geofenced and may not load when you test it from outside the service area — still share it; the customer is in-area and can open it.
 
 **If the delivery issue was Sauce's fault:**
 - Process a refund request through the **normal HubSpot ePayments pipeline** (same as standard orders).
@@ -863,6 +865,8 @@ Do NOT mention a refund until the delivery is complete. Let the customer know th
 | #byoc_credit | Restaurant offers in-store credit |
 | #byoc_quick | SMS or WhatsApp, needs to be brief |
 | #byoc_closure | Wrapping up, confirming next steps |
+| #BYOC B2C Refund | Driver unresponsive / customer needs a refund — direct to the platform |
+| B2C - BYOC Refund - CX need help | Customer says they can't submit the request — includes the per-platform help links |
 
 **#byoc_general** — Standard refund explanation:
 > "I totally get how frustrating this is — I'd feel the same. Since your order was placed through [Uber Eats / DoorDash / Grubhub], they still hold the payment. Sauce only handled the delivery, so any refund would need to come from that platform or the restaurant directly. I've made a note so they're aware of what happened."
@@ -913,7 +917,7 @@ Do NOT mention a refund until the delivery is complete. Let the customer know th
 
 **Exceptions:** Delivery issue handling follows standard Entry 15 protocols. Customer refund = third-party marketplace. CS refund ticket = courier to restaurant via HubSpot.
 **Approval Required:** No — follow normal ePayments process.
-**Last Updated:** 2026-04-30 — expanded with 9 new #byoc_ chat snippets and agent tips (from Confluence: BYOC Snippets)
+**Last Updated:** 2026-10-21 — added in-app Help step, BYOC Customer Refund Manual, per-platform links, Grubhub geofence note and two new snippets, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez and Adrian Martinez, 2026-10-14); 2026-04-30 — expanded with 9 new #byoc_ chat snippets and agent tips (from Confluence: BYOC Snippets)
 
 ---
 
@@ -1010,3 +1014,26 @@ Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Proce
 **Exceptions:** If Pho Bar is unreachable after reasonable attempts (e.g., outside business hours with a time-sensitive case), escalate to a CS Team Lead for guidance before taking any independent action.
 **Approval Required:** Yes — restaurant must approve before refund is issued
 **Last Updated:** 2026-09-21 — "Phobar Bklyn" added as the same restaurant, from KB Policy Scan, week of 2026-09-21 (source: Josh Boock, 2026-09-17; identity confirmed 2026-09-21); 2026-09-17 — added via KB update workflow
+
+---
+
+## Entry 35: Automated Order Summary & Request Refund — Uber Never-Delivered Orders
+
+**Title:** Automated Order Summary & Refund Decision Tool — Uber Never-Delivered Orders
+**Issue Type:** Order Issues / Refunds & Credits
+**Situation:** A customer in chat says they never received an Uber (Sauce Dispatch) delivery that's marked Delivered, often with a questionable Proof of Delivery (PoD). Order Summary also applies to every delivery ticket.
+**Resolution:**
+1. **Order Summary (run on every delivery ticket):** confirm the Invoice ID is filled in (8 characters), then set **Order Summary = Run**. Within ~10 seconds it changes to **Updated** and adds a case note with items, driver, PoD photo, drop-off distance + map/Street View, delivery timeline, and other tickets on the same invoice. If it says **Failed**, the Invoice ID is almost always wrong — fix it and re-run.
+2. **Request Refund (Uber never-delivered only):** after reading the Order Summary note, show the customer the PoD and ask "Is this your door or building?" Type their specific answer into the chat — it drives the decision. Set **Request Refund = Run** and keep the customer in the chat. Watch for the **"Sauce AI · Update for Support"** case note (~1 minute).
+3. **Tell the customer based on the result:**
+   - **Refunded** → refund is on its way to their original payment method, a confirmation email follows, and the ticket auto-closes.
+   - **ePayments Review Required** → the payments team will follow up by email within 24–72 hours.
+   - **Failed** → check the note (usually a wrong Invoice ID), fix, and re-run.
+4. **Eligible for the automated refund:** Uber + Sauce Dispatch, marked Delivered, never received, no prior refund, no open ePayments ticket, under $200. Everything else goes to ePayments the normal way (**Entry 1** / **Entry 9**).
+5. Run each tool **once** — don't re-run while it says Processing, and don't move the ticket stage while waiting. The AI never denies outright; anything not approved goes to ePayments review.
+6. If "Other tickets" shows an open ticket for the same invoice, add your info there instead of opening a new one. Refund reason and responsible party now fill automatically — log your actions as comments on the case note.
+7. Escalate anything that looks wrong (wrong decision, missing info, odd note) to **Rene or Josh**.
+
+**Exceptions:** Not yet supported for BYOC (e.g. Uber Eats customer-side claims), Book-a-Driver, or Otter orders — use **Entry 9**.
+**Approval Required:** No for the automated path; ePayments keeps final say on anything the tool sends to review.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Josh Boock, 2026-10-16)

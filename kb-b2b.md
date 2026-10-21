@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 47
+Entry count: 52
 
 ---
 
@@ -691,7 +691,8 @@ Some printers have a "Pair" button on the back. Hold it for 5 seconds to make th
 |---|---|---|
 | Change a menu item, price, name, or category (non-POS) | Menu Team | B2B: Menu Changes |
 | Add/remove food photos on Toast | Menu Team | Menu: Toast Photos |
-| Change website design (fonts, images, slogans, logo) | BO Team | BO B2B: Website Changes |
+| Update an existing website (fonts, images, slogans, logo) | BO Team | BO B2B: Website Changes |
+| **New website** (restaurant wants a website built) | Restaurant's CSM — **do not ticket from Support** | CSM opens a deal in the Customer Success upsell pipeline (Mariana / Tomas), which auto-routes to BO |
 | Change delivery radius, credit card fees, or POS config | BO Team | BO Config Changes |
 | Change integration or POS platform (e.g. Square → Toast) | OB Team | Change POS/Integration |
 
@@ -706,9 +707,9 @@ Some printers have a "Pair" button on the back. Hold it for 5 seconds to make th
 
 After updating fields, move ticket to **Received** to trigger automation.
 
-**Exceptions:** If you're unsure, check whether the menu is editable in the Dashboard first.
+**Exceptions:** If you're unsure, check whether the menu is editable in the Dashboard first. New-website requests are no longer free requests from Support — redirect the restaurant to their CSM (or the Customer Experience team for non-VIP restaurants, see **B2B-41**).
 **Approval Required:** No.
-**Last Updated:** 2026-04-30 — added from Confluence: Menu & Website Escalation Routing
+**Last Updated:** 2026-10-21 — split website row: updates to an existing site still go to BO; new websites must come from CS via the upsell pipeline, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez, 2026-10-06; clarified by Josh Boock, 2026-10-21); 2026-04-30 — added from Confluence: Menu & Website Escalation Routing
 
 ---
 
@@ -896,11 +897,12 @@ Support can make the following updates directly:
 **Situation:** A restaurant asks about setting up or managing cashback for their customers.
 **Resolution:**
 - Cashback settings are now available directly in the **merchant dashboard** as a self-serve option.
-- ⚠️ The announcement did not include exact navigation steps — confirm the precise dashboard location before walking a restaurant through it, and update this entry once confirmed.
+- **Cashback report:** merchants can download a full cashback report for their location (one row per order — customer details, subtotal, cashback earned and redeemed) from the **Download button on the Loyalty page**, or as **"Cashback Summary" in the Reports dropdown**.
+- Coming next: a bi-weekly cashback recap for merchants showing the ROI of their loyalty program.
 
 **Exceptions:** Unknown — not detailed in the source announcement.
 **Approval Required:** No — appears self-serve.
-**Last Updated:** 2026-07-17 — applied from KB Policy Scan (source: Sofia Perez huddle notes, 2026-07-11); navigation steps pending confirmation
+**Last Updated:** 2026-10-21 — added cashback report navigation, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-07-17 — applied from KB Policy Scan (source: Sofia Perez huddle notes, 2026-07-11); navigation steps pending confirmation
 
 ---
 
@@ -916,11 +918,11 @@ Support can make the following updates directly:
 - **Reply directly from the Feedback page** — no more copying the review into their own inbox. Hitting **Reply** opens a modal with a **suggested reply already drafted (AI-generated) from the review and personalized with the customer's name**; merchants can switch tone or edit the text before sending. The email goes out **from the restaurant's own address**, replies land in the restaurant's own inbox, and once sent the review moves to the **Replied** tab. (If a restaurant instead tries to reply from the notification-email link and gets an access error, see **B2B-45**.)
 - Emailed, Called, and Skipped tracking so merchants can manage follow-ups.
 - Redesigned feedback emails: shorter, cleaner, with star rating + comment preview, a "Read more" CTA to the dashboard, and full UTM tracking.
-- Coming next (not yet live): merchants will be able to **auto-add a promo code to the reply** to compensate the customer.
+- **Promo code in reply (live):** a one-time setup on the Feedback page auto-adds a promo code to the end of every suggested reply, worded to match the rating. It's a regular promo — editable on the **Promotions** page and hidden from the storefront, so the code only goes out through replies.
 
-**Exceptions:** The promo-code-in-reply feature is not yet live.
+**Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Ella Bar-Or, 2026-09-10, forwarded by Josh Boock); earlier 2026-07-27 update: Ella Bar-Or, 2026-07-22
+**Last Updated:** 2026-10-21 — promo-code-in-reply now live, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Ella Bar-Or, 2026-09-10, forwarded by Josh Boock); earlier 2026-07-27 update: Ella Bar-Or, 2026-07-22
 
 ---
 
@@ -1015,9 +1017,16 @@ The 2026-08-27 release (confirmed live in both app stores) adds:
 4. General bug fixes and stability improvements.
 
 **Store closure requests (added 2026-09-17):** If a restaurant asks to close their store, CS can suggest they download the Sauce Manager Mobile App (Android or Apple via https://qr1.be/75HEC1) to do so themselves. Use the HubSpot snippet **"B2B Download the Manager App"** for this.
+**Release of 2026-09-24 adds:**
+- **Sales by hour** on the Analytics screen.
+- **Sales by ordering channel** — filter sales by each connected channel (Uber Eats, Grubhub, DoorDash, etc.).
+- **Pause store per channel** — pause on one specific channel from the app without affecting the others.
+- **Out-of-stock reminder push** — automatic push when a menu item has been out of stock 24+ hours.
+- **Push-permission fallback** — a follow-up pop-up for users who dismissed push permissions.
+
 **Exceptions:** None noted.
 **Approval Required:** No.
-**Last Updated:** 2026-09-21 — store-closure download suggestion added from KB Policy Scan, week of 2026-09-21 (source: Josh Boock, 2026-09-17); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock); earlier 2026-09-07 update: Tanya Maslo, 2026-08-27, live in both stores confirmed by Noy Shavit
+**Last Updated:** 2026-10-21 — added 2026-09-24 release features, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Tanya Maslo, 2026-09-24); 2026-09-21 — store-closure download suggestion added from KB Policy Scan, week of 2026-09-21 (source: Josh Boock, 2026-09-17); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock); earlier 2026-09-07 update: Tanya Maslo, 2026-08-27, live in both stores confirmed by Noy Shavit
 
 ---
 
@@ -1062,3 +1071,86 @@ The 2026-08-27 release (confirmed live in both app stores) adds:
 **Exceptions:** The announcement was worded as "every customer who reaches out," but the subject matter (DoorDash self-delivery / BYOC) is restaurant-facing. Treat any report of this notice — from a restaurant or a customer — the same way, and confirm the affected party in the escalation post.
 **Approval Required:** No.
 **Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-08-31 (source: Yuval Shalom, 2026-08-24; restated in weekly huddle, Sofia Perez, 2026-09-05)
+
+---
+
+## Entry B2B-48: Toast Menu Hours — Self-Service Update
+
+**Title:** Self-Service Toast Menu Hours Update (Snippet)
+**Issue Type:** Restaurant Relations
+**Situation:** A Toast-integrated restaurant needs to update its menu hours, including a holiday or one-off closure.
+**Resolution:**
+- Use the **"#B2B - Toast Menu Hours Update"** snippet to walk the restaurant through updating and publishing their hours directly in Toast — it covers the update/publish steps, expected sync time back to Sauce, and holiday/one-off closures.
+- Try the self-service path first. Escalate with the **BO Toast Menu Changes** category only if the restaurant can't make the change themselves.
+
+**Exceptions:** Toast-managed hours only — for Sauce-dashboard hours see **B2B-2**.
+**Approval Required:** No.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez, 2026-09-29)
+
+---
+
+## Entry B2B-49: BYOC Charges Bank Account — Dashboard Self-Serve
+
+**Title:** Viewing and Updating the Bank Account Sauce Charges for BYOC Fees
+**Issue Type:** Restaurant Relations / Billing
+**Situation:** A BYOC restaurant asks which bank account Sauce charges for BYOC fees, or wants to change it.
+**Resolution:**
+- Merchants can see which bank account is connected for **BYOC charges**, and update it themselves, from **Store Settings** in the dashboard.
+- It uses the same secure flow as BYOC onboarding — connect an account or enter details manually.
+
+**Exceptions:** This is the account Sauce **charges**; it is not the payout account (Stripe Connect) covered in **B2B-4**.
+**Approval Required:** No — self-serve.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-50: Self Delivery Report — Recipient Email and Invoice ID
+
+**Title:** Self Delivery Report — Recipient Email Setting and Invoice ID Column
+**Issue Type:** Restaurant Relations / Billing
+**Situation:** A restaurant asks who receives their Self Delivery report, wants to change the recipient, or needs to match a charge to an invoice.
+**Resolution:**
+- Merchants can see which email address receives their **Self Delivery report** in **Store Settings**, and request a change there.
+- The report now shows **Invoice ID next to Charge Date**, with totals grouped by date and invoice.
+
+**Exceptions:** Distinct from **B2B-36** (self-delivery performance in the Analytics tab).
+**Approval Required:** No.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-51: BYOC Store Emails and Reports — HubSpot Activities
+
+**Title:** BYOC Store Emails and Reports — Find Them in HubSpot Activities
+**Issue Type:** BYOC / Internal Reference
+**Situation:** An agent needs to find or re-send a BYOC email or report (invoices, charge summaries) that was sent to a restaurant.
+**Resolution:**
+- All BYOC emails and reports sent to a store are in **HubSpot → Companies → Activities**. Share from there when the store needs a copy.
+
+**Exceptions:** Agent-side retrieval only — it isn't confirmed that stores can pull these themselves.
+**Approval Required:** No.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Oleg Razenblat, 2026-10-05, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-52: Rider Request for a Phone Order — "#B2B - Asking BAD Information"
+
+**Title:** Rider Request for Phone Orders — "#B2B - Asking BAD Information" Snippet
+**Issue Type:** Dispatch / Third-Party Delivery
+**Situation:** A restaurant asks via WhatsApp or chat for a rider for a phone order (frequent with Marinara locations).
+**Resolution:**
+1. Send the **"#B2B - Asking BAD Information"** snippet to collect what Book a Driver needs:
+> "We can absolutely check if we can book a rider for your order! To help us coordinate the delivery, could you please provide the following information?
+> Customer name:
+> Customer phone number:
+> Delivery address:
+> Additional delivery details (APT number, entrance instructions, gate code, or any other relevant information)
+> Order subtotal
+> Rider tip:
+> Number of items (how many items are included in the order)
+> Once we have these details, we can check the available options for arranging a rider! 😊"
+2. Once you have the details, book through the standard Book a Driver process (see **OPS-42**; tipping in **OPS-11**). If the order is over $100 or 6+ items, check whether the large-order reason applies (it charges the restaurant).
+
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez, 2026-10-14; snippet text confirmed by Josh Boock, 2026-10-21)
