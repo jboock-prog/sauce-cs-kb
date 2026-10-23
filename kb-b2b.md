@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 52
+Entry count: 54
 
 ---
 
@@ -1154,3 +1154,36 @@ The 2026-08-27 release (confirmed live in both app stores) adds:
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez, 2026-10-14; snippet text confirmed by Josh Boock, 2026-10-21)
+
+---
+
+## Entry B2B-53: BYOC — Restaurant Asks to Turn Off BYOC Immediately
+
+**Title:** Restaurant Requests Immediate BYOC Shut-Off — "#B2B – BYOC - Request to Turn Off ASAP" Snippet
+**Issue Type:** BYOC
+**Situation:** A BYOC restaurant asks us to turn off BYOC immediately (they'd prefer deliveries to be handled directly by the third-party platform).
+**Resolution:**
+1. Send the **"#B2B – BYOC - Request to Turn Off ASAP"** snippet:
+> "We completely understand that you'd prefer to have these deliveries handled directly by the third-party platform. While we're unable to turn off the integration immediately, we can reach out to our team to see if the delivery radius can be reduced so that more orders are handled by the third-party provider. We can also escalate your request to our Customer Success team for further assistance with turning off the integration as soon as possible.
+> We'll do our best to help! Please let us know if you'd like us to move forward with these options."
+2. Goal: acknowledge their concern with empathy and set the right expectations — we can't disable the integration on the spot, but we can check whether the delivery radius can be reduced so more orders go to the third-party provider, and escalate the turn-off request to Customer Success.
+3. If they want to move forward: radius changes go through BO (see **B2B-23**); escalate the turn-off request to the Customer Success team.
+
+**Exceptions:** Never promise immediate deactivation. If the restaurant only wants to pause ordering (not remove BYOC), see **B2B-33**.
+**Approval Required:** No.
+**Last Updated:** 2026-10-23 — new snippet, applied by KB auto-apply (source: Sofia Perez, 2026-10-21; restated in weekly recap 2026-10-22)
+
+---
+
+## Entry B2B-54: Merchant Dashboard Reports — Orders By Channel Summary & Self Delivery Invoices
+
+**Title:** New Merchant Dashboard Reports — Orders By Channel Summary and Self Delivery Invoices
+**Issue Type:** Merchant Dashboard / Reporting
+**Situation:** A restaurant asks how to see sales or orders broken down by channel or fulfillment type, or where to find and download their Self Delivery invoices.
+**Resolution:**
+1. **Orders By Channel Summary** (Reports, merchant dashboard) — for locations where Sauce aggregates their 3PD orders. Shows sales, order count and average order value broken down by channel (Sauce Storefront, Uber Eats, DoorDash, Grubhub and more) and by fulfillment type (pickup, Sauce Delivery, 3PD delivery, location delivery). The dashboard shows a daily summary; the Excel export has one row per order with channel, fulfillment type and status columns so merchants can filter it however they need.
+2. **Self Delivery Invoices** (Reports, merchant dashboard) — Self Delivery reporting is now organized by invoice. Each row is one invoice with its charge date, total, fees, credits and estimated commission saved. Merchants can download the invoice PDF or that invoice's order-breakdown CSV with one click (the same files we email them), and filter by last 3 months, last 6 months or all time.
+
+**Exceptions:** Rolling out as of 2026-10-21; a merchant announcement email is planned once in full GA. Orders By Channel Summary only applies to locations where Sauce aggregates 3PD orders.
+**Approval Required:** No.
+**Last Updated:** 2026-10-23 — new, applied by KB auto-apply (source: Ella Bar-Or, 2026-10-21, forwarded by Josh Boock)

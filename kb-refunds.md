@@ -1024,16 +1024,18 @@ Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Proce
 **Situation:** A customer in chat says they never received an Uber (Sauce Dispatch) delivery that's marked Delivered, often with a questionable Proof of Delivery (PoD). Order Summary also applies to every delivery ticket.
 **Resolution:**
 1. **Order Summary (run on every delivery ticket):** confirm the Invoice ID is filled in (8 characters), then set **Order Summary = Run**. Within ~10 seconds it changes to **Updated** and adds a case note with items, driver, PoD photo, drop-off distance + map/Street View, delivery timeline, and other tickets on the same invoice. If it says **Failed**, the Invoice ID is almost always wrong — fix it and re-run.
-2. **Request Refund (Uber never-delivered only):** after reading the Order Summary note, show the customer the PoD and ask "Is this your door or building?" Type their specific answer into the chat — it drives the decision. Set **Request Refund = Run** and keep the customer in the chat. Watch for the **"Sauce AI · Update for Support"** case note (~1 minute).
+2. **Request Refund (Uber never-delivered only):** after reading the Order Summary note, show the customer the PoD and ask "Is this your door or building?" Type their specific answer into the chat — it drives the decision. Set **Request Refund = Run** and keep the customer in the chat. Watch for the **"Sauce AI · Update for Support"** case note (~1 minute). **Stay on the ticket screen while it processes** — the chat moves to ePayments and drops out of the Help Desk view, so if you leave the screen you lose the chat.
 3. **Tell the customer based on the result:**
    - **Refunded** → refund is on its way to their original payment method, a confirmation email follows, and the ticket auto-closes.
+     - Timing: it's a regular refund — processed on Sauce's side immediately; the bank-side timing is the same as any other refund. The customer gets an automatic confirmation, but confirm the refund with them directly in chat too.
    - **ePayments Review Required** → the payments team will follow up by email within 24–72 hours.
    - **Failed** → check the note (usually a wrong Invoice ID), fix, and re-run.
 4. **Eligible for the automated refund:** Uber + Sauce Dispatch, marked Delivered, never received, no prior refund, no open ePayments ticket, under $200. Everything else goes to ePayments the normal way (**Entry 1** / **Entry 9**).
 5. Run each tool **once** — don't re-run while it says Processing, and don't move the ticket stage while waiting. The AI never denies outright; anything not approved goes to ePayments review.
 6. If "Other tickets" shows an open ticket for the same invoice, add your info there instead of opening a new one. Refund reason and responsible party now fill automatically — log your actions as comments on the case note.
 7. Escalate anything that looks wrong (wrong decision, missing info, odd note) to **Rene or Josh**.
+8. **During rollout:** when you get an eligible case, let Josh or a Senior know (Sofia Perez has asked to be tagged and assigned) so the team can monitor it and document the results for ePayments.
 
-**Exceptions:** Not yet supported for BYOC (e.g. Uber Eats customer-side claims), Book-a-Driver, or Otter orders — use **Entry 9**.
+**Exceptions:** Not yet supported for BYOC (e.g. Uber Eats customer-side claims), Book-a-Driver, or Otter orders — use **Entry 9**. The automated path is for Core orders only.
 **Approval Required:** No for the automated path; ePayments keeps final say on anything the tool sends to review.
-**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Josh Boock, 2026-10-16)
+**Last Updated:** 2026-10-23 — added stay-on-screen, refund timing, Core-only and rollout case-reporting details, applied by KB auto-apply (sources: Sofia Perez & Josh Boock, 2026-10-21 thread; Sofia Perez recap, 2026-10-22); 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Josh Boock, 2026-10-16)
