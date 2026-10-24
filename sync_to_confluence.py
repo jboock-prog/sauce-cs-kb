@@ -17,6 +17,7 @@ import os
 import re
 import sys
 import json
+import time
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -42,11 +43,16 @@ KB_FILES = [
 
 # ── Confluence API helpers ────────────────────────────────────────────────────
 
+SESSION = requests.Session()
+MAX_PAGE_ATTEMPTS = 4
+
+
 def api(method, path, **kwargs):
     url = f"{CONFIG['url']}/wiki/rest/api{path}"
     auth = HTTPBasicAuth(CONFIG["email"], CONFIG["api_token"])
     headers = {"Accept": "application/json", "Content-Type": "application/json"}
-    resp = getattr(requests, method)(url, auth=auth, headers=headers, **kwargs)
+    kwargs.setdefault("timeout", (10, 60))
+    resp = SESSION.request(method, url, auth=auth, headers=headers, **kwargs)
     if not resp.ok:
         print(f"  ERROR {resp.status_code}: {resp.text[:300]}")
         resp.raise_for_status()
@@ -85,6 +91,28 @@ def update_page(page_id, title, body_html, current_version):
 
 
 def upsert_page(title, body_html, space_key, parent_id=None):
+    """Retry interrupted syncs, looking up the page again before each write."""
+    for attempt in range(1, MAX_PAGE_ATTEMPTS + 1):
+        try:
+            return _upsert_page_once(title, body_html, space_key, parent_id)
+        except requests.exceptions.SSLError:
+            # Certificate errors need fixing, not another attempt.
+            raise
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
+            if attempt == MAX_PAGE_ATTEMPTS:
+                raise
+            delay = 2 ** attempt
+            print(
+                f"    Connection interrupted syncing '{title}'; "
+                f"retrying in {delay}s (attempt {attempt + 1}/{MAX_PAGE_ATTEMPTS})",
+                flush=True,
+            )
+            time.sleep(delay)
+
+
+def _upsert_page_once(title, body_html, space_key, parent_id=None):
+    # A lost response may follow a successful write. Re-read on retry so a
+    # create isn't blindly repeated and an update uses the latest version.
     existing = get_page_by_title(title, space_key)
     if existing:
         page_id = existing["id"]
