@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 53
+Entry count: 54
 
 ---
 
@@ -1160,3 +1160,34 @@ Use any of the following methods to determine a restaurant's order configuration
 **Exceptions:** This is a newer integration — explain fully and patiently, and don't close the ticket until it's actually resolved.
 **Approval Required:** No.
 **Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Josh Boock, 2026-09-26)
+
+
+---
+
+## Entry OPS-54: Rate a Driver — Permanent Block Feature
+
+**Title:** Rate a Driver Feature: How to Permanently Block a Driver from a Restaurant
+**Issue Type:** Restaurant Relations / Driver Management
+**Situation:** When a CS agent needs to assist a restaurant that wants to permanently block a specific driver from delivering their orders, or when a CS agent needs to initiate a permanent block on behalf of a restaurant following a reported incident.
+
+**Resolution:**
+
+1. **Identify the request source** — Determine whether the block is being requested by the restaurant directly (via their portal) or needs to be actioned by the CS team on the restaurant's behalf.
+2. **Confirm the driver details** — Obtain the driver's name, ID, or relevant order reference so the correct driver is identified before any action is taken.
+3. **Confirm the restaurant details** — Verify the restaurant name and ID to ensure the block is applied to the correct location(s).
+4. **If the restaurant is self-serving:**
+   - Direct the restaurant to the **Rate a Driver** feature within their restaurant portal/dashboard.
+   - Instruct them to locate the relevant delivery, select the driver rating option, and choose the **permanent block** option.
+5. **If CS is actioning on behalf of the restaurant:**
+   - Navigate to the relevant order in the back-end system.
+   - Use the **Rate a Driver** tool to apply a **permanent block** for that driver at the specified restaurant.
+6. **Confirm the block is active** — Verify the block has been successfully applied and confirm with the restaurant that the driver will no longer be assigned to their orders.
+7. **Document the interaction** — Log the reason for the block, who requested it, and any supporting context (e.g., incident description) in the case notes.
+
+**Exceptions:**
+- If a restaurant requests a block based on a single isolated incident with no prior issues, use judgment and document thoroughly — no escalation required but note the reason clearly.
+- If a driver disputes a block or believes it was applied in error, escalate to the Driver Relations or Operations team — CS should **not** unilaterally remove a permanent block.
+- Blocks are per-restaurant, not platform-wide. If a platform-wide driver suspension is needed, escalate to the appropriate internal team.
+
+**Approval Required:** No — CS agents and restaurants can apply permanent driver blocks independently via the Rate a Driver feature. Escalate only if a block needs to be reversed or if a platform-wide action is required.
+**Last Updated:** 2026-10-27 — added via KB update workflow
