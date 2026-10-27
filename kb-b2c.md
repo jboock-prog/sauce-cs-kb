@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 15
+Entry count: 16
 
 ---
 
@@ -350,3 +350,22 @@ First, determine fault if unclear — ask Tier 2 to investigate. Fault matters f
 **Exceptions:** Beta is limited to a small initial set of participants; redemption is online-only, not in-store.
 **Approval Required:** No.
 **Last Updated:** 2026-09-21 — applied from KB Policy Scan, week of 2026-09-21 (source: Ella Bar-Or, 2026-09-17, forwarded by Josh Boock)
+
+
+---
+
+## Entry B2C-16: Apple Pay & Google Pay Availability (Payments V2)
+
+**Title:** Apple Pay and Google Pay Support for Payments Version 2 (V2) Customers
+**Issue Type:** Policies & Rules
+**Situation:** When a customer asks why they can or cannot see Apple Pay/Google Pay at checkout, or when troubleshooting missing digital wallet payment options.
+**Resolution:**
+1. Check the order details in Slack to determine which payments version the customer is on.
+2. Look for the **V2** indicator on the order in Slack — this confirms the customer is on Payments Version 2.
+3. If **V2 is present**: Confirm to the customer that Apple Pay and Google Pay are supported and should be available at checkout.
+4. If **V2 is not present**: Let the customer know that digital wallet options (Apple Pay/Google Pay) are only available on Payments Version 2 and are not currently supported on their account's payment version.
+5. If the customer is on V2 but still cannot see the options, escalate as a potential technical issue for further investigation.
+
+**Exceptions:** A V2 customer may not see Apple Pay/Google Pay if their device or browser does not natively support those payment methods (e.g., Google Pay on an unsupported browser). In these cases, advise the customer to try a compatible device or browser before escalating.
+**Approval Required:** No
+**Last Updated:** 2026-10-27 — added via KB update workflow
