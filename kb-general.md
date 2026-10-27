@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 14
+Entry count: 15
 
 ---
 
@@ -286,3 +286,22 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Sofia Perez, 2026-10-07; restated in weekly recap, 2026-10-17)
+
+
+---
+
+## Entry GEN-15: Determining Payment Version for a Restaurant
+
+**Title:** How to Identify Which Payment Version a Restaurant Is On
+**Issue Type:** Policies & Rules
+**Situation:** When a CS agent needs to determine which payment version (V1 or V2) a restaurant is using — e.g., when troubleshooting payment-related issues, refunds, or cashback inquiries.
+**Resolution:**
+1. Note that **restaurants are on V2 by default** — start with this assumption.
+2. To confirm the payment version for a specific restaurant, look up **another existing order for that restaurant in Slack**.
+3. Review the order details — the payment version should be visible there.
+4. Alternatively, if the restaurant has **cashback enabled**, this is a confirmed indicator that they are on **V2**.
+5. If neither method is conclusive, default to V2 unless there is evidence suggesting otherwise.
+
+**Exceptions:** Restaurants explicitly confirmed to be on V1 (identifiable via Slack order history showing V1 payment details and no cashback feature).
+**Approval Required:** No
+**Last Updated:** 2026-10-27 — added via KB update workflow
