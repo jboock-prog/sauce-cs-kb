@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 54
+Entry count: 55
 
 ---
 
@@ -1187,3 +1187,25 @@ The 2026-08-27 release (confirmed live in both app stores) adds:
 **Exceptions:** Rolling out as of 2026-10-21; a merchant announcement email is planned once in full GA. Orders By Channel Summary only applies to locations where Sauce aggregates 3PD orders.
 **Approval Required:** No.
 **Last Updated:** 2026-10-23 — new, applied by KB auto-apply (source: Ella Bar-Or, 2026-10-21, forwarded by Josh Boock)
+
+---
+
+## Entry B2B-55: Restaurant Requests a Car — "B2B - Car request" Snippet
+
+**Title:** Restaurant Requests a Car for an Order — "B2B - Car request" Snippet
+**Issue Type:** Dispatch / Book a Driver
+**Situation:** A restaurant asks for a car (rather than another vehicle type) for a delivery, usually for a large non-catering order.
+**Resolution:**
+1. Send the **"B2B - Car request"** snippet:
+> "We understand that you'd prefer to have a car assigned to this order. For non-catering orders, we're unable to guarantee a specific vehicle type. However, you can submit a **Large Order – Book a Driver** request, which allows our driver service to send multiple couriers when needed to help deliver the order.
+> **To book through your dashboard:**
+> 1. Go to **Orders** and select the order.
+> 2. Click the red **Book a Driver** button in the top-right corner.
+> 3. Complete the form and select **Large Order** as the reason.
+> 4. Make sure to enter the correct order subtotal and tip, then click **Submit**.
+> Would you prefer to submit the request through your dashboard, or would you like us to help you with it? 😊"
+2. If they want our help, book it with the **Large Order** reason (see **OPS-42**).
+
+**Exceptions:** Applies to non-catering orders. For catering, see **OPS-12**. Large Order is one of the BaD reasons that automatically charges the restaurant (OPS-42).
+**Approval Required:** No.
+**Last Updated:** 2026-10-30 — new snippet, applied by KB auto-apply (source: Sofia Perez, 2026-10-28; restated in weekly recap 2026-10-29)

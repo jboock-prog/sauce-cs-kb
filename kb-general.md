@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 15
+Entry count: 16
 
 ---
 
@@ -305,3 +305,19 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** Restaurants explicitly confirmed to be on V1 (identifiable via Slack order history showing V1 payment details and no cashback feature).
 **Approval Required:** No
 **Last Updated:** 2026-10-27 — added via KB update workflow
+
+---
+
+## Entry GEN-16: B2B Email Quality — Formatting, Wording, and Signatures
+
+**Title:** B2B Email Quality — Formatting, Wording, and Signatures
+**Issue Type:** Communication Standards
+**Situation:** An agent is sending an email to a store (B2B), especially one that reuses text from another team or a teammate's earlier email.
+**Resolution:**
+1. **Formatting:** always apply **Clear Formatting** so fonts don't mix and the email looks professional.
+2. **Review the wording:** don't copy and paste messages from BO, ePayments, or other teams without reviewing them. Adjust the wording to address the store directly (e.g., "They need to" → "You need to").
+3. **Signatures:** when copying a previous email from a teammate's ticket, make sure the sender's name matches your own email signature.
+
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-10-30 — new, after feedback on recent B2B communication, applied by KB auto-apply (source: Sofia Perez, 2026-10-28; restated in weekly recap 2026-10-29)
