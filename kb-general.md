@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 16
+Entry count: 17
 
 ---
 
@@ -321,3 +321,21 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** None stated.
 **Approval Required:** No.
 **Last Updated:** 2026-10-30 — new, after feedback on recent B2B communication, applied by KB auto-apply (source: Sofia Perez, 2026-10-28; restated in weekly recap 2026-10-29)
+
+
+---
+
+## Entry GEN-17: Hiding Restaurant Address on Ordering Site
+
+**Title:** Restaurant Address Visibility on Ordering Site — No Hide Option Available
+**Issue Type:** Policies & Rules
+**Situation:** When a restaurant owner or manager requests that their address be hidden or removed from the public-facing ordering site.
+**Resolution:**
+1. Inform the restaurant that there is currently **no functionality** to hide or remove a restaurant's address from the ordering site.
+2. Apologize for any inconvenience this may cause.
+3. If the restaurant has a strong need for this capability, advise them to submit a **feature request** through the appropriate channel.
+4. Log the request internally to help track demand for this feature.
+
+**Exceptions:** None at this time. Regardless of the reason provided (e.g., privacy concerns, virtual kitchen, ghost kitchen), the address cannot be hidden through any current setting or workaround.
+**Approval Required:** No
+**Last Updated:** 2026-11-03 — added via KB update workflow
