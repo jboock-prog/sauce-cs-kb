@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 54
+Entry count: 55
 
 ---
 
@@ -155,12 +155,12 @@ Entry count: 54
 **Issue Type:** Policies & Rules
 **Situation:** A ticket is waiting for a response from a restaurant.
 **Resolution:**
-- If the restaurant has not responded after **2 outreach attempts on 2 consecutive days**: send the ticket to Refund Request (refunds).
-- **Exception:** If the restaurant is on the list of restaurants that handle their own refunds, do not send to Refund Request. Instead, reach out in the Support New channel and tag CS.
+- If the restaurant has not responded after **2 outreach attempts on 2 consecutive days**: submit the refund (**kb-refunds Entry 35**).
+- **Exception:** If the restaurant is on the list of restaurants that handle their own refunds, do not submit a refund. Instead, reach out in the Support New channel and tag CS.
 
-**Exceptions:** Restricted refund restaurants follow a different path — tag CS instead of sending to Refund Request.
+**Exceptions:** Restricted refund restaurants follow a different path — tag CS instead of submitting a refund.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-02-25 — extracted from Playbook
 
 ---
 
@@ -194,14 +194,14 @@ Entry count: 54
 - Example: a ticket with category "BO B2B: Website Changes" will route to the BO pipeline when the status is changed.
 
 **For ePayments (refund) tickets:**
-- Change the ticket status to **"Refund Request"**
-- All required categories will appear before saving — ensure they are filled in.
+- New refunds: follow the Refund Request Process (**kb-refunds Entry 35**). Run Request Refund, then close the ticket on the Support Pipeline. Don't move it to ePayments yourself.
+- Tickets ePayments sent back (Refund Follow Up Needed): change the status to **"Refund Request"** to send them back. All required categories will appear before saving, so make sure they're filled in.
 
 **DO NOT** manually drag tickets between pipelines — always use the status change to trigger automation.
 
 **Exceptions:** None — manual pipeline moves bypass automation and must not be used.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-02-25 — extracted from Playbook
 
 ---
 
@@ -252,7 +252,7 @@ Entry count: 54
 - Book a new driver free of charge, matching the original tip amount.
 
 **If the order was returned and the customer does not want the food:**
-- Move to Refund Request for a refund.
+- Submit the refund (**kb-refunds Entry 35**).
 
 **If the order was NOT returned and the customer wants the food:**
 - Do not have the restaurant remake the food.
@@ -263,11 +263,11 @@ Entry count: 54
   - If Uber says it's still being returned: do not ask for a remake — the refund process will likely be cleaner after return.
 
 **If the order was NOT returned and the customer does not want the food:**
-- Move to Refund Request for a refund.
+- Submit the refund (**kb-refunds Entry 35**).
 
 **Exceptions:** Uber-specific exception for contested non-returns — see above.
 **Approval Required:** No — but ePayments makes the final refund determination.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-02-25 — extracted from Playbook
 
 ---
 
@@ -1191,3 +1191,19 @@ Use any of the following methods to determine a restaurant's order configuration
 
 **Approval Required:** No — CS agents and restaurants can apply permanent driver blocks independently via the Rate a Driver feature. Escalate only if a block needs to be reversed or if a platform-wide action is required.
 **Last Updated:** 2026-10-27 — added via KB update workflow
+
+---
+
+## Entry OPS-56: BYOC Hybrid Delivery — Restaurant Can Take a 3PD Order for Its Own Driver (Stream Events API)
+
+**Title:** BYOC Hybrid Delivery — 200-Second Opt-Out Window for Restaurant's Own Driver (Stream Events API Only)
+**Issue Type:** BYOC / Dispatch
+**Situation:** A BYOC restaurant on the Stream Events API integration wants to deliver some third-party (3PD) orders with its own drivers and let Sauce handle the rest; or a restaurant/agent asks why no Sauce delivery was created right away for a 3PD order.
+**Resolution:**
+1. When the feature is on, each 3PD order has a **200-second timer** during which the restaurant can opt out of Sauce BYOC and **assign its own driver**.
+2. **No Sauce delivery is created until the timer runs out.**
+3. Only if the restaurant doesn't assign its own driver within those 200 seconds does Sauce create and process the delivery.
+4. Controlled by the feature flag **`stream_events_byoc_vs_self_hybrid_delivery`**.
+**Exceptions:** Only available for the **Stream Events API** integration (see **OPS-44** for integration types). Currently enabled at **Levantine** and **Meet&Meat** only — confirm the flag is on for a location before describing this behavior.
+**Approval Required:** No.
+**Last Updated:** 2026-11-03 — new (source: Tanya Maslo, 2026-10-30, forwarded by Josh Boock 2026-11-03)

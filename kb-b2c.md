@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 16
+Entry count: 18
 
 ---
 
@@ -52,13 +52,13 @@ If the order is already marked as picked up on the system → tell the customer 
 
 **Step 2 — Handle the refund:**
 - **Make absolutely sure the customer understands: only the delivery is canceled — the order itself is NOT canceled.**
-- If the customer placed a tip and asks for a refund on the tip and/or delivery fee → send the ticket to Refund Request as a refund request for those amounts.
+- If the customer placed a tip and asks for a refund on the tip and/or delivery fee → submit a refund for those amounts (**kb-refunds Entry 35**).
 - If the customer placed a tip but does not ask for a refund → close the ticket.
 - If the customer placed no tip → they can only request a refund for the delivery fee. If they don't request it, close the ticket.
 
 **Exceptions:** None.
 **Approval Required:** No — no restaurant approval needed. ePayments needed only if customer requests refund of delivery fee/tip.
-**Last Updated:** 2026-02-26 — added driver proximity check and restaurant call step; added tip/fee refund logic
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-02-26 — added driver proximity check and restaurant call step; added tip/fee refund logic
 
 ---
 
@@ -369,3 +369,35 @@ First, determine fault if unclear — ask Tier 2 to investigate. Fault matters f
 **Exceptions:** A V2 customer may not see Apple Pay/Google Pay if their device or browser does not natively support those payment methods (e.g., Google Pay on an unsupported browser). In these cases, advise the customer to try a compatible device or browser before escalating.
 **Approval Required:** No
 **Last Updated:** 2026-10-27 — added via KB update workflow
+
+---
+
+## Entry B2C-17: $0 Orders Not Supported — Credits Can't Cover the Whole Order
+
+**Title:** Checkout Fails When Credits/Cashback Cover the Entire Order ($0 Total)
+**Issue Type:** Storefront Checkout / Cashback
+**Situation:** A customer can't check out and sees an "add at least one item" message even though their cart has items — usually because their credits or cashback cover the whole order total.
+**Resolution:**
+1. Explain that orders with a **$0 total aren't supported right now**: when credits cover the entire order, checkout can't go through and shows the "add at least one item" message instead.
+2. Offer the two workarounds:
+   - Place the order **without redeeming credits**, or
+   - **Add enough items** that the total stays above $0.
+**Exceptions:** Temporary limitation ("right now") — check for updates before telling customers it's permanent.
+**Approval Required:** No.
+**Last Updated:** 2026-11-03 — new (source: Josh Boock, forwarding Oleh Tymoshenko, 2026-11-03)
+
+---
+
+## Entry B2C-18: Customer Asks for Sauce Account Credit or Cashback
+
+**Title:** Adding Credit or Cashback to a Customer's Sauce Account — Not Possible
+**Issue Type:** Cashback / Refunds & Credits
+**Situation:** An agent wants to give a customer credit (including a 100% credit) or add cashback to their Sauce account, or a customer asks for account credit instead of a refund.
+**Resolution:**
+1. Support **can't add credit or cashback** to a customer's Sauce account — there's no way to do it.
+2. Cashback is only earned through orders at participating restaurants (see **B2C-11**, **B2C-13**).
+3. If an order the customer paid for partly with cashback is refunded, **the cashback goes back** to the customer.
+4. If the customer is owed money for an order, handle it as a refund (see **kb-refunds Entry 35**), not as account credit.
+**Exceptions:** None stated.
+**Approval Required:** No.
+**Last Updated:** 2026-11-03 — new, from #support-knowledge-base gap; approved by Josh Boock 2026-11-03 (source: Josh Boock, 2026-10-31)

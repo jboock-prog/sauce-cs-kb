@@ -17,10 +17,10 @@ Entry count: 36
 2. If there's a BaD (book-a-driver): `Resto Name | Cx Name | Date | Delivery ID | BaD (delivery ID of BaD) | Invoice ID`
 3. Ensure the ticket request is complete and updated before sending.
 4. Double-check Invoice ID — confirm it matches the correct order (customers sometimes have multiple orders).
-5. Move the ticket to the Refund Request status, which sends it automatically to the epayments pipeline
+5. For a new refund request: first follow every protocol that applies to the case, including restaurant approval where the relevant entry requires it (e.g. **Entry 2** restricted-refund restaurants). Then run **Order Summary** and **Request Refund** (see **Entry 35**), then close the ticket on the Support Pipeline (the **Send Survey and Close ticket** macro works). Closing sends the case to the ePayments pipeline. Don't move these tickets to the ePayments pipeline yourself. The refund request form is no longer used.
 
 **Refund status definitions (renamed 2026-07-02):**
-- **Refund Request** — sends the ticket to ePayments for processing.
+- **Refund Request** — sends the ticket back to ePayments. Use it when ePayments has returned a ticket (Refund Follow Up Needed) and you need to send it back to them. New refund requests go through Request Refund + closing the ticket (step 5).
 - **Refund Follow Up Needed** (formerly "Pending Refunds") — Support status for tickets that need more info and were sent back by ePayments. Work these oldest to newest.
 
 **Refund Follow Up Needed — 48-hour SLA (added 2026-08-24):** Do not let a ticket sit in Refund Follow Up Needed for more than 48 hours without a follow-up. Refunds must be submitted inside the delivery company (DC)'s refund-submission window; a ticket that stalls past 48 hours risks falling outside that window and losing the refund entirely.
@@ -32,7 +32,7 @@ Entry count: 36
 
 **Approval Required:** No (for submission). ePayments team makes final determination.
 **Critical Rule:** NEVER confirm or guarantee a refund to a customer. Use language like: "We will submit a refund request" or "Our Refunds Team will review your order in 1-3 business days."
-**Last Updated:** 2026-08-24 — added 48-hour follow-up SLA for Refund Follow Up Needed via KB Policy Scan (source: Danny Canabe, 2026-08-22); 2026-07-16 — added status rename (Refund Follow Up Needed) and refunds@getsauce.com forwarding rule
+**Last Updated:** 2026-11-03 — new refunds go through Request Refund + close on Support Pipeline; Refund Request status kept for sending returned tickets back to ePayments; refund form retired; all protocols (incl. restaurant approvals) still apply before Request Refund (sources: Josh Boock, 2026-10-27; Josh Boock, 2026-11-03); 2026-08-24 — added 48-hour follow-up SLA for Refund Follow Up Needed via KB Policy Scan (source: Danny Canabe, 2026-08-22); 2026-07-16 — added status rename (Refund Follow Up Needed) and refunds@getsauce.com forwarding rule
 
 ---
 
@@ -40,9 +40,9 @@ Entry count: 36
 
 **Title:** Restaurant-Specific Refund Restrictions — Restaurants That Handle Their Own Refunds
 **Issue Type:** Refunds & Credits
-**Situation:** Customer has an issue with an order from one of the restaurants on the restricted list. These restaurants handle their own refunds for order quality issues — CS does NOT send those to Refund Request without their approval.
+**Situation:** Customer has an issue with an order from one of the restaurants on the restricted list. These restaurants handle their own refunds for order quality issues — CS does NOT submit a refund (**Entry 35**) for those without their approval.
 **Resolution:**
-- If the issue is a **delivery problem** (driver dropped off incorrectly, dispatch bug, wrong bag delivered) OR the customer wants to **cancel their order**: move ticket to Refund Request normally.
+- If the issue is a **delivery problem** (driver dropped off incorrectly, dispatch bug, wrong bag delivered) OR the customer wants to **cancel their order**: submit the refund (**Entry 35**) normally.
 - If the issue is with the **order itself** (e.g., wrong item but bag has their name): redirect customer to contact the restaurant directly. Use snippet: `#restorefund` or template at HubSpot.
 
 **Restricted Restaurant List (must get restaurant approval for order issues):**
@@ -64,9 +64,9 @@ Entry count: 36
 - Merkado 31 — requires refund confirmation before the ticket is escalated to ePayments (added 2026-08-04)
 - Pho Bar (also written "Phobar Bklyn") — see **Entry 34** for the full approval steps (added 2026-09-21)
 
-**Exceptions:** Delivery issues and cancellations bypass this restriction — those go to Refund Request regardless
-**Approval Required:** Yes — restaurant must approve before CC moves to Refund Request.
-**Last Updated:** 2026-09-21 — added Pho Bar / Phobar Bklyn to the Restricted Restaurant List (existing gap vs. Entry 34; confirmed by Josh Boock); 2026-08-24 — added Merkado 31 to the Restricted Restaurant List via KB Policy Scan (source: Sofia Perez, 2026-08-04); 2026-03-03 — updated
+**Exceptions:** Delivery issues and cancellations bypass this restriction — submit the refund (**Entry 35**) regardless
+**Approval Required:** Yes — restaurant must approve before CC submits the refund (**Entry 35**).
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-09-21 — added Pho Bar / Phobar Bklyn to the Restricted Restaurant List (existing gap vs. Entry 34; confirmed by Josh Boock); 2026-08-24 — added Merkado 31 to the Restricted Restaurant List via KB Policy Scan (source: Sofia Perez, 2026-08-04); 2026-03-03 — updated
 
 ---
 
@@ -145,7 +145,7 @@ Entry count: 36
 
 **If the order has already been delivered:**
 - We cannot modify the tip — the driver already received the payment.
-- Exception: if the customer claims the driver was rude or had a bad experience → send to Refund Request to refund CX from COURIER.
+- Exception: if the customer claims the driver was rude or had a bad experience → submit the refund (**Entry 35**) to refund CX from COURIER.
 
 **If the order is picked up (driver has the order):**
 - We cannot modify the tip.
@@ -157,9 +157,9 @@ Entry count: 36
 4. After creating the BaD tracking, copy the delivery ID from the tracking link to look up the customer-facing tracking link in Find Delivery.
 5. Send the ticket to Refunds Request to refund CX from COURIER the difference in the tip amount.
 
-**Exceptions:** If the driver was rude or had a bad experience on a delivered order → send to Refund Request to refund CX from COURIER with behavior documented.
+**Exceptions:** If the driver was rude or had a bad experience on a delivered order → submit the refund (**Entry 35**) to refund CX from COURIER with behavior documented.
 **Approval Required:** No — but ePayments makes the final determination on exception cases.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-03-03 — updated
 
 ---
 
@@ -173,16 +173,16 @@ Entry count: 36
 
 **If restaurant approves:**
 - Attach the restaurant's approval to the ticket.
-- Move the ticket to Refund Request with the approval attached.
+- Submit the refund (**Entry 35**) with the approval attached.
 
 **If the restaurant does not answer:**
 - Send the restaurant an email + SMS requesting their approval.
 - Leave the ticket in **Pending B2B** (or Scheduled Future Action) and continue reaching out over the next few days.
-- After 3 days with no response: send to Refund Request and note that the restaurant was unresponsive.
+- After 3 days with no response: submit the refund (**Entry 35**) and note that the restaurant was unresponsive.
 
 **Exceptions:** Restaurant approval is required — but a no-answer after 3 days can be escalated to ePayments with documentation of outreach attempts.
 **Approval Required:** Yes — restaurant must approve before submitting to ePayments.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-03-03 — updated
 
 ---
 
@@ -199,7 +199,7 @@ Entry count: 36
 **If the item has NOT been prepared yet:**
 - Ask the restaurant not to prepare it and confirm approval.
 - The restaurant can also use the **"Adjust" button** on their dashboard to remove the item and process the refund on their end. If they do this, no refund ticket is needed.
-- If they prefer Support to handle the refund: attach the restaurant's approval to the ticket → move to Refund Request.
+- If they prefer Support to handle the refund: attach the restaurant's approval to the ticket → submit the refund (**Entry 35**).
 
 **If the item HAS already been prepared:**
 - We cannot remove it — inform the customer that the item was already made.
@@ -210,8 +210,8 @@ Entry count: 36
 - Schedule a Slack message on the ticket with the Slack Reminder Field for the order date, 1.5 hours before pickup time, to remind them not to prepare the removed item.
 
 **Exceptions:** If the item is already prepared, removal is not possible, and no refund is owed unless the restaurant approves.
-**Approval Required:** Yes — restaurant confirmation required before sending to Refund Request.
-**Last Updated:** 2026-03-03 — updated
+**Approval Required:** Yes — restaurant confirmation required before submitting the refund (**Entry 35**).
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-03-03 — updated
 
 ---
 
@@ -222,14 +222,14 @@ Entry count: 36
 **Situation:** Customer contacts us saying they never received their pickup order (restaurant was closed, order wasn't prepared, customer left due to wait, etc.).
 **Resolution:**
 1. Check order status on the Sauce Dashboard:
-   - **Canceled** → move directly to Refund Request for refund.
+   - **Canceled** → submit the refund (**Entry 35**) directly.
    - **Overdue / Completed / Unknown** → call the restaurant. Ask if they were open/closed, and explain that the customer is requesting a refund.
-     - Restaurant approves refund → move to Refund Request.
+     - Restaurant approves refund → submit the refund (**Entry 35**).
      - Restaurant denies refund → send the **Refund Denial** template to the customer and close the ticket.
 
 **Exceptions:** None documented.
 **Approval Required:** Yes — restaurant confirmation needed when status is ambiguous.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-03-03 — updated
 
 ---
 
@@ -251,9 +251,9 @@ How to check PoD :
 Go to: https://dashboard.getsauce.com/managers/find-delivery
 Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Find Delivery.
 
-**Exceptions:** **Uber + Sauce Dispatch orders under $200** (marked Delivered, never received, no prior refund, no open ePayments ticket) now go through the automated Order Summary + Request Refund tool — see **Entry 35**. Use this manual process for everything else (BYOC, Book-a-Driver, Otter, other providers, $200+).
+**Exceptions:** Use the PoD checks above to decide whether a refund should be submitted, then submit it through the Refund Request Process (**Entry 35**). The result tells you if it was refunded automatically.
 **Approval Required:** No — but document all findings in the ticket before submitting to ePayments.
-**Last Updated:** 2026-10-21 — added pointer to Entry 35 automated tool, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21; 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-10-21 — added pointer to Entry 35 automated tool, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21; 2026-03-03 — updated
 
 ---
 
@@ -267,13 +267,13 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 2. Check with Tier 2 to determine: did the customer enter the wrong address, or did the Sauce system change it? Add their findings and a Slack thread link to the ticket notes.
 3. **If it was the customer's fault:**
    - Do NOT offer redelivery.
-   - You may move to Refund Request if the customer confirms they didn't receive the order, but explicitly tell them a refund is not guaranteed because the order was delivered to the address they entered.
+   - You may submit the refund (**Entry 35**) if the customer confirms they didn't receive the order, but explicitly tell them a refund is not guaranteed because the order was delivered to the address they entered.
 4. **If it was the system's fault:**
-   - Send to Refund Request
+   - Submit the refund (**Entry 35**)
 
 **Exceptions:** Fault determination changes the resolution entirely — always verify with Tier 2 before deciding.
 **Approval Required:** No — but Tier 2 investigation required to assign fault.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-03-03 — updated
 
 ---
 
@@ -348,19 +348,19 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 **Situation:** Customer or delivery company reports in real time that the restaurant appears to be closed.
 **Resolution:**
 1. Call the restaurant at least 3-4 times, at different times if possible, to verify closure. While doing so, also **check connected third-party platforms** (Uber Eats, DoorDash, Grubhub, etc.) for the restaurant's current status, and let the customer know the team is reviewing everything to make sure it's working as expected.
-2. **If restaurant confirms they're open**: check if they prepared the specific order. Based on their response, either send a refund denial or move to Refund Request.
+2. **If restaurant confirms they're open**: check if they prepared the specific order. Based on their response, either send a refund denial or submit the refund (**Entry 35**).
 3. **If restaurant does not answer**: treat the restaurant as closed.
    - Close the restaurant until the next opening hours on the Sauce Dashboard.
    - Send the restaurant the "Store Reported as Closed / Closed Resto" template and CC the CS owner.
    - Check for other open orders for the day — create tickets for those and check with each customer if they received their order.
-   - Move the original customer's ticket to Refund Request for a refund.
+   - Submit the refund (**Entry 35**) on the original customer's ticket.
 4. **For delivery specifically**: if the end customer did NOT report it (you learned from the delivery company), confirm with the customer before moving to refunds.
 
 **General reminder:** always use a helpful tone, and do not assume something is resolved unless the customer confirms it is resolved.
 
 **Exceptions:** Delivery closure reported by the delivery company (not the customer) — must confirm with the customer before creating a refund ticket.
 **Approval Required:** No — if restaurant confirmed closed (or no answer after multiple attempts).
-**Last Updated:** 2026-09-18 — updated from KB Policy Scan, week of 2026-09-14 (source: Josh Boock, 2026-09-08); adds "check connected platforms" step and tone reminder
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-09-18 — updated from KB Policy Scan, week of 2026-09-14 (source: Josh Boock, 2026-09-08); adds "check connected platforms" step and tone reminder
 
 ---
 
@@ -407,7 +407,7 @@ Use `#eta_late_delivery`. Apologize and confirm follow-up. Contact the courier.
 - If > 15 min past Latest ETA → Tier 5.
 
 **Tier 5 — 15+ minutes past Latest ETA, order still in progress**
-Use `#eta_refund_referral`. Acknowledge lateness and set expectations for refund review. Monitor until delivery completes, then send to Refund Request.
+Use `#eta_refund_referral`. Acknowledge lateness and set expectations for refund review. Monitor until delivery completes, then submit the refund (**Entry 35**).
 
 **Tier 6 — Customer wants to cancel because of the delay (order already prepared/picked up)**
 Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not cancel if the order is already prepared or picked up. Monitor until delivered, then refer to ePayments for possible refund.
@@ -424,15 +424,15 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Sauce Dispatch Delivery:**
 - No refund request → empathize, reassure, follow tier above.
-- Refund request, order active → tell customer: once delivered, we'll send to Refund Request.
+- Refund request, order active → tell customer: once delivered, we'll submit a refund request.
 - Refund request, order completed → check dropoff time only:
-  - 15+ min past Latest ETA → valid. Submit a Refund Request.
-  - Under 15 min → tell customer it was delivered within estimated time. Cannot guarantee a refund, but the Refunds team will review. Send to Refund Request.
+  - 15+ min past Latest ETA → valid. Submit the refund (**Entry 35**).
+  - Under 15 min → tell customer it was delivered within estimated time. Cannot guarantee a refund, but the Refunds team will review. Submit the refund (**Entry 35**).
 
 **Restaurant Delivery:**
 - CS cannot assist — the restaurant handled the delivery and is responsible for any refund—direct customer to the restaurant.
 - If the restaurant is unresponsive → try calling ourselves. If no answer → leave on Refund Follow Up Needed (formerly "Pending Refunds"), continue reaching out over the next few days.
-  - Restaurant approves → send to Refund Request.
+  - Restaurant approves → submit the refund (**Entry 35**).
   - Restaurant denies or never answers → tell customer we cannot assist, they must take it up with the restaurant.
 
 **Pickup:**
@@ -455,7 +455,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Exceptions:** Under 15 min late by dropoff time = not eligible for guaranteed refund. Restaurant delivery and pickup of late orders are not Support's responsibility.
 **Approval Required:** No for Sauce Dispatch. Yes (restaurant approval) for restaurant delivery refunds.
-**Last Updated:** 2026-08-24 — added "acknowledge, don't argue" guiding principle and Tier 3b (`#ETA - Order Running Late`) via KB Policy Scan (source: Sofia Perez, 2026-08-22); 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-08-24 — added "acknowledge, don't argue" guiding principle and Tier 3b (`#ETA - Order Running Late`) via KB Policy Scan (source: Sofia Perez, 2026-08-22); 2026-03-03 — updated
 
 ---
 
@@ -536,11 +536,11 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 **Resolution:**
 1. **Sauce does not provide refunds or compensation for early deliveries.** This applies to all orders, including scheduled future orders.
 2. Apologize for the inconvenience and report the issue to the dispatch team so delivery timing can be reviewed.
-3. Do not send a ticket to Refund Request for early delivery — the request will be denied.
+3. Do not submit a refund (Entry 35) for early delivery — the request will be denied.
 
 **Exceptions:** None — no refund or compensation for early deliveries under any circumstances. ASAP orders have no guaranteed time window in the first place.
 **Approval Required:** N/A — no refund is offered.
-**Last Updated:** 2026-07-16 — policy change (per Yuval, announced 2026-05-27): refunds/compensation for early deliveries discontinued
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-07-16 — policy change (per Yuval, announced 2026-05-27): refunds/compensation for early deliveries discontinued
 
 ---
 
@@ -590,7 +590,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 - Double-check location, name, and date before proceeding.
 
 **Step 2 — Request a photo:**
-- If photo provided → submit to Refund Request (unless restaurant is on the restricted list).
+- If photo provided → submit the refund (**Entry 35**) (unless restaurant is on the restricted list).
 - If no photo → let the customer know a photo helps, but you'll forward the request to the Refunds Team for review. Clarify refund is not guaranteed.
 
 **Step 3 — Restricted restaurant handling:**
@@ -598,9 +598,9 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 - Tell the customer exactly: *"We're checking with the restaurant for their approval. Once they respond, we'll follow their guidelines. If we don't hear back promptly, our management team may review it for you."*
 - Do NOT call restaurants that are NOT on the mandatory-approval list for minor ingredient issues.
 
-**Exceptions:** Restaurants on the restricted refund list require approval before sending to Refund Request.
+**Exceptions:** Restaurants on the restricted refund list require approval before submitting the refund (**Entry 35**).
 **Approval Required:** Only if restaurant is on restricted list.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-03-03 — updated
 
 ---
 
@@ -628,7 +628,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 *Remake (Pickup or Restaurant Delivery):*
 1. Call the restaurant to find out if the item was sent or forgotten.
 If the restaurant admits to forgetting the item (restaurant fault) and the customer requests re-delivery, ask if we can send a driver to deliver it.
-2. If courier error — and only where courier fault is clearly established → move ticket to Refund Request to compensate the restaurant for remaking.
+2. If courier error — and only where courier fault is clearly established → submit the refund (**Entry 35**) to compensate the restaurant for remaking.
 3. If the restaurant approves the remake:
    - Inform the customer.
    - Pickup: the customer can collect the missing item.
@@ -636,12 +636,12 @@ If the restaurant admits to forgetting the item (restaurant fault) and the custo
 
 *Refund:*
 1. Confirm all order details and document in ticket notes.
-2. Move ticket to Refund Request (unless restaurant handles own refunds).
-3. If the restaurant does its own deliveries, call for approval before sending to the Refund Request.
+2. Submit the refund (**Entry 35**) (unless restaurant handles own refunds).
+3. If the restaurant does its own deliveries, call for approval before submitting the refund (**Entry 35**).
 
 **Exceptions:** Restaurant-delivered orders require a mandatory call to the restaurant for approval (see Entry 22).
 **Approval Required:** Depends — restaurant approval needed if on restricted list or restaurant handles delivery.
-**Last Updated:** 2026-08-24 — separated the restaurant-fault and courier-fault paths to resolve the conflict flagged in the 2026-08-03 scan; restaurant admission still supports redelivery, courier fault must be clearly established (decision: Josh Boock, 2026-08-24; source reminder: Josh Boock, 2026-07-31). 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-08-24 — separated the restaurant-fault and courier-fault paths to resolve the conflict flagged in the 2026-08-03 scan; restaurant admission still supports redelivery, courier fault must be clearly established (decision: Josh Boock, 2026-08-24; source reminder: Josh Boock, 2026-07-31). 2026-03-03 — updated
 
 ---
 
@@ -652,11 +652,11 @@ If the restaurant admits to forgetting the item (restaurant fault) and the custo
 **Situation:** Customer reports a missing item on an order that was delivered by the restaurant's own drivers (not Uber/DoorDash/Relay).
 **Resolution:**
 - Calling the restaurant to get approval is **mandatory** before processing any refund for missing items on restaurant-delivered orders.
-- Do not submit a Refund Request without restaurant confirmation.
+- Do not submit the refund (**Entry 35**) without restaurant confirmation.
 
 **Exceptions:** None — calling the restaurant is always required for in-house delivery and missing item claims.
 **Approval Required:** Yes — restaurant approval required.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-03-03 — updated
 
 ---
 
@@ -668,11 +668,11 @@ If the restaurant admits to forgetting the item (restaurant fault) and the custo
 **Resolution:**
 1. Ask for a photo of the order received.
 2. Compare the photo to the order details to confirm the complaint is valid.
-3. If the complaint is confirmed valid → move the ticket to Refund Request.
+3. If the complaint is confirmed valid → submit the refund (**Entry 35**).
 4. If the customer has no photo:
    - Thank them for the feedback.
    - If they explicitly ask for a refund: explain a photo is needed to proceed.
-   - If they insist without a photo: move to Refund Request anyway — the ePayments team will decide whether to refund.
+   - If they insist without a photo: submit the refund (**Entry 35**) anyway — the ePayments team will decide whether to refund.
 
 **Special Case — Notes not followed (e.g., customer asked for no onions in order notes):**
 - Always direct the customer to the restaurant directly. Sauce cannot guarantee restaurants follow order notes.
@@ -684,9 +684,9 @@ If the restaurant admits to forgetting the item (restaurant fault) and the custo
 - **Wrong Order Received (the same merchant)** — wrong order from the same restaurant; store's fault.
 - **Wrong Order Received (the different merchant)** — driver mixed up orders between restaurants; driver fault.
 
-**Exceptions:** If the customer did not follow up with a photo and insists, escalate to Refund Request for final decision.
+**Exceptions:** If the customer did not follow up with a photo and insists, submit the refund (**Entry 35**) for final decision.
 **Approval Required:** No — ePayments decides.
-**Last Updated:** 2026-07-16 — added updated ePayments refund reasons
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-07-16 — added updated ePayments refund reasons
 
 ---
 
@@ -991,9 +991,9 @@ Escalation: flag yellow/red conditions in #ops-escalations, tag Yuval, Josh, Ida
 
 Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Procedures+for+NYC+Courier+Safety+and+Order+Management+Guidelines
 
-**Exceptions:** The "Weather Potential Refund" 1-hour/automatic-refund rule is a weather-specific exception to the general late-delivery threshold in Entry 15 (15+ minutes past latest delivery time, submitted via Refund Request rather than automatic) — not a confirmed contradiction of Entry 15, per the source announcement.
+**Exceptions:** The "Weather Potential Refund" 1-hour/automatic-refund rule is a weather-specific exception to the general late-delivery threshold in Entry 15 (15+ minutes past latest delivery time, submitted via the Refund Request Process (Entry 35) rather than automatic) — not a confirmed contradiction of Entry 15, per the source announcement.
 **Approval Required:** No.
-**Last Updated:** 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-21)
+**Last Updated:** 2026-11-03 — refund hand-off now points to the Refund Request Process, Entry 35 (source: Josh Boock, 2026-11-03); 2026-07-27 — applied from KB Policy Scan (source: Josh Boock, 2026-07-21)
 
 
 ---
@@ -1017,25 +1017,26 @@ Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Proce
 
 ---
 
-## Entry 35: Automated Order Summary & Request Refund — Uber Never-Delivered Orders
+## Entry 35: Refund Request Process — Order Summary & Request Refund
 
-**Title:** Automated Order Summary & Refund Decision Tool — Uber Never-Delivered Orders
-**Issue Type:** Order Issues / Refunds & Credits
-**Situation:** A customer in chat says they never received an Uber (Sauce Dispatch) delivery that's marked Delivered, often with a questionable Proof of Delivery (PoD). Order Summary also applies to every delivery ticket.
+**Title:** Refund Request Process — How to Submit Any Refund
+**Issue Type:** Refunds & Credits
+**Situation:** Any refund a customer needs, Core or BYOC. This is the single process for submitting a refund: other entries decide *whether* a refund should be submitted, then point here. Order Summary also runs on every delivery ticket.
 **Resolution:**
-1. **Order Summary (run on every delivery ticket):** confirm the Invoice ID is filled in (8 characters), then set **Order Summary = Run**. Within ~10 seconds it changes to **Updated** and adds a case note with items, driver, PoD photo, drop-off distance + map/Street View, delivery timeline, and other tickets on the same invoice. If it says **Failed**, the Invoice ID is almost always wrong — fix it and re-run.
-2. **Request Refund (Uber never-delivered only):** after reading the Order Summary note, show the customer the PoD and ask "Is this your door or building?" Type their specific answer into the chat — it drives the decision. Set **Request Refund = Run** and keep the customer in the chat. Watch for the **"Sauce AI · Update for Support"** case note (~1 minute). **Stay on the ticket screen while it processes** — the chat moves to ePayments and drops out of the Help Desk view, so if you leave the screen you lose the chat.
-3. **Tell the customer based on the result:**
-   - **Refunded** → refund is on its way to their original payment method, a confirmation email follows, and the ticket auto-closes.
-     - Timing: it's a regular refund — processed on Sauce's side immediately; the bank-side timing is the same as any other refund. The customer gets an automatic confirmation, but confirm the refund with them directly in chat too.
-   - **ePayments Review Required** → the payments team will follow up by email within 24–72 hours.
+1. **Follow the case's protocol first**, including restaurant approval where the relevant entry requires it (e.g. **Entry 2**). Name the ticket and confirm the Invoice ID per **Entry 1**.
+2. **Order Summary:** with the Invoice ID filled in (8 characters), set **Order Summary = Run**. Within ~10 seconds it changes to **Updated** and adds a pinned case note with items, driver, PoD photo, drop-off distance + map/Street View, delivery timeline, and other tickets on the same invoice. **Failed** almost always means a wrong Invoice ID: fix it and re-run.
+3. **Request Refund:** run it only when you're 100% sure a refund review is required. For never-delivered claims, show the customer the PoD, ask "Is this your door or building?" and type their answer into the chat (it drives the decision). Set **Request Refund = Run** and keep the customer in the chat. **Stay on the ticket screen while it processes**: the chat moves to ePayments and drops out of the Help Desk view. In about a minute a **"Sauce AI · Update for Support"** notification shows the result and what to tell the customer.
+4. **Follow the result. It tells you whether the refund went through:**
+   - **Refunded** → the refund is on its way to the original payment method and a confirmation email follows. It's processed on Sauce's side immediately, and bank timing is the same as any refund. Confirm it with the customer in chat too.
+   - **ePayments Review Required** → the payments team follows up by email within 24–72 hours.
    - **Failed** → check the note (usually a wrong Invoice ID), fix, and re-run.
-4. **Eligible for the automated refund:** Uber + Sauce Dispatch, marked Delivered, never received, no prior refund, no open ePayments ticket, under $200. Everything else goes to ePayments the normal way (**Entry 1** / **Entry 9**).
-5. Run each tool **once** — don't re-run while it says Processing, and don't move the ticket stage while waiting. The AI never denies outright; anything not approved goes to ePayments review.
-6. If "Other tickets" shows an open ticket for the same invoice, add your info there instead of opening a new one. Refund reason and responsible party now fill automatically — log your actions as comments on the case note.
-7. Escalate anything that looks wrong (wrong decision, missing info, odd note) to **Rene or Josh**.
-8. **During rollout:** when you get an eligible case, let Josh or a Senior know (Sofia Perez has asked to be tagged and assigned) so the team can monitor it and document the results for ePayments.
+5. The list of cases that are refunded automatically keeps growing (more are added each week). Don't try to predict it: run Request Refund and follow the result. The AI never denies outright; anything not refunded goes to ePayments review.
+6. **Close the ticket when you finish the chat, whatever the result:** Closed on the Support Pipeline (the **Send Survey and Close ticket** macro works). Closing moves the case to the ePayments pipeline. **Never move these tickets to the ePayments pipeline yourself.** No refund request form is needed.
+7. Run each tool **once per ticket**. Don't re-run while it says Processing, and don't move the ticket stage while waiting.
+8. If "Other tickets" shows an open ticket for the same invoice, add your info there instead of opening a new one. Refund reason and responsible party fill automatically; log your actions as comments on the case note.
+9. **If ePayments sends the ticket back** (Refund Follow Up Needed): add what they asked for and send it back with the **Refund Request** status (see **Entry 1**).
+10. Escalate anything that looks wrong (decision, missing info, odd note) to **Rene or Josh**. 10-min walkthrough: loom.com/share/c92f3883b68e47af861d6c1cc9b1407a
 
-**Exceptions:** Not yet supported for BYOC (e.g. Uber Eats customer-side claims), Book-a-Driver, or Otter orders — use **Entry 9**. The automated path is for Core orders only.
-**Approval Required:** No for the automated path; ePayments keeps final say on anything the tool sends to review.
-**Last Updated:** 2026-10-23 — added stay-on-screen, refund timing, Core-only and rollout case-reporting details, applied by KB auto-apply (sources: Sofia Perez & Josh Boock, 2026-10-21 thread; Sofia Perez recap, 2026-10-22); 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Josh Boock, 2026-10-16)
+**Exceptions:** Never confirm or promise a refund before the result shows **Refunded** (Entry 1 Critical Rule). BYOC customers who must claim through the marketplace still follow **Entry 30**.
+**Approval Required:** Restaurant approval where the case's protocol requires it; otherwise No. ePayments has the final say on anything sent to review.
+**Last Updated:** 2026-11-03 — made the single Refund Request Process for all refunds (Core + BYOC); removed hard-coded auto-refund eligibility and rollout reporting; added close-ticket rule, protocols-first, and send-back via Refund Request; approved by Josh Boock 2026-11-03 (sources: Josh Boock for Mario Rodriguez, 2026-10-27; Josh Boock, 2026-10-27; Josh Boock, 2026-11-03); 2026-10-23 — stay-on-screen, timing, rollout details; 2026-10-21 — created (source: Josh Boock, 2026-10-16)

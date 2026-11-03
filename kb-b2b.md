@@ -672,9 +672,9 @@ Note: This process works for both new installs and updates — have the restaura
 **For printers with a Pair button:**
 Some printers have a "Pair" button on the back. Hold it for 5 seconds to make the printer discoverable for pairing.
 
-**Exceptions:** If connectivity issues persist after pairing, the issue may be hardware-related — escalate.
+**Exceptions:** If connectivity issues persist after pairing, the issue may be hardware-related — escalate. **If the printer doesn't show up in the Bluetooth device list at all** after these steps, **escalate to Carlos**.
 **Approval Required:** No.
-**Last Updated:** 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-11-03 — printer-not-found escalation to Carlos, from #support-knowledge-base gap (source: Josh Boock, 2026-10-30); 2026-02-25 — extracted from Playbook
 
 ---
 
@@ -899,10 +899,11 @@ Support can make the following updates directly:
 - Cashback settings are now available directly in the **merchant dashboard** as a self-serve option.
 - **Cashback report:** merchants can download a full cashback report for their location (one row per order — customer details, subtotal, cashback earned and redeemed) from the **Download button on the Loyalty page**, or as **"Cashback Summary" in the Reports dropdown**.
 - Coming next: a bi-weekly cashback recap for merchants showing the ROI of their loyalty program.
+- **Cashback Loyalty summary email (rolling out since 2026-10-30):** sent to merchants **bi-weekly**. It shows cashback orders vs. the previous month, cashback earned and redeemed, recent customer activity, and order value generated per $1 redeemed, with links to loyalty settings and the full report.
 
 **Exceptions:** Unknown — not detailed in the source announcement.
 **Approval Required:** No — appears self-serve.
-**Last Updated:** 2026-10-21 — added cashback report navigation, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-07-17 — applied from KB Policy Scan (source: Sofia Perez huddle notes, 2026-07-11); navigation steps pending confirmation
+**Last Updated:** 2026-11-03 — added Cashback Loyalty summary email (source: Ella Bar-Or, 2026-10-30, forwarded by Josh Boock); 2026-10-21 — added cashback report navigation, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-07-17 — applied from KB Policy Scan (source: Sofia Perez huddle notes, 2026-07-11); navigation steps pending confirmation
 
 ---
 
@@ -919,10 +920,11 @@ Support can make the following updates directly:
 - Emailed, Called, and Skipped tracking so merchants can manage follow-ups.
 - Redesigned feedback emails: shorter, cleaner, with star rating + comment preview, a "Read more" CTA to the dashboard, and full UTM tracking.
 - **Promo code in reply (live):** a one-time setup on the Feedback page auto-adds a promo code to the end of every suggested reply, worded to match the rating. It's a regular promo — editable on the **Promotions** page and hidden from the storefront, so the code only goes out through replies.
+- **Pending reviews reminder email (rolling out since 2026-10-30):** sent to locations with **2+ unanswered reviews**. It shows the pending count, average rating, and response rate, and links straight to the reviews, where merchants can use suggested replies or add a promo code.
 
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-10-21 — promo-code-in-reply now live, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Ella Bar-Or, 2026-09-10, forwarded by Josh Boock); earlier 2026-07-27 update: Ella Bar-Or, 2026-07-22
+**Last Updated:** 2026-11-03 — added Pending reviews reminder email (source: Ella Bar-Or, 2026-10-30, forwarded by Josh Boock); 2026-10-21 — promo-code-in-reply now live, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Ella Bar-Or, 2026-09-10, forwarded by Josh Boock); earlier 2026-07-27 update: Ella Bar-Or, 2026-07-22
 
 ---
 
@@ -1024,9 +1026,9 @@ The 2026-08-27 release (confirmed live in both app stores) adds:
 - **Out-of-stock reminder push** — automatic push when a menu item has been out of stock 24+ hours.
 - **Push-permission fallback** — a follow-up pop-up for users who dismissed push permissions.
 
-**Exceptions:** None noted.
+**Exceptions:** **Book a Driver is not available in the Sauce Manager App** (as of 2026-11-03) — restaurants book drivers from the Merchant Dashboard (see **OPS-42**, **B2B-55**). The app is updated often, so re-check before telling a restaurant a feature is missing.
 **Approval Required:** No.
-**Last Updated:** 2026-10-21 — added 2026-09-24 release features, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Tanya Maslo, 2026-09-24); 2026-09-21 — store-closure download suggestion added from KB Policy Scan, week of 2026-09-21 (source: Josh Boock, 2026-09-17); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock); earlier 2026-09-07 update: Tanya Maslo, 2026-08-27, live in both stores confirmed by Noy Shavit
+**Last Updated:** 2026-11-03 — BaD not in the Manager App, from #support-knowledge-base gap (source: Josh Boock, 2026-11-03); 2026-10-21 — added 2026-09-24 release features, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Tanya Maslo, 2026-09-24); 2026-09-21 — store-closure download suggestion added from KB Policy Scan, week of 2026-09-21 (source: Josh Boock, 2026-09-17); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Gal Shvebish, 2026-09-09, forwarded by Josh Boock); earlier 2026-09-07 update: Tanya Maslo, 2026-08-27, live in both stores confirmed by Noy Shavit
 
 ---
 
