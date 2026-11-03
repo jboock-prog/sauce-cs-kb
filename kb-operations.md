@@ -300,40 +300,17 @@ Entry count: 55
 
 ---
 
-## Entry OPS-12: Booking a Catering Driver via Dlivrd (Expedite)
+## Entry OPS-12: Booking a Rider for a Catering Order
 
-**Title:** How to Book a Catering Driver Through Dlivrd (Expedite)
+**Title:** How to Book a Rider for a Catering Order (Tracked Delivery)
 **Issue Type:** Policies & Rules
-**Situation:** A catering order needs a driver booked through the Dlivrd/Expedite platform.
+**Situation:** A catering order needs a rider booked.
 **Resolution:**
-
-> **Known bug — use this process, not the dashboard (added 2026-07-30):** The in-dashboard "Catering BaD" (Book-a-Driver) flow currently sends deliveries as **standard**, not catering. Until that is fixed, **all** catering driver bookings must go through the Expedite/Dlivrd process below rather than the dashboard BaD feature. Remove this caveat once the bug is confirmed fixed.
-
-**Login:** https://brand.expedite.io/ — see REF-6 for credentials. (The older https://expedite.dlivrd.io/dashboard URL still works, but `brand.expedite.io` is the current one; prefer it.)
-
-**To book a driver — click "Create Order" (top left green button):**
-
-*Pickup section:*
-- **Address:** Select restaurant from dropdown.
-- **Date & Time:** Use the date from Sauce Dashboard. Set the time **45 minutes earlier** than the dashboard time (e.g., dashboard shows 6 PM → set pickup for 5:15 PM). If Dlivrd won't allow 45 min, use buffer time option: set to 40 minutes.
-- **Order ID:** Use the Invoice ID from the Slack #orders channel.
-
-*Dropoff section:*
-- **Contact number:** Customer's phone number — no parentheses or dashes (e.g., 1234567890 not (123) 456-7890).
-- **Date & Time:** Match the time on the restaurant's dashboard.
-- **Address:** Select from dropdown.
-- **Recipient Name:** Customer name.
-- **Value:** Order subtotal from Slack #orders.
-- **Driver Tip:** Tip amount from Slack #orders.
-- **Item Count:** Number of items ordered.
-- **Dropoff Instructions:** Pretend to book a driver from the Sauce Dashboard to check for any apt, floor, gate, or notes. Add those here.
-
-*Order Details section:*
-- **Notes:** Same as Dropoff Instructions.
-- **Value:** Order subtotal.
-- **Driver Tip:** Tip amount.
-
-Click **Create Order** then **Create**.
+Goal: every catering delivery must have a trackable delivery ID and tracking link.
+1. **Do not use the Dlivrd/Expedite portal**, and do not request a new rider directly through Slack — neither provides the tracking link we need.
+2. **Book a rider directly from the catering location** through the regular booking process. The delivery is initially scheduled for a future time based on the location's food preparation time. Check dropoff instructions (apt, floor, gate, notes) before booking.
+3. **Reschedule the delivery to ASAP** (if applicable) once the booking is created.
+4. **Notify the team in #dlivrd-sauce-operations** and include the delivery ID so they can set the order on their end.
 
 **After booking:**
 - Ticket name: Keep as received (from spam).
@@ -341,9 +318,9 @@ Click **Create Order** then **Create**.
 - Category: CC Catering Order Delivery.
 - Status: Closed.
 
-**Exceptions:** Always inform the store before placing a test order. Never skip dropoff instructions check. Temporary: the Catering BaD caveat above applies until the dashboard bug is fixed.
+**Exceptions:** Always inform the store before placing a test order. Never skip the dropoff instructions check.
 **Approval Required:** No.
-**Last Updated:** 2026-08-24 — added Catering BaD bug caveat and updated the login URL to brand.expedite.io (both sourced to Josh Boock, 2026-07-30; URL confirmed current by Josh 2026-08-24, old dlivrd URL still functional); 2026-02-25 — extracted from Playbook
+**Last Updated:** 2026-11-03 — replaced the Dlivrd/Expedite portal process with booking from the catering location + #dlivrd-sauce-operations notification; approved by Josh Boock 2026-11-03 (source: Sofia Perez, 2026-10-21; restated in weekly recap 2026-10-22); 2026-08-24 — Catering BaD caveat + brand.expedite.io URL (Josh Boock, 2026-07-30); 2026-02-25 — extracted from Playbook
 
 ---
 

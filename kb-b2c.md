@@ -303,14 +303,15 @@ First, determine fault if unclear — ask Tier 2 to investigate. Fault matters f
 
 **Title:** Reorder App Release — Per-Location Cashback Balances and Streaks
 **Issue Type:** Product Feature
-**Situation:** A customer asks about the Reorder App, their cashback balance in it, or the new Streaks feature.
+**Situation:** A customer asks about the Reorder App, their cashback balance in it, the Streaks feature, or live delivery tracking (Live Activities) on iOS.
 **Resolution:**
 1. The latest Reorder App release shows **Cashback Program availability and live balances per location** for users who have them — a customer's balance is specific to each restaurant location, not a single global balance.
 2. **Streaks** is a new gamification feature: customers can see their ordering streaks and the impact they've had on their favorite local restaurants.
 3. The release also includes general bug fixes and performance improvements.
+4. **Version 1.1.5 (live on the App Store 2026-10-19) — Live Activities:** iOS users can track their Sauce delivery orders at a glance in a dynamic notification that updates with order status automatically.
 **Exceptions:** Cashback balances only appear for locations where the Cashback Program is active.
 **Approval Required:** No.
-**Last Updated:** 2026-09-07 — applied from KB Policy Scan, week of 2026-08-31 (source: Ezra Mosseri, 2026-08-27, forwarded by Josh Boock)
+**Last Updated:** 2026-11-03 — added v1.1.5 Live Activities; approved by Josh Boock 2026-11-03 (source: Ezra Mosseri, 2026-10-19, forwarded by Josh Boock); 2026-09-07 — applied from KB Policy Scan, week of 2026-08-31 (source: Ezra Mosseri, 2026-08-27, forwarded by Josh Boock)
 
 ---
 
