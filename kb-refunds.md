@@ -27,12 +27,15 @@ Entry count: 36
 
 **Stray refund emails:** Any refund confirmations or refund-related emails from DoorDash or other third parties that you don't know how to handle — forward to refunds@getsauce.com.
 
+**Partial refund explanation (added 2026-11-04):** If a customer asks why they only got a partial refund, send the **"B2C - Why only a partial refund?"** snippet:
+> The Refunds Department issued a partial refund as compensation for the delivery issues you experienced. This refund reflects the amount typically allocated for the driver's tip and compensation. To facilitate your refund, we have adjusted the driver's compensation accordingly.
+
 **Exceptions:**
 - If ePayments returns the ticket saying a refund cannot be processed, ALWAYS send the customer the **End Client: Refund Denial** template — unless ePayments Manager (Yuval) writes "just close" in the notes.
 
 **Approval Required:** No (for submission). ePayments team makes final determination.
 **Critical Rule:** NEVER confirm or guarantee a refund to a customer. Use language like: "We will submit a refund request" or "Our Refunds Team will review your order in 1-3 business days."
-**Last Updated:** 2026-11-03 — new refunds go through Request Refund + close on Support Pipeline; Refund Request status kept for sending returned tickets back to ePayments; refund form retired; all protocols (incl. restaurant approvals) still apply before Request Refund (sources: Josh Boock, 2026-10-27; Josh Boock, 2026-11-03); 2026-08-24 — added 48-hour follow-up SLA for Refund Follow Up Needed via KB Policy Scan (source: Danny Canabe, 2026-08-22); 2026-07-16 — added status rename (Refund Follow Up Needed) and refunds@getsauce.com forwarding rule
+**Last Updated:** 2026-11-06 — added "B2C - Why only a partial refund?" snippet, applied by KB auto-apply (source: Sofia Perez, 2026-11-04); 2026-11-03 — new refunds go through Request Refund + close on Support Pipeline; Refund Request status kept for sending returned tickets back to ePayments; refund form retired; all protocols (incl. restaurant approvals) still apply before Request Refund (sources: Josh Boock, 2026-10-27; Josh Boock, 2026-11-03); 2026-08-24 — added 48-hour follow-up SLA for Refund Follow Up Needed via KB Policy Scan (source: Danny Canabe, 2026-08-22); 2026-07-16 — added status rename (Refund Follow Up Needed) and refunds@getsauce.com forwarding rule
 
 ---
 
