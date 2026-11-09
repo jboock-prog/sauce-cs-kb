@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 18
+Entry count: 19
 
 ---
 
@@ -374,5 +374,26 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 - If the restaurant does not appear in the Sauce Dashboard search, the location may not yet be fully onboarded or may be listed under a different name. Escalate to the onboarding/ops team.
 - If Store Appearance settings are not visible in the restaurant's dashboard, the restaurant may have limited account permissions.
 
+**Approval Required:** No
+**Last Updated:** 2026-11-09 — added via KB update workflow
+
+
+---
+
+## Entry GEN-19: Finding a Store's Menu Link
+
+**Title:** How to Retrieve a Store's Menu Link from the Admin Panel
+**Issue Type:** Policies & Rules
+**Situation:** When a CS agent needs to locate and share a store's menu link (e.g., for troubleshooting, sharing with a restaurant partner, or verifying a store's ordering page URL).
+**Resolution:**
+1. Navigate to the store's page within the admin panel.
+2. Locate the **View Store** button/option.
+3. **Right-click** on "View Store."
+4. Select **"Copy Link"** (or "Copy Link Address") from the right-click context menu.
+5. The store's menu URL is now copied to your clipboard and can be shared or used as needed.
+
+> ⚠️ **Note:** There is **no separate "Copy Link" button** displayed next to "View Store." The link must be retrieved via the right-click context menu method described above.
+
+**Exceptions:** Browser behavior may vary slightly (e.g., the option may read "Copy Link Address" in Chrome or Firefox vs. "Copy Link" in Safari) — all achieve the same result.
 **Approval Required:** No
 **Last Updated:** 2026-11-09 — added via KB update workflow
