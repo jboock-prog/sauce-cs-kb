@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 17
+Entry count: 18
 
 ---
 
@@ -339,3 +339,40 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** None at this time. Regardless of the reason provided (e.g., privacy concerns, virtual kitchen, ghost kitchen), the address cannot be hidden through any current setting or workaround.
 **Approval Required:** No
 **Last Updated:** 2026-11-03 — added via KB update workflow
+
+
+---
+
+## Entry GEN-18: Retrieving a Restaurant's Menu Link
+
+**Title:** How to Retrieve a Restaurant's Sauce Menu Link (S2E URL)
+**Issue Type:** Restaurant Relations / General Support
+**Situation:** When a CS agent needs to locate or share a restaurant's online menu link — for example, to assist a restaurant partner, verify their storefront URL, or troubleshoot ordering issues.
+
+**Resolution:**
+
+**Method 1 — Via the Sauce Dashboard (CS/Admin Access):**
+1. Log into the Sauce Dashboard.
+2. Use the search function to find the restaurant by name.
+3. Locate the correct location in the results.
+4. Click the **3 dots (⋮)** next to the location.
+5. Select **Edit**.
+6. On the edit screen, you will find two URL options:
+   - **S2E Short URL** — a condensed, shareable link.
+   - **S2E URL** — the full menu link.
+7. Copy the appropriate link as needed.
+
+**Method 2 — Via the Restaurant's Own Dashboard:**
+1. Log into the restaurant's Sauce dashboard.
+2. Navigate to **Store Settings > Store Appearance**.
+3. Locate the **View Store** button/link.
+4. Either:
+   - Click **Copy Link** next to "View Store", or
+   - Click the "View Store" link directly, then copy the URL from the browser address bar.
+
+**Exceptions:**
+- If the restaurant does not appear in the Sauce Dashboard search, the location may not yet be fully onboarded or may be listed under a different name. Escalate to the onboarding/ops team.
+- If Store Appearance settings are not visible in the restaurant's dashboard, the restaurant may have limited account permissions.
+
+**Approval Required:** No
+**Last Updated:** 2026-11-09 — added via KB update workflow
