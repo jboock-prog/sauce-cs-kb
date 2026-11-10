@@ -365,17 +365,19 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Method 2 — Via the Restaurant's Own Dashboard:**
 1. Log into the restaurant's Sauce dashboard.
 2. Navigate to **Store Settings > Store Appearance**.
-3. Locate the **View Store** button/link.
-4. Either:
-   - Click **Copy Link** next to "View Store", or
-   - Click the "View Store" link directly, then copy the URL from the browser address bar.
+3. Locate the **View Store** button.
+4. **Right-click** the **View Store** button.
+5. Select **Copy Link** (or **Copy Link Address**) from the right-click context menu.
+6. Share or use the copied menu URL as needed.
+
+There is no separate **Copy Link** button or link next to **View Store**.
 
 **Exceptions:**
 - If the restaurant does not appear in the Sauce Dashboard search, the location may not yet be fully onboarded or may be listed under a different name. Escalate to the onboarding/ops team.
 - If Store Appearance settings are not visible in the restaurant's dashboard, the restaurant may have limited account permissions.
 
 **Approval Required:** No
-**Last Updated:** 2026-11-09 — added via KB update workflow
+**Last Updated:** 2026-11-09 — corrected Method 2 per Joshua Boock: right-click the View Store button and choose Copy Link; there is no separate link.
 
 
 ---
@@ -397,3 +399,4 @@ To view the spam folder: HubSpot Inbox → "More" tab → Spam.
 **Exceptions:** Browser behavior may vary slightly (e.g., the option may read "Copy Link Address" in Chrome or Firefox vs. "Copy Link" in Safari) — all achieve the same result.
 **Approval Required:** No
 **Last Updated:** 2026-11-09 — added via KB update workflow
+
