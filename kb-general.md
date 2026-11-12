@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 19
+Entry count: 20
 
 ---
 
@@ -400,3 +400,22 @@ There is no separate **Copy Link** button or link next to **View Store**.
 **Approval Required:** No
 **Last Updated:** 2026-11-09 — added via KB update workflow
 
+
+
+---
+
+## Entry GEN-20: New Restaurant Leads — Sales Team Contact
+
+**Title:** How to Route New Restaurant Leads to the Sales Team
+**Issue Type:** Restaurant Relations
+**Situation:** When a CS agent receives an inquiry from a restaurant interested in joining the Sauce platform, or identifies a potential new restaurant lead through any customer interaction.
+**Resolution:**
+1. Gather any relevant details about the lead (restaurant name, contact info, location) if available and appropriate.
+2. Navigate to the **#support-new** Slack channel.
+3. Tag the sales team using <!subteam^S03V61NDKST|@salesteam> and share the lead details.
+4. Allow the sales team to take ownership of the lead from that point forward.
+5. Inform the inquiring party (if applicable) that the appropriate team will be in touch.
+
+**Exceptions:** If the inquiry is from an existing restaurant partner looking to expand or modify their account, route to the standard restaurant relations workflow instead of treating it as a new lead.
+**Approval Required:** No
+**Last Updated:** 2026-11-12 — added via KB update workflow
