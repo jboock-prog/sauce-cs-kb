@@ -3,7 +3,7 @@
 Extracted from: Sauce CC Team Playbook
 Source date: Playbook content as of 2025
 Last extracted: 2026-02-25
-Entry count: 55
+Entry count: 57
 
 ---
 
@@ -159,6 +159,7 @@ Refer to the dedicated phone number spreadsheet for the following restaurants:
 **Resolution:**
 1. Open the Sauce Dashboard → navigate to the restaurant's account.
 2. Go to **Store Settings → Reports** and download the Sales Report for the date in question.
+   - Note (2026-11-12): **Reports** (and **Analytics**) now also have their own top-level links in the dashboard sidebar.
 3. In the spreadsheet, search or sort for a **negative value** matching the deduction amount. Confirm the Invoice ID, Customer Name, and Refund Amount.
 4. Go to HubSpot → **ePayments pipeline**. Search using the Invoice ID, customer name, or order date to find the related ticket.
 5. Open the ticket and read the request — confirm what was refunded and why (e.g., missing item, cancellation, delivery issue).
@@ -169,7 +170,7 @@ Refer to the dedicated phone number spreadsheet for the following restaurants:
 
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-04-30 — expanded with Dashboard navigation steps and sample response (from Confluence: Refunds & Sales Report Matching)
+**Last Updated:** 2026-11-13 — noted top-level Reports link, applied by KB auto-apply (source: Ella Bar-Or, 2026-11-12, forwarded by Josh Boock); 2026-04-30 — expanded with Dashboard navigation steps and sample response (from Confluence: Refunds & Sales Report Matching)
 
 ---
 
@@ -900,10 +901,11 @@ Support can make the following updates directly:
 - **Cashback report:** merchants can download a full cashback report for their location (one row per order — customer details, subtotal, cashback earned and redeemed) from the **Download button on the Loyalty page**, or as **"Cashback Summary" in the Reports dropdown**.
 - Coming next: a bi-weekly cashback recap for merchants showing the ROI of their loyalty program.
 - **Cashback Loyalty summary email (rolling out since 2026-10-30):** sent to merchants **bi-weekly**. It shows cashback orders vs. the previous month, cashback earned and redeemed, recent customer activity, and order value generated per $1 redeemed, with links to loyalty settings and the full report.
+- **Cashback in the Customer Report (added 2026-11-12):** the customer export now includes each customer's cashback balance, total cashback earned and redeemed, expiration dates, and last cashback activity alongside order history. Merchants can use it to spot customers with unused cashback to reach out to.
 
 **Exceptions:** Unknown — not detailed in the source announcement.
 **Approval Required:** No — appears self-serve.
-**Last Updated:** 2026-11-03 — added Cashback Loyalty summary email (source: Ella Bar-Or, 2026-10-30, forwarded by Josh Boock); 2026-10-21 — added cashback report navigation, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-07-17 — applied from KB Policy Scan (source: Sofia Perez huddle notes, 2026-07-11); navigation steps pending confirmation
+**Last Updated:** 2026-11-13 — added cashback columns in the Customer Report, applied by KB auto-apply (source: Ella Bar-Or, 2026-11-12, forwarded by Josh Boock); 2026-11-03 — added Cashback Loyalty summary email (source: Ella Bar-Or, 2026-10-30, forwarded by Josh Boock); 2026-10-21 — added cashback report navigation, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-07-17 — applied from KB Policy Scan (source: Sofia Perez huddle notes, 2026-07-11); navigation steps pending confirmation
 
 ---
 
@@ -921,10 +923,11 @@ Support can make the following updates directly:
 - Redesigned feedback emails: shorter, cleaner, with star rating + comment preview, a "Read more" CTA to the dashboard, and full UTM tracking.
 - **Promo code in reply (live):** a one-time setup on the Feedback page auto-adds a promo code to the end of every suggested reply, worded to match the rating. It's a regular promo — editable on the **Promotions** page and hidden from the storefront, so the code only goes out through replies.
 - **Pending reviews reminder email (rolling out since 2026-10-30):** sent to locations with **2+ unanswered reviews**. It shows the pending count, average rating, and response rate, and links straight to the reviews, where merchants can use suggested replies or add a promo code.
+- **Sidebar rename (added 2026-11-12):** the dashboard sidebar item **Customer Feedback** is now called **Reviews**, for all merchants. "Feedback page" in this entry means the Reviews page.
 
 **Exceptions:** None.
 **Approval Required:** No.
-**Last Updated:** 2026-11-03 — added Pending reviews reminder email (source: Ella Bar-Or, 2026-10-30, forwarded by Josh Boock); 2026-10-21 — promo-code-in-reply now live, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Ella Bar-Or, 2026-09-10, forwarded by Josh Boock); earlier 2026-07-27 update: Ella Bar-Or, 2026-07-22
+**Last Updated:** 2026-11-13 — Customer Feedback renamed Reviews in the sidebar, applied by KB auto-apply (source: Ella Bar-Or, 2026-11-12, forwarded by Josh Boock); 2026-11-03 — added Pending reviews reminder email (source: Ella Bar-Or, 2026-10-30, forwarded by Josh Boock); 2026-10-21 — promo-code-in-reply now live, applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28); 2026-09-18 — enriched from KB Policy Scan, week of 2026-09-14 (source: Ella Bar-Or, 2026-09-10, forwarded by Josh Boock); earlier 2026-07-27 update: Ella Bar-Or, 2026-07-22
 
 ---
 
@@ -1099,10 +1102,11 @@ The 2026-08-27 release (confirmed live in both app stores) adds:
 **Resolution:**
 - Merchants can see which bank account is connected for **BYOC charges**, and update it themselves, from **Store Settings** in the dashboard.
 - It uses the same secure flow as BYOC onboarding — connect an account or enter details manually.
+- **In the Sales Report (added 2026-11-12):** BYOC deductions from payouts are labeled **"BYOC charge"** in the Sales Report export, which makes payout reconciliation easier. If a restaurant asks what a "BYOC charge" line is, it's the BYOC fee deducted from that payout.
 
 **Exceptions:** This is the account Sauce **charges**; it is not the payout account (Stripe Connect) covered in **B2B-4**.
 **Approval Required:** No — self-serve.
-**Last Updated:** 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28, forwarded by Josh Boock)
+**Last Updated:** 2026-11-13 — added "BYOC charge" label in the Sales Report export, applied by KB auto-apply (source: Ella Bar-Or, 2026-11-12, forwarded by Josh Boock); 2026-10-21 — applied from KB Policy Scan backlog (weeks of 2026-09-28 – 2026-10-19), approved by Josh Boock 2026-10-21 (source: Ella Bar-Or, 2026-09-28, forwarded by Josh Boock)
 
 ---
 
@@ -1211,3 +1215,35 @@ The 2026-08-27 release (confirmed live in both app stores) adds:
 **Exceptions:** Applies to non-catering orders. For catering, see **OPS-12**. Large Order is one of the BaD reasons that automatically charges the restaurant (OPS-42).
 **Approval Required:** No.
 **Last Updated:** 2026-10-30 — new snippet, applied by KB auto-apply (source: Sofia Perez, 2026-10-28; restated in weekly recap 2026-10-29)
+
+---
+
+## Entry B2B-57: Dedicated CSM on the Merchant Dashboard
+
+**Title:** Dedicated CSM on the Merchant Dashboard — Name, Email Button, and Help Page Intro Card
+**Issue Type:** Restaurant Relations / Merchant Dashboard
+**Situation:** A restaurant asks about the CSM name, email button, or intro card they now see in their dashboard, or asks how to reach their dedicated CSM.
+**Resolution:**
+1. Locations with a **dedicated CSM** now see the CSM's **name** and a **one-click email button** in the dashboard sidebar.
+2. These locations also see an **intro card at the top of the Help page**.
+3. The goal is to give merchants a personal contact at Sauce and build a stronger relationship. A restaurant that sees it can use the email button to reach its CSM directly.
+
+**Exceptions:** Only locations with a dedicated CSM see this, and it is rolling out gradually. For restaurants without an assigned CS contact, follow **B2B-41**.
+**Approval Required:** No.
+**Last Updated:** 2026-11-13 — new, applied by KB auto-apply (source: Ella Bar-Or, 2026-11-05, forwarded by Josh Boock 2026-11-06; restated in recap, Sofia Perez, 2026-11-12)
+
+---
+
+## Entry B2B-58: Driver Pickup Instructions in Dashboard Settings
+
+**Title:** Driver Pickup Instructions — Merchants Add Them in Settings → Services Enablement → Delivery
+**Issue Type:** Restaurant Relations / Dispatch
+**Situation:** A restaurant using Sauce delivery wants drivers to get standing pickup instructions (e.g., use a different entrance during renovations).
+**Resolution:**
+1. Merchants using **Sauce delivery** can add driver pickup instructions themselves under **Settings → Services Enablement → Delivery** in the merchant dashboard.
+2. The notes **sync to Admin automatically** and **appear on every dispatch**.
+3. Point the restaurant to this setting rather than adding the note for each order.
+
+**Exceptions:** Only for merchants using Sauce delivery. For a one-off instruction on a single active order from a customer, see **B2C-6**.
+**Approval Required:** No — self-serve.
+**Last Updated:** 2026-11-13 — new, applied by KB auto-apply (source: Ella Bar-Or, 2026-11-12, forwarded by Josh Boock 2026-11-12)

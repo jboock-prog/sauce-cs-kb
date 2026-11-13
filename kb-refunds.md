@@ -335,12 +335,14 @@ Enter: Sauce Delivery ID, Invoice ID, Provider Order ID, or Uber ID → click Fi
 
 **If the restaurant does not answer:**
 - Send the restaurant an email + SMS.
+  - For the email, use the **CC - B2B - Pick up Refund** template. It asks the restaurant to approve a refund for a pickup order the customer reports the store was closed for.
+  - Use this template only when the report comes in **one day or more after the order was placed**. If the report comes in at the time of the order, follow the Store Reported as Closed protocol in **Entry 14**.
 - Leave ticket in **Pending B2B** and continue reaching out.
 - After 3 days with no response → send to ePayments with documentation of outreach attempts.
 
 **Exceptions:** No-answer after 3 days = escalate to ePayments with documented outreach.
 **Approval Required:** Yes — restaurant confirmation required, or 3-day escalation path.
-**Last Updated:** 2026-03-03 — updated
+**Last Updated:** 2026-11-13 — added CC - B2B - Pick up Refund email template, applied by KB auto-apply (source: Sofia Perez, 2026-11-11); 2026-03-03 — updated
 
 ---
 
@@ -493,6 +495,13 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 **#eta_late_delivery** — Latest ETA has passed and order not delivered:
 > "I can see your order's running a bit late — thanks so much for your patience. I'm checking with the courier to help move things along and will keep you posted."
 
+**#CC- Empatic** (new 2026-11-10) — Delayed order; empathy lines to acknowledge the delay:
+> "I understand this isn't what you expected. I'm working to get your order delivered as soon as possible."
+> "I know this isn't the experience you were expecting. I'm doing everything I can to help get your order to you as quickly as possible."
+> "I understand your frustration, and I'm working to get your order delivered as soon as possible."
+> "I'm sorry your order hasn't arrived as expected. I'm looking into it and working to get it to you as quickly as possible."
+> "I know you were expecting your order sooner. I'm actively working on getting it delivered as soon as possible."
+
 **#eta_refund_referral** — Order is 15+ minutes past the latest delivery time:
 > "I can see your order's already past the latest delivery time — I'm really sorry for the delay. It's running over 15 minutes late, and I'm checking in with the courier for an update. Once it's completed, I'll forward it to our Payments team to review for a possible refund."
 
@@ -512,7 +521,7 @@ Use `#eta_cancel_inflight`. Educate and preserve delivery completion — do not 
 
 **Exceptions:** None — use the snippet that matches the customer's specific situation.
 **Approval Required:** No.
-**Last Updated:** 2026-08-24 — added `#ETA - Order Running Late` mid-tier snippet via KB Policy Scan (source: Sofia Perez, 2026-08-22); 2026-03-03 — updated
+**Last Updated:** 2026-11-13 — added #CC- Empatic delayed-order snippets, applied by KB auto-apply (source: Sofia Perez, 2026-11-10); 2026-08-24 — added `#ETA - Order Running Late` mid-tier snippet via KB Policy Scan (source: Sofia Perez, 2026-08-22); 2026-03-03 — updated
 
 ---
 
@@ -1033,6 +1042,10 @@ Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Proce
    - **Refunded** → the refund is on its way to the original payment method and a confirmation email follows. It's processed on Sauce's side immediately, and bank timing is the same as any refund. Confirm it with the customer in chat too.
    - **ePayments Review Required** → the payments team follows up by email within 24–72 hours.
    - **Failed** → check the note (usually a wrong Invoice ID), fix, and re-run.
+   - **Snippets for each step:**
+      - After running Order Summary → **#CC - B2C - Running Order Summary**
+      - Request Refund approved (**Refunded**) → **#CC - B2C - Runing Request Refund**
+      - Request Refund needs review (**ePayments Review Required**) → **#CC - B2C - Submit Refund Request** (the one used most often)
 5. The list of cases that are refunded automatically keeps growing (more are added each week). Don't try to predict it: run Request Refund and follow the result. The AI never denies outright; anything not refunded goes to ePayments review.
 6. **Close the ticket when you finish the chat, whatever the result:** Closed on the Support Pipeline (the **Send Survey and Close ticket** macro works). Closing moves the case to the ePayments pipeline. **Never move these tickets to the ePayments pipeline yourself.** No refund request form is needed.
 7. Run each tool **once per ticket**. Don't re-run while it says Processing, and don't move the ticket stage while waiting.
@@ -1042,4 +1055,4 @@ Full playbook: say2eat.atlassian.net/wiki/…/Heavy+Rain+Support+Operating+Proce
 
 **Exceptions:** Never confirm or promise a refund before the result shows **Refunded** (Entry 1 Critical Rule). BYOC customers who must claim through the marketplace still follow **Entry 30**.
 **Approval Required:** Restaurant approval where the case's protocol requires it; otherwise No. ePayments has the final say on anything sent to review.
-**Last Updated:** 2026-11-03 — made the single Refund Request Process for all refunds (Core + BYOC); removed hard-coded auto-refund eligibility and rollout reporting; added close-ticket rule, protocols-first, and send-back via Refund Request; approved by Josh Boock 2026-11-03 (sources: Josh Boock for Mario Rodriguez, 2026-10-27; Josh Boock, 2026-10-27; Josh Boock, 2026-11-03); 2026-10-23 — stay-on-screen, timing, rollout details; 2026-10-21 — created (source: Josh Boock, 2026-10-16)
+**Last Updated:** 2026-11-13 — added snippets for Order Summary and Request Refund results, applied by KB auto-apply (source: Sofia Perez, 2026-11-12); 2026-11-03 — made the single Refund Request Process for all refunds (Core + BYOC); removed hard-coded auto-refund eligibility and rollout reporting; added close-ticket rule, protocols-first, and send-back via Refund Request; approved by Josh Boock 2026-11-03 (sources: Josh Boock for Mario Rodriguez, 2026-10-27; Josh Boock, 2026-10-27; Josh Boock, 2026-11-03); 2026-10-23 — stay-on-screen, timing, rollout details; 2026-10-21 — created (source: Josh Boock, 2026-10-16)
